@@ -1,0 +1,90 @@
+<div class="main-panel">
+    <!-- Navbar -->
+    <nav class="navbar navbar-expand-lg navbar-transparent navbar-absolute fixed-top ">
+      <div class="container-fluid">
+        <div class="navbar-wrapper">
+          <a class="navbar-brand">Shops</a>
+        </div>
+        <button class="navbar-toggler" type="button" (click)="openMenu()" data-toggle="collapse" aria-controls="navigation-index"
+          aria-expanded="false" aria-label="Toggle navigation">
+          <span class="sr-only">Toggle navigation</span>
+          <span class="navbar-toggler-icon icon-bar"></span>
+          <span class="navbar-toggler-icon icon-bar"></span>
+          <span class="navbar-toggler-icon icon-bar"></span>
+        </button>
+      </div>
+    </nav>
+    <div class="content">
+      <div class="container-fluid">
+          <!-- <div class="row">
+              <div class="col-md-3"></div>
+              <div class="col-md-6">
+                <input [(ngModel)]="search" placeholder="Type Shops" [formControl]="searchValue">
+              </div>
+              <div class="col-md-3"></div>
+            </div> -->
+        <div class="row">
+          <div class="col-md-12">
+            <div class="card card-plain">
+              <div class="card-header card-header-primary">
+                <h4 class="card-title mt-0"> Shops ({{shops.length}})</h4>
+                <p class="card-category"> Here is a list of shops</p>
+              </div>
+              <div class="card-body">
+                <div class="table-responsive">
+                  <table class="table table-hover">
+                    <thead class="">
+                      <tr><th>
+                        S. No.
+                      </th>
+                      <th>
+                        Name
+                      </th>
+                      <th>
+                        GSTIN
+                      </th>
+<!--                       <th>
+                        Confirm Orders
+                      </th>
+                      <th>
+                        Pending Orders
+                      </th> -->
+                      <th>
+                        Action
+                      </th>
+                    </tr></thead>
+                    <tbody>
+                      <tr *ngFor="let user of shops | paginate: { itemsPerPage: 10, currentPage: p }; index as i;">
+                        <td>
+                          {{i+1}}
+                        </td>
+                        <td>
+                          {{user.shop_name | uppercase}}
+                        </td>
+                        <td>
+                          {{ user.gstin_no }}
+                          <span (click)="openDialog(i)" class="mat-button-wrapper"><i style="font-size: medium;" class="material-icons">edit</i></span>
+                        </td>
+<!--                         <td> 
+                          {{user.order_count}}
+                        </td>
+                        <td>
+                          {{user.pending_order_count}}
+                        </td> -->
+                        <td>
+                            <a (click)="removeShop(i)" style="cursor: pointer; color: red;">
+                                Delete
+                              </a>
+                        </td>
+                      </tr>
+                      <!-- <pagination-controls (pageChange)="p = $event"></pagination-controls> -->
+                    </tbody>
+                  </table>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>

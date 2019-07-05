@@ -1,0 +1,15 @@
+<div class="container">
+        <h1 mat-dialog-title>Change Brand</h1>
+        <div mat-dialog-content>
+                Brand : <mat-form-field>
+                <input type="text" matInput name="product_brand"  [(ngModel)]="brands.product_brand" class="form-control" required autocomplete="off">
+          </mat-form-field><br>
+          Code: <mat-form-field>    
+               <input type="text" matInput name="product_brand"  [(ngModel)]="brands.product_code" class="form-control" required autocomplete="off">
+          </mat-form-field>
+        </div>
+        <div mat-dialog-actions>
+          <button style="margin-right: 15px;" class="btn btn-primary" (click)="saveBrand()" [mat-dialog-close]="data.price" cdkFocusInitial>Save</button>
+          <button class="btn btn-danger" (click)="onNoClick()">Cancel</button>
+        </div>
+</div>

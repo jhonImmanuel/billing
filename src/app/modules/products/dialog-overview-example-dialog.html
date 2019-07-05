@@ -1,0 +1,89 @@
+
+<div class="container" *ngIf="data.from==='editPrice'">
+  <h1 mat-dialog-title>Change price for {{data.name}}</h1>
+  <div mat-dialog-content>
+    <mat-form-field>
+      <input matInput [(ngModel)]="data.price">
+    </mat-form-field>
+  </div>
+  <div mat-dialog-actions>
+    <button style="margin-right: 15px;" class="btn btn-primary" [mat-dialog-close]="data.price"
+      cdkFocusInitial>Ok</button>
+    <button class="btn btn-danger" (click)="onNoClick()">Cancel</button>
+  </div>
+</div>
+<div class="container" *ngIf="data.from==='ViewProducts'">
+<h1>List Of Phones</h1>
+<div mat-dialog-content>
+  <div class="card-body">
+    <div class="table-responsive">
+      <table class="table table-hover">
+        <thead class="">
+          <tr>
+            <th>
+              S. No.
+            </th>
+            <th>
+              Brand
+            </th>
+            <th>
+               Model
+            </th>
+            <th>
+               IMEI
+            </th>
+            <th>
+               Color
+            </th>
+            <th>
+               Price
+              </th>
+            <th>
+              Action
+            </th>
+            <th>
+
+            </th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr *ngFor="let user of data.products | paginate: { itemsPerPage: 10, currentPage: p2 }; index as i;">
+            <td>
+              {{(i+1) + ((p2-1) * 10)}}
+            </td>
+            <td>
+              {{user.brands.product_brand}}
+            </td>
+            <td>
+              {{user.product_model}}
+            </td>
+            <td>
+                {{user.product_imei}}
+              </td>
+              <td>
+                {{user.product_color}}
+              </td>
+            <td>
+              {{user.price}}
+            </td>
+            <td>
+                <span  class="mat-button-wrapper">
+                  <i (click)="removeProduct(i)" style="cursor: pointer;">
+                      <i style="font-size: medium;"
+                      class="material-icons">delete</i>
+                  </i>
+              </span>
+            </td>
+          </tr>
+          <pagination-controls (pageChange)="p2 = $event"></pagination-controls>
+        </tbody>
+      </table>
+    </div>
+  </div>
+</div>
+<div mat-dialog-actions>
+  <button style="margin-right: 15px;" class="btn btn-primary" [mat-dialog-close]="data.price"
+    cdkFocusInitial>Ok</button>
+  <button class="btn btn-danger" (click)="onNoClick()">Cancel</button>
+</div>
+</div>

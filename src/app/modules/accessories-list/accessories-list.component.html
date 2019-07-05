@@ -1,0 +1,109 @@
+<div class="main-panel">
+    <!-- Navbar -->
+    <nav class="navbar navbar-expand-lg navbar-transparent navbar-absolute fixed-top ">
+      <div class="container-fluid">
+        <div class="navbar-wrapper">
+          <a class="navbar-brand" >Accessories</a>
+        </div>
+        <button class="navbar-toggler" type="button" (click)="openMenu()" data-toggle="collapse" aria-controls="navigation-index"
+        aria-expanded="false" aria-label="Toggle navigation">
+        <span class="sr-only">Toggle navigation</span>
+        <span class="navbar-toggler-icon icon-bar"></span>
+        <span class="navbar-toggler-icon icon-bar"></span>
+        <span class="navbar-toggler-icon icon-bar"></span>
+      </button>
+    </div>
+  </nav>
+  <div class="content">
+    <div class="container-fluid">
+        <div class="row">
+            <div class="col-md-3"></div>
+            <div class="col-md-6">
+              <input [(ngModel)]="search" placeholder="Type Accessories Name" [formControl]="searchValue">
+              <svg version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" x="0px"
+                y="0px" width="36px" height="36px" viewBox="0 0 24 24" style="enable-background:new 0 0 24 24;"
+                xml:space="preserve">
+                <g id="Icons" style="opacity:0.75;">
+                  <path id="search" d="M16.021,15.96l-2.374-2.375c-0.048-0.047-0.105-0.079-0.169-0.099c0.403-0.566,0.643-1.26,0.643-2.009
+                      C14.12,9.557,12.563,8,10.644,8c-1.921,0-3.478,1.557-3.478,3.478c0,1.92,1.557,3.477,3.478,3.477c0.749,0,1.442-0.239,2.01-0.643
+                      c0.019,0.063,0.051,0.121,0.098,0.169l2.375,2.374c0.19,0.189,0.543,0.143,0.79-0.104S16.21,16.15,16.021,15.96z M10.644,13.69
+                      c-1.221,0-2.213-0.991-2.213-2.213c0-1.221,0.992-2.213,2.213-2.213c1.222,0,2.213,0.992,2.213,2.213
+                      C12.856,12.699,11.865,13.69,10.644,13.69z" />
+                </g>
+                <g id="Guides">
+                </g>
+              </svg>
+            </div>
+            <div class="col-md-3"></div>
+          </div>
+      <div class="row">
+        <div class="col-md-12">
+          <div class="card card-plain">
+            <div class="card-header card-header-primary">
+              <h4 class="card-title mt-0">Accessories  ({{Accessories.length}})</h4>
+              <p class="card-category"> Here is a list of Accessories</p>
+            </div>
+            <div class="card-body">
+              <div class="table-responsive">
+                <table class="table table-hover">
+                  <thead class="">
+                    <tr>
+                    <th>
+                      S. No.
+                    </th>
+                    <th>
+                       Brand
+                    </th>
+                    <th>
+                         Model
+                    </th>
+                    <th>
+                         Price
+                      </th>
+                      <th>
+                           Quantity
+                        </th>
+                    <th>
+                      Actions
+                    </th>
+                  </tr></thead>
+                  <tbody>
+                    <tr *ngFor="let user of Accessories| paginate: { itemsPerPage: 10, currentPage: p }; index as i;">
+                      <td>
+                        {{(i+1) + ((p-1) * 10)}}
+                      </td>
+                      <td>
+                          {{user.brands.product_brand}}
+                        </td>
+                      <td>
+                          {{user.product_model}}
+                        </td>
+                      <td>
+                          {{user.price}}
+                          <span (click)="openDialog(i)" class="mat-button-wrapper"><i style="font-size: medium;"
+                            class="material-icons">edit</i></span>
+                        </td>
+                        <td>{{user.product_quantity}}
+                            
+                        </td>
+                      <td>
+                          <span  class="mat-button-wrapper"><i (click)="openDialogAccessories(i)" style="font-size: medium;"
+                            class="material-icons">visibility</i> &nbsp;&nbsp;&nbsp;&nbsp;
+                                <i (click)="removeProduct(i)" style="cursor: pointer;">
+                                    <i style="font-size: medium;"
+                            class="material-icons">delete</i>
+                                </i>
+                            </span> 
+                      </td>
+                    </tr>
+                    <pagination-controls (pageChange)="p = $event"></pagination-controls>
+                  </tbody>
+                </table>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+  </div>

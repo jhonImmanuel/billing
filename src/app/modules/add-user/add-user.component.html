@@ -1,0 +1,88 @@
+<div class="main-panel">
+    <!-- Navbar -->
+    <nav class="navbar navbar-expand-lg navbar-transparent navbar-absolute fixed-top ">
+      <div class="container-fluid">
+        <div class="navbar-wrapper">
+          <a class="navbar-brand">Add User</a>
+        </div>
+        <button class="navbar-toggler" type="button" (click)="openMenu()" data-toggle="collapse" aria-controls="navigation-index"
+          aria-expanded="false" aria-label="Toggle navigation">
+          <span class="sr-only">Toggle navigation</span>
+          <span class="navbar-toggler-icon icon-bar"></span>
+          <span class="navbar-toggler-icon icon-bar"></span>
+          <span class="navbar-toggler-icon icon-bar"></span>
+        </button>
+      </div>
+    </nav>
+    <div class="content">
+      <div class="container-fluid">
+        <div class="row">
+            <div class="col-md-3"></div>
+            <div class="col-md-6">
+              <div class="card">
+                <div class="card-header card-header-primary">
+                  <h4 class="card-title">Add User</h4>
+                </div>
+                <div class="card-body">
+                  <form (ngSubmit)="onSubmit();login.resetForm();" #login="ngForm">
+                    <div class="row">
+                      <div class="col-md-8">
+                        <div class="form-group">
+                          <label class="bmd-label-floating">Username</label>
+                          <input type="text" name="username" id="uname" [(ngModel)]="user.email" #username="ngModel" class="form-control" required>                         <span style="color:red;" [hidden]="username.valid || username.pristine">
+                            Username required.
+                          </span>
+                        </div>
+                      </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-md-8">
+                          <div class="form-group">
+                            <label class="bmd-label-floating">Name</label>
+                            <input type="text" name="name" [(ngModel)]="user.name" #name="ngModel" class="form-control" required>
+                            <span style="color:red;" [hidden]="name.valid || name.pristine">
+                              Name required.
+                            </span>
+                          </div>
+                        </div>
+                      </div>
+<!--                       
+                      <div class="row">
+                          <div class="col-md-8">
+                            <div class="form-group">
+                              <label class="bmd-label-floating">Shop</label>{{ '\n' }}
+                              <select name="shop" [(ngModel)]="user.shop_id" #shop="ngModel" style="width: 100%;">
+                                <option [value]="0">Select Shop</option>
+                                <option *ngFor="let item of shops" [value]="item.shop_name">{{ item.shop_name }}</option>
+                              </select>
+                              <!-- <input type="text" name="name" [(ngModel)]="user.shop" #shop="ngModel" class="form-control" required> -->
+                              <!-- <span style="color:red;" [hidden]="shop.valid || shop.pristine">
+                                Shop required.
+                              </span> -->
+                            <!-- </div>
+                          </div>
+                        </div>  -->
+
+
+                    <div class="row">
+                      <div class="col-md-8">
+                        <div class="form-group">
+                          <label class="bmd-label-floating">Password</label>
+                          <input type="password" name="password" [(ngModel)]="user.password" #password="ngModel" class="form-control">
+                          <span style="color:red;" [hidden]="password.valid || password.pristine">
+                            Password required.
+                          </span>
+                        </div>
+                      </div>
+                    </div>
+                    <button type="submit" class="btn btn-primary pull-right">Add User</button>
+                    <div class="clearfix"></div>
+                  </form>
+                </div>
+              </div>
+            </div>
+            <div class="col-md-3"></div>
+        </div>
+      </div>
+    </div>
+  </div>

@@ -1,0 +1,52 @@
+<div class="main-panel">
+  <!-- Navbar -->
+
+  <nav class="navbar navbar-expand-lg navbar-transparent navbar-absolute fixed-top ">
+    <div class="container-fluid">
+      <div class="navbar-wrapper">
+        <a class="navbar-brand">Customers</a>
+      </div>
+      <button class="navbar-toggler" type="button" (click)="openMenu()" data-toggle="collapse"
+        aria-controls="navigation-index" aria-expanded="false" aria-label="Toggle navigation">
+        <span class="sr-only">Toggle navigation</span>
+        <span class="navbar-toggler-icon icon-bar"></span>
+        <span class="navbar-toggler-icon icon-bar"></span>
+        <span class="navbar-toggler-icon icon-bar"></span>
+      </button>
+    </div>
+  </nav>
+  <div class="content">
+    <div class="container-fluid">
+      <div class="ui segment">
+        <p>Select Customer to send <code>Promotions</code> </p>
+        <sui-multi-select class="selection" [(ngModel)]="selectedOptions" (selectedOptionsChange)="exportchange($event)"
+          [options]="options" labelField="name" [isSearchable]="searchable" [isDisabled]="disabled"
+          [hasLabels]="!hideLabels" #multiSelect>
+          <sui-select-option *ngFor="let option of dropdownSettings1" [value]="option">
+          </sui-select-option>
+        </sui-multi-select>
+        <br><br>
+        <div class="row">
+          <div class="col-md-8">
+            <div class="form-group">
+              <label class="bmd-label-floating">Message Body</label>
+              <input type="text" name="messageBody" [(ngModel)]="customer.messageBody" #messageBody="ngModel"
+                class="form-control" required autocomplete="off">
+              <span style="color:red;" [hidden]="messageBody.valid || messageBody.pristine">
+                Message body is required
+              </span>
+            </div>
+          </div>
+        </div>
+        <div class="row" >
+          <div class="col-md-8">
+            <input type="button" (click)="send()" class="btn btn-primary pull-right" value="Send Sms" />
+          </div>
+        </div> 
+
+
+      </div>
+    </div>
+  </div>
+
+</div>

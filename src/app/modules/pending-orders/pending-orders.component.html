@@ -1,0 +1,74 @@
+<div class="main-panel">
+  <!-- Navbar -->
+  <nav class="navbar navbar-expand-lg navbar-transparent navbar-absolute fixed-top ">
+    <div class="container-fluid">
+      <div class="navbar-wrapper">
+        <a class="navbar-brand">Pending Orders</a>
+      </div>
+      <button class="navbar-toggler" type="button" (click)="openMenu()" data-toggle="collapse" aria-controls="navigation-index"
+      aria-expanded="false" aria-label="Toggle navigation">
+      <span class="sr-only">Toggle navigation</span>
+      <span class="navbar-toggler-icon icon-bar"></span>
+      <span class="navbar-toggler-icon icon-bar"></span>
+      <span class="navbar-toggler-icon icon-bar"></span>
+    </button>
+  </div>
+</nav>
+<div class="content">
+  <div class="container-fluid">
+    <div class="row">
+      <div class="col-md-12">
+        <div class="card card-plain">
+          <div class="card-header card-header-primary">
+            <h4 class="card-title mt-0"> Pending Orders ({{pendingOrders.length}})</h4>
+            <p class="card-category"> Here is a cancel orders by users</p>
+          </div>
+          <div class="card-body">
+            <div class="table-responsive">
+              <table class="table table-hover">
+                <thead class="">
+                  <tr><th>
+                    S. No.
+                  </th>
+                  <th>
+                    Total product
+                  </th>
+                  <th>
+                    Shop
+                  </th>
+                  <th>
+                    Amount
+                  </th>
+                  <th>
+                    Action
+                  </th>
+                </tr></thead>
+                <tbody>
+                  <tr *ngFor="let user of pendingOrders| paginate: { itemsPerPage: 10, currentPage: p }; index as i;">
+                    <td>
+                      {{(i+1) + ((p-1) * 10)}}
+                    </td>
+                    <td>
+                      {{user.total_quantity}}
+                    </td>
+                    <td>
+                      {{user.shop_id | uppercase}}
+                    </td>
+                    <td>
+                      {{user.total_amount}}
+                    </td>
+                    <td>
+                      <a routerLink="../orderStatus/pending/{{ user.order_id }}">View Order Details</a>
+                    </td>
+                  </tr>
+                  <pagination-controls (pageChange)="p = $event"></pagination-controls>
+                </tbody>
+              </table>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+</div>

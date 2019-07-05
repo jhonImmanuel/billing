@@ -1,0 +1,46 @@
+
+  <div class="main-panel">
+    <!-- Navbar -->
+    <nav class="navbar navbar-expand-lg navbar-transparent navbar-absolute fixed-top ">
+      <div class="container-fluid">
+        <div class="navbar-wrapper">
+          <a class="navbar-brand">Generate Bar Code</a>
+        </div>
+      </div>
+    </nav>
+    <div class="content">
+      <div class="container-fluid">
+        <div class="row">
+            <div class="col-md-3"></div>
+            <div class="col-md-6">
+              <div class="card">
+                <div class="card-header card-header-primary">
+                  <h4 class="card-title">Generate Bar Code</h4>
+                </div>
+                <div class="card-body">
+                 
+                  <h3>Print Barcode</h3>
+<div fxLayout="column">
+    <div fxLayout="column">
+        <input type="text" placeholder="Type IMEI here to Generate Barcode" name="textvalue"  [(ngModel)]="value" #product_code="ngModel" class="form-control" required autocomplete="off">
+        <br/>
+      </div>
+    <div fxLayout="column">
+      <ngx-barcode *ngFor="let bcValue of values" [bc-element-type]="elementType" [bc-value]="bcValue" [bc-format]="format" [bc-line-color]="lineColor"
+       [bc-width]="width" [bc-height]="height" [bc-display-value]="displayValue" [bc-font-options]="fontOptions" [bc-font]="font"
+       [bc-text-align]="textAlign" [bc-text-position]="textPosition" [bc-text-margin]="textMargin" [bc-font-size]="fontSize" [bc-background]="background"
+       [bc-margin]="margin" [bc-margin-top]="marginTop" [bc-margin-bottom]="marginBottom" [bc-margin-left]="marginLeft" [bc-margin-right]="marginRight"></ngx-barcode>
+    </div>
+    <div *ngIf="value !=''">
+      <input type="button" class="btn btn-primary pull-right" value="printBarcode" (click)="print()"/>
+    </div>
+  </div>
+                 
+                </div>
+              </div>
+            </div>
+            <div class="col-md-3"></div>
+        </div>
+      </div>
+    </div>
+  </div>

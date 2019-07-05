@@ -1,0 +1,149 @@
+
+
+<div class="sidebar" data-color="purple" data-background-color="white" data-image="../assets/img/sidebar-1.jpg">
+  <!--
+    Tip 1: You can change the color of the sidebar using: data-color="purple | azure | green | orange | danger"
+
+    Tip 2: you can also add an image using data-image tag
+  -->
+  <div class="logo">
+    <a href="javascript:void();" class="simple-text logo-normal">
+     Chrono
+   </a>
+ </div>
+ <div class="sidebar-wrapper">
+  <ul class="nav">
+    <li class="nav-item" [routerLinkActive]="['active']">
+      <a class="nav-link" [routerLink]="['home']">
+        <i class="material-icons">dashboard</i>
+        <p>Dashboard</p>
+      </a>
+    </li>
+    <li class="nav-item" *ngIf="user === 'Sub Admin' || user ==='non_gst_admin'" [routerLinkActive]="['active']">
+      <a class="nav-link" [routerLink]="['order']">
+        <i class="material-icons">assignment</i>
+        <p>Place Orders</p>
+      </a>
+    </li>
+    <li class="nav-item "  [routerLinkActive]="['active']">
+      <a class="nav-link" [routerLink]="['brands']">
+        <i class="material-icons">extension</i>
+        <p>List Brands</p>
+      </a>
+    </li>
+
+    <li class="nav-item " [routerLinkActive]="['active']">
+      <a class="nav-link" [routerLink]="['addbrands']">
+        <i class="material-icons">add_shopping_cart</i>
+        <p>Add Brand</p>
+      </a>
+    </li>
+
+    <li class="nav-item " [routerLinkActive]="['active']">
+      <a class="nav-link" [routerLink]="['addProduct']">
+        <i class="material-icons">add_shopping_cart</i>
+        <p>Add Product</p>
+      </a>
+    </li>
+    <li class="nav-item " [routerLinkActive]="['active']">
+      <a class="nav-link" [routerLink]="['products']">
+        <i class="material-icons">mobile_friendly</i>
+        <p>List Mobiles</p>
+      </a>
+    </li>
+    <li class="nav-item "  [routerLinkActive]="['active']">
+        <a class="nav-link" [routerLink]="['accessories']">
+          <i class="material-icons">extension</i>
+          <p>List Accessories</p>
+        </a>
+      </li>
+    <li class="nav-item " [routerLinkActive]="['active']" *ngIf="user === 'Super Admin'">
+      <a class="nav-link" [routerLink]="['confirmorders']" >
+        <i class="material-icons">star</i>
+        <p>Confirmed Orders</p>
+      </a>
+    </li>
+    <li class="nav-item " [routerLinkActive]="['active']" *ngIf="user === 'Sub Admin' || user==='non_gst_admin'">
+      <a class="nav-link" [routerLink]="['confirmorders']" >
+        <i class="material-icons">star</i>
+        <p>Orders</p>
+      </a>
+    </li>
+    <!-- <li class="nav-item " class="nav-item " *ngIf="user === 'Super Admin'" [routerLinkActive]="['active']">
+      <a class="nav-link" [routerLink]="['pendingorders']">
+        <i class="material-icons">star_half</i>
+        <p>Pending Orders</p>
+      </a>
+    </li> -->
+    <li class="nav-item " class="nav-item " *ngIf="user === 'Super Admin'" [routerLinkActive]="['active']">
+      <a class="nav-link" [routerLink]="['promotions']">
+        <i class="material-icons">star_half</i>
+        <p>Promotions</p>
+      </a>
+    </li>
+    <li class="nav-item " *ngIf="user === 'Super Admin'" [routerLinkActive]="['active']">
+      <a class="nav-link" [routerLink]="['addUser']">
+        <i class="material-icons">person</i>
+        <p>Add User</p>
+      </a>
+    </li>
+  <!-- REMOVED FOR FUTURE USE -->
+  <!-- <li class="nav-item " *ngIf="user === 'Super Admin'" [routerLinkActive]="['active']">
+      <a class="nav-link" [routerLink]="['addShop']">
+        <i class="material-icons">shopping_cart</i>
+        <p>Add Shop</p>
+      </a>
+    </li>  -->
+    <li class="nav-item " *ngIf="user === 'Super Admin'" [routerLinkActive]="['active']">
+      <a class="nav-link" [routerLink]="['users']">
+        <i class="material-icons">group</i>
+        <p>List Users</p>
+      </a>
+    </li>
+    <!-- <li class="nav-item " *ngIf="user === 'Super Admin'" [routerLinkActive]="['active']">
+      <a class="nav-link" [routerLink]="['shops']">
+        <i class="material-icons">shopping_cart</i>
+        <p>List Shops</p>
+      </a>
+    </li> -->
+
+    <li class="nav-item " class="nav-item "  [routerLinkActive]="['active']">
+      <a class="nav-link" [routerLink]="['barcode']">
+          <i class="material-icons">bar_chart</i>
+          <p>Generate Barcode</p>
+        </a>
+      </li>
+
+    <li class="nav-item " class="nav-item " *ngIf="user === 'Super Admin'" [routerLinkActive]="['active']">
+        <a class="nav-link" [routerLink]="['Settings']">
+            <i class="material-icons">settings</i>
+            <p>Settings</p>
+          </a>
+        </li>
+        <li class="nav-item " class="nav-item "  [routerLinkActive]="['active']">
+        <a class="nav-link" [routerLink]="['service']">
+            <i class="material-icons">find_replace</i>
+            <p>Service</p>
+          </a>
+        </li>
+      <li class="nav-item " class="nav-item "  [routerLinkActive]="['active']">
+      <a class="nav-link" [routerLink]="['servicelist']">
+          <i class="material-icons">find_replace</i>
+          <p>service List</p>
+        </a>
+      </li>
+     <li class="nav-item " *ngIf="user === 'Sub Admin' || 'non_gst_admin'" [routerLinkActive]="['active']">
+      <a class="nav-link" [routerLink]="['getTodaysSell']">
+        <i class="material-icons">report</i>
+        <p>Report</p>
+      </a>
+    </li> 
+    <li class="nav-item ">
+      <a class="nav-link" (click)="logout()">
+        <i class="material-icons">directions_run</i>
+        <p>Logout</p>
+      </a>
+    </li>
+  </ul>
+</div>
+</div>

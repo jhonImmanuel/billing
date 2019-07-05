@@ -1,0 +1,20 @@
+select {
+    width: 100%;
+    padding: 5px 5px 3px 3px;
+    font-size: medium;
+    background-color: ghostwhite;
+    line-height: 2;
+    letter-spacing: 1px;
+    option {
+        font-size: medium;
+        padding: 2px 5px;
+        line-height: 3;
+    }
+}
+input[type=number]::-webkit-inner-spin-button, 
+input[type=number]::-webkit-outer-spin-button { 
+    -webkit-appearance: none;
+    -moz-appearance: none;
+    appearance: none;
+    margin: 0; 
+}

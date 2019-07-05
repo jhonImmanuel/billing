@@ -1,0 +1,426 @@
+`
+<div class="main-panel">
+    <!-- Navbar -->
+    <nav class="navbar navbar-expand-lg navbar-transparent navbar-absolute fixed-top ">
+        <div class="container-fluid">
+            <div class="navbar-wrapper">
+                <a class="navbar-brand">Order</a>
+            </div>
+            <button class="navbar-toggler" type="button" (click)="openMenu()" data-toggle="collapse"
+                aria-controls="navigation-index" aria-expanded="false" aria-label="Toggle navigation">
+                <span class="sr-only">Toggle navigation</span>
+                <span class="navbar-toggler-icon icon-bar"></span>
+                <span class="navbar-toggler-icon icon-bar"></span>
+                <span class="navbar-toggler-icon icon-bar"></span>
+            </button>
+        </div>
+    </nav>
+    <div class="content">
+        <div class="container-fluid">
+            <div class="row">
+                <div class="col-md-12">
+                    <div class="card" *ngIf="role === 'Sub Admin' || role ==='non_gst_admin'">
+                        <div class="card-header card-header-primary">
+                            <h4 class="card-title ">Enter Customer Details</h4>
+                            <p class="card-category"></p>
+                        </div>
+                        <div class="card-body">
+
+                            <label>Customer Name:</label>
+                            <input type="text" class="form-control" name="customer_name" [(ngModel)]="customer_name"
+                                (keydown)="validate($event) " autocomplete="off" required maxlength="25"
+                                minlength="3" />
+                            <small style="color: red" *ngIf="nameError == true">Name Should be valid and more than 3
+                                characters</small> <br>
+
+                            <label>Customer Email:</label>
+                            <input type="email" (keydown)="validate($event)" class="form-control" name="customer_email"
+                                [(ngModel)]="customer_email" autocomplete="off" />
+                            <small style="color: red" *ngIf="emailError == true">Email should be valid</small> <br>
+
+
+                            <label>Customer Phone:</label>
+                            <input type="number" min="0" (keydown)="validate($event)" class="form-control"
+                                name="customer_phone" [(ngModel)]="customer_phone" autocomplete="off" required
+                                pattern="[1-9]{1}[0-9]{9}" />
+                            <small style="color: red" *ngIf="phoneError == true">Phone number must be valid</small> <br>
+
+
+                            <label>Bill Type</label>
+                            <select name="bill_type" id="duration" class="form-control" [(ngModel)]="bill_type"
+                                disabled>
+                                <option selected="selected" value="normal">Normal-Bill</option>
+                                <option value="exchange">Exchange - Bill</option>
+                            </select>
+
+                            <div *ngIf="bill_type!='normal'">
+                                <label>Exchange Price</label>
+                                <input type="number" name="exchange_price" placeholder="Enter the Exchange Amount"
+                                    [(ngModel)]="exchange_price" (change)="changeExchange($event.target.value)"
+                                    class="form-control" required autocomplete="off">
+                                <small style="color: red" *ngIf="exchangeError == true">Exchange amount must be
+                                    valid</small> <br>
+                            </div>
+
+
+                            <label>Payment Type:</label>
+                            <select id="duration" name="duration" class="form-control" [(ngModel)]="payment_mode">
+                                <option selected="selected" value="0">-- Select --</option>
+                                <option value="cash">CASH</option>
+                                <option value="card">CARD</option>
+                                <option value="google_pay">GOOGLE PAY</option>
+                                <option value="paytm">PAYTM</option>
+                            </select>
+
+
+                            <div *ngIf="payment_mode=='cash'">
+                                <label>Total Amount Received</label>
+                                <input type="number" name="remaining_balance" placeholder="Enter the Received Amount"
+                                    [(ngModel)]="remaining_balance" class="form-control" required autocomplete="off"
+                                    id="remaining_balance" >
+                                <small style="color: red" *ngIf="exchangeError == true"> amount must be valid</small>
+                                <br>
+                            </div>
+                           <!-- Default unchecked -->
+                        <div class="custom-control custom-radio">
+                          <input type="radio" class="custom-control-input" (click)= "changetype($event)" id="Rupees" name="defaultExampleRadios">
+                          <label class="custom-control-label" for="Rupees">Discount By Rupees</label>
+                        </div>
+
+                        <!-- Default checked -->
+                        <div class="custom-control custom-radio">
+                          <input type="radio" class="custom-control-input" (keyUp)= "changetype()" id="Percentage" name="defaultExampleRadios" checked>
+                          <label class="custom-control-label" for="Percentage">Discount By Percentage </label>
+                        </div>
+                        </div>
+                    </div>
+                    <div class="card" *ngIf="role === 'Sub Admin' || role ==='non_gst_admin'">
+                        <div class="card-header card-header-primary">
+                            <h4 class="card-title ">Place Order</h4>
+                            <p class="card-category"></p>
+                        </div>
+                        <div class="card-body">
+                            <div class="table-responsive">
+                                <table class="table">
+                                    <thead class=" text-primary">
+                                        <th>
+                                            S. No.
+                                        </th>
+                                        <th>
+                                            IMEI
+                                        </th>
+                                        <th>
+                                            Brand
+                                        </th>
+                                        <th>
+                                            Model
+                                        </th>
+                                        <th>
+                                            MRP Price
+                                        </th>
+                                        <th *ngIf="role!='non_gst_admin'">
+                                            CGST(%)
+                                        </th>
+                                        <th *ngIf="role!='non_gst_admin'">
+                                            SGST(%)
+                                        </th>
+                                        <th>
+                                            Discount
+                                        </th>
+                                        <th>
+                                            Quantity
+                                        </th>
+                                        <th *ngIf="exchange_price!='0'">
+                                            Exchange Price
+                                        </th>
+                                        <th>
+                                            Sub Total
+                                        </th>
+                                        <th>
+                                            Action
+                                        </th>
+                                    </thead>
+                                    <tbody>
+                                        <tr *ngFor="let products of product; let i=index">
+                                            <td>{{ i + 1 }}</td>
+                                            <td>{{ products.product_imei }}</td>
+                                            <td>{{ products.product_brand }}</td>
+                                            <td>{{ products.product_model }}</td>
+                                            <td>{{products.original_price}}</td>
+                                            <td *ngIf="role!='non_gst_admin'">{{products.sgst}}</td>
+                                            <td *ngIf="role!='non_gst_admin'">{{products.cgst}}</td>
+                                            <td>{{products.discount}}</td>
+                                            <td>{{ products.product_quantity }}</td>
+                                            <td  *ngIf="products.exchange!='0'">{{ products.exchange }}</td>
+                                            <td>{{ products.subTotal }}</td>
+                                            <td>
+                                                <a (click)="removeProduct(i)">
+                                                    <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24"
+                                                        viewBox="0 0 24 24">
+                                                        <path
+                                                            d="M6 19c0 1.1.9 2 2 2h8c1.1 0 2-.9 2-2V7H6v12zM19 4h-3.5l-1-1h-5l-1 1H5v2h14V4z" />
+                                                        <path d="M0 0h24v24H0z" fill="none" /></svg>
+                                                </a>
+                                            </td>
+                                        </tr>
+                                        <tr>
+                                            <td>
+                                                {{ product.length + 1 }}
+                                            </td>
+                                            <td>
+                                                <input type="text" min="0" class="form-control" name="product_imei"
+                                                    id="product_imei" placeholder=" " [(ngModel)]="product_imei"
+                                                    autocomplete="off" [formControl]="IMEI" />
+                                                <small *ngIf="noImei == true">No Product found</small>
+                                            </td>
+                                            <td>
+                                                <input #name type="text" class="form-control" style="width: 100px;"
+                                                    autocomplete="off" name="searchTerm" placeholder=" "
+                                                    [(ngModel)]="product_value" matInput [formControl]="searchTerm"
+                                                    [matAutocomplete]="auto">
+                                                <!-- CREATE AUTO COMPLETE PANEL WITH OPTIONS. -->
+                                                <mat-autocomplete #auto="matAutocomplete"
+                                                    (optionSelected)="change($event.option.value)">
+                                                    <mat-option *ngFor="let books of Brands;let i=index"
+                                                        [value]="books.product_brand">
+                                                        {{ books.product_brand }}
+                                                    </mat-option>
+                                                </mat-autocomplete>
+                                            </td>
+                                            <td>
+                                                <select id="duration" name="duration" style="width: 100px;"
+                                                    class="form-control" [(ngModel)]="Model"
+                                                    (change)="changePrice($event.target.value)">
+                                                    <option selected="selected" value="0">-- Model --</option>
+                                                    <option [value]="books.product_model"
+                                                        *ngFor="let books of products;let i=index">
+                                                        {{ books.product_model }}
+                                                    </option>
+                                                </select>
+                                            </td>
+                                            <td>
+                                                {{original_price}}
+                                            </td>
+
+                                            <td *ngIf="role!='non_gst_admin'">
+                                                <input type="number" min="0" class="form-control" name="CGST"
+                                                    placeholder=" " [(ngModel)]="cgst" autocomplete="off" />
+                                            </td>
+                                            <td *ngIf="role!='non_gst_admin'">
+                                                <input type="number" min="0" class="form-control" name="SGST"
+                                                    placeholder=" " [(ngModel)]="sgst" autocomplete="off" />
+                                            </td>
+                                            <td>
+                                                <input type="number" min="0" class="form-control" name="qty"
+                                                    placeholder=" " [(ngModel)]="discount"
+                                                    (keyup)="changeDiscount($event)" autocomplete="off" />
+                                            </td>
+                                            <td>
+                                                <input type="number" min="1" id="quantity" class="form-control"
+                                                    name="qty" placeholder=" " [(ngModel)]="qty_value"
+                                                    (keyup)="addProduct($event)" [formControl]="qty"
+                                                    autocomplete="off" />
+                                                <small *ngIf="max === true">
+                                                    <!-- Mamimum {{mmaximumCount}} quantities -->
+                                                </small>
+                                            </td>
+                                            <td class="text-primary">
+                                                {{ ( discounted_price * qty_value) + ((discounted_price * qty_value) * ((sgst + cgst) /100)) | number :'1.2-2'}}
+                                            </td>
+                                        </tr>
+                                        <tr>
+                                            <td></td>
+                                            <td></td>
+                                            <td></td>
+                                            <td></td>
+                                            <td></td>
+                                            <td></td>
+                                            <td></td>
+                                            <td>
+                                                <h3>Grand Total </h3>
+                                            </td>
+                                            <td>
+                                                {{ total - exchange_price  | number : '1.2-2' }}
+                                            </td>
+                                            <td *ngIf="exchange_price!='0'">
+                                                <h3>Exchange Price </h3>
+                                            </td>
+                                            <td *ngIf="exchange_price!='0'">
+                                                {{ exchange_price  | number : '1.2-2' }}
+                                            </td>
+                                            <td *ngIf="remaining_balance!='0'">
+                                                <h3> Remaining balance </h3>
+                                            </td>
+                                            <td *ngIf="remaining_balance!='0'">
+                                                {{ remaining_balance - (total - exchange_price)  | number : '1.2-2' }}
+                                            </td>
+                                        </tr>
+                                        <tr>
+                                            <td></td>
+                                            <td></td>
+                                            <td></td>
+                                            <td>
+                                                <button type="button" (click)="placeOrder()"
+                                                    class="btn btn-primary pull-right">
+                                                    Place Order
+                                                    <div class="ripple-container"></div>
+                                                </button>
+                                            </td>
+                                            <td>
+                                                <button type="button" (click)="cancelOrder()"
+                                                    class="btn btn-danger pull-right">
+                                                    Cancel Order
+                                                    <div class="ripple-container"></div>
+                                                </button>
+                                            </td>
+                                            <td>
+                                                <!-- <button  class="btn btn-info pull-right" (click)="print()">print</button>
+                                    <div class="ripple-container"></div> -->
+                                            </td>
+                                        </tr>
+                                    </tbody>
+                                </table>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div id="componentID" style="display: none">
+                <div class="row" style="text-align: center;">
+                    <h3 style="text-align: center; width: 100%">Nusaiba Mobiles Private Limited</h3>
+                    <small>No,344,MIG 80 feet Road,Anna Nagar Madurai.</small>
+                </div>
+                <div class="row" style="text-align: center;">
+                    GSTIN: 5421789
+                </div>
+                <div class="row">
+                    ---------------------------------------------------------------------------------------
+                </div>
+                <!-- <div class="row">
+                    Bill No.: 1
+                </div>
+                <div class="row">
+                    21/5/2019
+                </div> -->
+                <table style="border-style: dashed;">
+                    <tr>
+                        <td colspan="4"
+                            style="text-align:center;text-decoration-line:underline;text-decoration-style: dashed;">Tax
+                            Invoice Cum Delivery Challan</td>
+                    </tr>
+                    <tr>
+                        <td>No of Invoice : {{this.bill_id}}<br>Date and Time of Invoice
+                            :{{dateTime}}<br>State:TamilNadu<br>Branch Address:No,344,<br />MIG 80 feet Road,<br />Anna
+                            Nagar Madurai.</td>
+                        <td></td>
+                        <td></td>
+                        <td></td>
+                        <td></td>
+                        <td style="display: block;float:right;">Original For Receipient<br>Duplicate For
+                            Transpoter<br>Triplicate For Seller<br><br>Invoice Time<br>Sales Person: Admin<br>Branch
+                            Contact number</td>
+                    </tr>
+                    <tr>
+                        <td colspan="7">
+                            -------------------------------------------------------------------------------------
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>TO</td>
+                    </tr>
+                    <tr>
+                        <td colspan="1" style="padding-left:2.5em">{{currentCustomerName}}, {{currentCustomerPhone}}
+                        </td>
+                    </tr>
+                    <tr>
+                        <td> </td>
+                        <td></td>
+                        <td></td>
+                        <td></td>
+                    </tr>
+                </table>
+
+                <table border="1px" class="productsTable">
+                    <tr>
+                        <td>S No</td>
+                        <td>Product Name</td>
+                        <td>Quantity</td>
+                        <td>Mrp Price</td>
+                        <td>SGST</td>
+                        <td>CGST</td>
+                        <td>Discount</td>
+                        <td>Amount</td>
+                    </tr>
+                    <tr *ngFor="let products of product; let i=index">
+                        <td>1</td>
+                        <td>{{products.product_brand}} - <br> {{products.product_model}}</td>
+                        <td>{{products.product_quantity}}</td>
+                        <td>{{products.original_price}}</td>
+                        <td>{{products.sgst}}</td>
+                        <td>{{products.cgst}}</td>
+                        <td>{{products.discount}}</td>
+                        <td>{{products.subTotal | number : '1.2-2'}}</td>
+                    </tr>
+                    <tr>
+                    </tr>
+                    <tr>
+                        <td></td>
+                        <td></td>
+                        <td></td>
+                        <td></td>
+                        <td></td>
+                        <td></td>
+                        <td style="font-weight: bolder">Total</td>
+                        <td>{{ total }}</td>
+                    </tr>
+                </table>
+                <table style="border-style: dashed;">
+                    <tr>
+                        <td>Terms & Conditions</td>
+                        <td></td>
+                        <td></td>
+                        <td></td>
+                        <td></td>
+                        <td></td>
+                    </tr>
+                    <tr>
+                        <td colspan="7">
+                            -------------------------------------------------------------------------------------
+                        </td>
+                    </tr>
+                    <tr>
+                        <td></td>
+                    </tr>
+                    <tr height="100">
+                        <td colspan="1" style="padding-left:2.5em;" valign="bottom">Receiver's Signature</td>
+                        <td></td>
+                        <td></td>
+                        <td></td>
+                        <td></td>
+                        <td></td>
+                        <td style="padding-right:2.5em;" valign="bottom">Authorised Seal & Signatory</td>
+                    </tr>
+                    <tr>
+                        <td> </td>
+                        <td></td>
+                        <td></td>
+                        <td></td>
+                    </tr>
+                </table>
+                <!-- <div class="row">
+                    Quantity: {{product.length}}
+                </div>
+                <div class="row">
+                    Bill: {{total}}
+                </div>
+                <div class="row">
+                    Paid: {{total}}
+                </div> -->
+                <div class="row">
+                    <h4 style="text-align: center;">Thank you</h4>
+                    <h6 style="text-align: center;">Visit again</h6>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

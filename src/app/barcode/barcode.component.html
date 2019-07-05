@@ -1,0 +1,39 @@
+<div fxLayout="column">
+	<div fxLayout="column">
+		<textarea  placeholder="bc-value" [(ngModel)]="value"></textarea>
+		<br/>
+		<select placeholder="bc-element-type" [(ngModel)]="elementType">
+			<option value="svg">svg</option>
+			<option value="img">img</option>
+			<option value="canvas">canvas</option>
+		</select>
+		<br/>
+		<select placeholder="bc-format" [(ngModel)]="format">
+			<option *ngFor="let code of codeList" [value]="code">{{code}}</option>
+		</select>
+		<input  type="text" placeholder="bc-line-color" [(ngModel)]="lineColor">
+		<input  type="number" placeholder="bc-width" [(ngModel)]="width">
+		<input  type="number" placeholder="bc-height" [(ngModel)]="height">
+		<input type="checkbox" [(ngModel)]="displayValue">bc-display-value
+		<input  type="text" placeholder="bc-font-options" [(ngModel)]="fontOptions">
+		<input  type="text" placeholder="bc-font" [(ngModel)]="font">
+	</div>
+	<div fxLayout="column">
+		<input  type="text" placeholder="bc-text-align" [(ngModel)]="textAlign">
+		<input  type="text" placeholder="bc-text-position" [(ngModel)]="textPosition">
+		<input  type="number" placeholder="bc-text-margin" [(ngModel)]="textMargin">
+		<input  type="number" placeholder="bc-font-size" [(ngModel)]="fontSize">
+		<input  type="text" placeholder="bc-background" [(ngModel)]="background">
+		<input  type="number" placeholder="bc-margin" [(ngModel)]="margin">
+		<input  type="number" placeholder="bc-margin-top" [(ngModel)]="marginTop">
+		<input  type="number" placeholder="bc-margin-bottom" [(ngModel)]="marginBottom">
+		<input  type="number" placeholder="bc-margin-left" [(ngModel)]="marginLeft">
+		<input  type="number" placeholder="bc-margin-right" [(ngModel)]="marginRight">
+	</div>
+	<div fxLayout="column">
+		<ngx-barcode *ngFor="let bcValue of values" [bc-element-type]="elementType" [bc-value]="bcValue" [bc-format]="format" [bc-line-color]="lineColor"
+		 [bc-width]="width" [bc-height]="height" [bc-display-value]="displayValue" [bc-font-options]="fontOptions" [bc-font]="font"
+		 [bc-text-align]="textAlign" [bc-text-position]="textPosition" [bc-text-margin]="textMargin" [bc-font-size]="fontSize" [bc-background]="background"
+		 [bc-margin]="margin" [bc-margin-top]="marginTop" [bc-margin-bottom]="marginBottom" [bc-margin-left]="marginLeft" [bc-margin-right]="marginRight"></ngx-barcode>
+	</div>
+</div>

@@ -1,0 +1,48 @@
+<div class="content">
+  <div class="container-fluid">
+    <div class="row">
+      <div class="col-md-3"></div>
+      <div class="col-md-6">
+        <div class="card">
+          <div class="card-header card-header-primary">
+            <h4 class="card-title">Nusaiba Mobiles</h4>
+          </div>
+          <div class="card-body">
+            <form (ngSubmit)="onSubmit()" #login="ngForm">
+              <div class="row">
+                <div class="col-md-8">
+                  <div class="form-group">
+                    <label class="bmd-label-floating">Username</label>
+                    <input type="text" name="username" [(ngModel)]="user.email" #username="ngModel" class="form-control" required>
+                    <span style="color:red;" [hidden]="username.valid || username.pristine">
+                      Username required.
+                    </span>
+                  </div>
+                </div>
+              </div>
+              <div class="row">
+                <div class="col-md-8">
+                  <div class="form-group">
+                    <label class="bmd-label-floating">Password</label>
+                    <input type="password" name="password" [(ngModel)]="user.password" #password="ngModel" class="form-control">
+                    <span style="color:red;" [hidden]="password.valid || password.pristine">
+                      Password required.
+                    </span>
+                  </div>
+                </div>
+              </div>
+              <button type="submit" class="btn btn-primary pull-right">Log In</button>
+              <div class="row">
+                <div class="col-md-12" style="text-align: center;">
+                  Powered By <img src="assets/img/Black.png" height="25" width="90" style="margin-bottom: 5px;" >
+                </div>
+              </div>
+              <div class="clearfix"></div>
+            </form>
+          </div>
+        </div>
+      </div>
+      <div class="col-md-3"></div>
+    </div>
+  </div>
+</div>

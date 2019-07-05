@@ -1,0 +1,153 @@
+<div class="main-panel">
+    <!-- Navbar -->
+    <nav class="navbar navbar-expand-lg navbar-transparent navbar-absolute fixed-top ">
+      <div class="container-fluid">
+        <div class="navbar-wrapper">
+          <a class="navbar-brand">Add Product</a>
+        </div>
+        <button class="navbar-toggler" type="button" (click)="openMenu()" data-toggle="collapse" aria-controls="navigation-index"
+          aria-expanded="false" aria-label="Toggle navigation">
+          <span class="sr-only">Toggle navigation</span>
+          <span class="navbar-toggler-icon icon-bar"></span>
+          <span class="navbar-toggler-icon icon-bar"></span>
+          <span class="navbar-toggler-icon icon-bar"></span>
+        </button>
+      </div>
+    </nav>
+    <div class="content">
+      <div class="container-fluid">
+        <div class="row">
+            <div class="col-md-3"></div>
+            <div class="col-md-6">
+              <div class="card">
+                <div class="card-header card-header-primary">
+                  <h4 class="card-title">Add Product</h4>
+                </div>
+                <div class="card-body">
+                  <form (ngSubmit)="onSubmit(login)" #login="ngForm">
+
+                    <div class="row">
+                      <div class="col-md-8">
+                        <div class="form-group">
+                          <label class="bmd-label-floating">Brand Name</label>
+                          <!-- <input type="text" id="brand" name="brandname"  class="form-control" required autocomplete="off"> -->
+
+                          <select id="duration" name="duration"  [(ngModel)]="product.product_brand" #brandname="ngModel" class="form-control">
+                                       <option selected="selected" value="0">-- Brand --</option>
+                                       <option [value]="books.id" *ngFor="let books of brands;let i=index">
+                                          {{ books.product_brand }} 
+                                       </option>
+                            </select>
+
+                          <span style="color:red;" [hidden]="brandname.valid || brandname.pristine">
+                              Brand Name required.
+                          </span>
+                        </div>
+                      </div>
+                    </div>
+
+                    <div class="row">
+                        <div class="col-md-8">
+                          <div class="form-group">
+                            <label class="bmd-label-floating">Model Name</label>
+                            <input type="text" id="model" name="modelname" [(ngModel)]="product.product_model" #modelname="ngModel" class="form-control" required autocomplete="off">
+                            <span style="color:red;" [hidden]="modelname.valid || modelname.pristine">
+                                Model Name required.
+                            </span>
+                          </div>
+                        </div>
+                      </div>
+
+                    <div class="row">
+                        <div class="col-md-8">
+                          <div class="form-group">
+                            <label class="bmd-label-floating">Product Type</label>
+                            <select id="product_type" name="product_type" class="form-control select-lg"
+                                       [(ngModel)]="product.product_type"  #product_type="ngModel" class="form-control">
+                                       <option value="0" selected="selected">-- Select Type --</option>
+                                       <option value="phone">Phone</option>
+                                       <option value="accessories">Accessories</option>
+                                    </select>
+                            <span style="color:red;" [hidden]="product_type.valid || product_type.pristine">
+                              Product Type                          
+                            </span>
+                            
+                          </div>
+                        </div>
+                      </div>
+                      
+                      <div class="row">
+                        <div class="col-md-8">
+                          <div class="form-group">
+                            <label class="bmd-label-floating">Product Color</label>
+                            <input type="text" name="product_color" [(ngModel)]="product.product_color" #product_color="ngModel" class="form-control" required autocomplete="off">
+                            <span style="color:red;" [hidden]="product_color.valid || product_color.pristine">
+                              Product color is requierd                      
+                            </span>
+                          </div>
+                        </div>
+                      </div>
+
+                      <div class="row">
+                        <div class="col-md-8">
+                          <div class="form-group">
+                            <label class="bmd-label-floating">Product Quantity</label>
+                            <input type="number"  name="product_quantity" (keyup)="onChanageQuantity($event)" [(ngModel)]="product.product_quantity" #product_quantity="ngModel" class="form-control" required autocomplete="off">
+                            <span style="color:red;" [hidden]="product_quantity.valid || product_quantity.pristine">
+                              Product Quantity                          
+                            </span>
+                          </div>
+                        </div>
+                      </div>
+
+
+                      <div class="row" *ngFor="let quantity of product.quantities;index as i;">
+                        <div class="col-md-8">
+                          <div class="form-group">
+                            <label class="bmd-label-floating">IMEI Code</label>{{ '\n' }}
+                            <input type="text" name="price" [(ngModel)]="product.product_imei[i]" #price="ngModel" #product_Imei="ngModel" class="form-control" autocomplete="off">
+                          </div>
+                          <input type="button" (click)="openDialog(i)" class="btn btn-primary pull-right" value="Print Bar Code" />
+                        </div>
+                      </div> 
+
+
+                      <!-- dealer price -->
+                      
+                      <div class="row">
+                        <div class="col-md-8">
+                          <div class="form-group">
+                            <label class="bmd-label-floating">Dealer Price</label>
+                            <input type="number" name="our_price" [(ngModel)]="product.our_price" #our_price="ngModel" class="form-control" required autocomplete="off">
+                            <span style="color:red;" [hidden]="our_price.valid || our_price.pristine">
+                                our_price is requierd                      
+                            </span>
+                          </div>
+                        </div>
+                      </div>
+                    
+                    
+                    <!-- box price -->
+
+                    <div class="row">
+                      <div class="col-md-8">
+                        <div class="form-group">
+                          <label class="bmd-label-floating">MRP price</label>
+                          <input type="text" name="price" [(ngModel)]="product.price" #price="ngModel" class="form-control" autocomplete="off">
+                          <span style="color:red;" [hidden]="price.valid || price.pristine">
+                            Price required.
+                          </span>
+                        </div>
+                      </div>
+                    </div>
+                    <button type="submit" class="btn btn-primary pull-right">Add Product</button>
+                    <div class="clearfix"></div>
+                  </form>
+                </div>
+              </div>
+            </div>
+            <div class="col-md-3"></div>
+        </div>
+      </div>
+    </div>
+  </div>

@@ -1,0 +1,14 @@
+<h3>Print Barcode</h3>
+<div fxLayout="column">
+    <div fxLayout="column">
+        <input type="text" name="textvalue" placeholder="value" [(ngModel)]="value" #product_code="ngModel" class="form-control" required autocomplete="off">
+        <br/>
+      </div>
+    <div fxLayout="column">
+      <ngx-barcode *ngFor="let bcValue of values" [bc-element-type]="elementType" [bc-value]="bcValue" [bc-format]="format" [bc-line-color]="lineColor"
+       [bc-width]="width" [bc-height]="height" [bc-display-value]="displayValue" [bc-font-options]="fontOptions" [bc-font]="font"
+       [bc-text-align]="textAlign" [bc-text-position]="textPosition" [bc-text-margin]="textMargin" [bc-font-size]="fontSize" [bc-background]="background"
+       [bc-margin]="margin" [bc-margin-top]="marginTop" [bc-margin-bottom]="marginBottom" [bc-margin-left]="marginLeft" [bc-margin-right]="marginRight"></ngx-barcode>
+    </div>
+    <input type="button" class="btn btn-primary pull-right" value="printBarcode" (click)="print()"/>
+  </div>
