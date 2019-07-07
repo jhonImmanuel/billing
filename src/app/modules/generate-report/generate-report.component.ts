@@ -12,6 +12,7 @@ export interface DialogData {
   price: any;
   products:any;
   users:any;
+  openning_balance:string;
 }
  
 
@@ -33,6 +34,7 @@ export class GenerateReportComponent implements OnInit {
   userName:any;
   Orders:any;
   users:any;
+  openning_balance:any;
   constructor(private apiService: ApiService,
     private authService: AuthService,
     public dialog: MatDialog,
@@ -48,12 +50,16 @@ export class GenerateReportComponent implements OnInit {
         this.total_qty += parseInt(reportData.qty);
         this.total += parseInt(reportData.price);
       }
+      this.openning_balance = res.openning_balance[0].openning_balance;
     });
   }
   openMenu() {
     document.getElementsByTagName('html')[0].classList.toggle('nav-open');
   }
 
+  ConvertString(value){
+    return parseInt(value)
+    }
   getCounts() {
     this.apiService.callGetApi('dashboard/' + localStorage.getItem('email')).subscribe(res => {
       this.counter = res.response;
@@ -68,7 +74,11 @@ export class GenerateReportComponent implements OnInit {
      dialogRef.afterClosed().subscribe(result => {
         this.users = dialogRef.componentInstance.user;
         this.print();
-     });
+        this.apiService.callPostApi('savereports', {user_id: localStorage.getItem('email'),total_qty :this.total_qty,total:this.total,report_by: dialogRef.componentInstance.user ,product:this.report,openning_balance:dialogRef.componentInstance.openning_balance}).subscribe(res => {
+          this.toast.success('Report Generated Successfully');
+        });
+      }
+      );
   }
   print() {
     setTimeout(() => {
@@ -101,6 +111,7 @@ export class GenerateReportComponent implements OnInit {
 export class GenerateReportDialog {
   p2 = 1;
   user:any;
+  openning_balance:any;
   users:any;
   constructor(private apiService: ApiService,
     private authService: AuthService,

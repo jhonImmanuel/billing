@@ -5,7 +5,7 @@
       <div class="navbar-wrapper">
         <a class="navbar-brand" >Services</a>
       </div>
-      <button class="navbar-toggler" type="button" (click)="openMenu()" data-toggle="collapse" aria-controls="navigation-index"
+      <button class="navbar-toggler tog" type="button" (click)="openMenu()" data-toggle="collapse" aria-controls="navigation-index"
       aria-expanded="false" aria-label="Toggle navigation">
       <span class="sr-only">Toggle navigation</span>
       <span class="navbar-toggler-icon icon-bar"></span>
@@ -55,7 +55,7 @@
                      Name
                   </th>
                   <th>
-                     Model
+                     Email
                   </th>
                   <th>
                     Description
@@ -72,6 +72,12 @@
                   <th>
                     Date
                   </th>
+                  <th>
+                    Action
+                  </th>
+                  <th>
+                    Email
+                  </th>
                 </tr></thead>
                 <tbody>
                   <tr *ngFor="let user of Services| paginate: { itemsPerPage: 10, currentPage: p }; index as i;">
@@ -82,7 +88,7 @@
                       {{user.name}}
                     </td>
                     <td>
-                      {{user.model}}
+                      {{user.email}}
                     </td>
                     <td>
                       {{user.description}}
@@ -102,6 +108,12 @@
                     <td>
                       {{user.updated_at | date: 'dd/MM/yyyy'}}
                     </td>
+                     <td>
+                      <button type="button" class="btn btn-sm btn-danger" (click)="print(i)">Print</button>
+                    </td>
+                    <td>
+                       <button type="button" class="btn btn-sm btn-info" (click)="opnDialog(i)">Email</button>
+                     </td>
                   </tr>
                   <pagination-controls (pageChange)="p = $event"></pagination-controls>
                 </tbody>
@@ -110,7 +122,121 @@
           </div>
         </div>
       </div>
-    </div>
+<div id="componentID" style="display:none">
+  <div class="row" style="text-align: center;">
+      <h3 style="text-align: center; width: 100%">Nusaiba Mobiles Private Limited</h3>
+      <small>No,344,MIG 80 feet Road,Anna Nagar Madurai.</small>
   </div>
-</div>
+  <div class="row" style="text-align: center;">
+      GSTIN: 5421789
+  </div>
+  <div class="row">
+      -----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+  </div>
+  <!-- <div class="row">
+      Bill No.: 1
+  </div>
+  <div class="row">
+      21/5/2019
+  </div> -->
+  <table style="border-style: dashed;width: 100%;height: 100%">
+      <tr>
+          <td colspan="4" style="text-align:center;text-decoration-line:underline;text-decoration-style: dashed;">Tax Invoice Cum Delivery Challan</td>
+      </tr>
+      <tr>
+          <td><br>Date and Time of Invoice :{{dateTime}}<br>State:TamilNadu<br>Branch Address:No,344,<br/>MIG 80 feet Road,<br/>Anna Nagar Madurai.</td>
+          <td></td>
+          <td></td>
+          <td></td>
+          <td></td>
+          <td style="display: block;float:right;">Original For Receipient<br>Duplicate For Transpoter<br>Triplicate For Seller<br><br>Invoice Time<br>Sales Person: Admin<br>Branch Contact number</td>
+      </tr>
+      <tr>
+          <td colspan="7">
+              -------------------------------------------------------------------------------------
+          </td>
+      </tr>
+      <tr>
+          <td>TO</td>
+      </tr>
+      <tr>
+          <td colspan="1" style="padding-left:2.5em">{{products && products.name}}, {{products && products.mobile}}</td>
+      </tr>
+      <tr>
+          <td> </td>
+          <td></td>
+          <td></td>
+          <td></td>
+      </tr>
+  </table>
+
+  <table border="1px" class="productsTable" style="width: 100%;height: 100%">
+      <tr>
+          <td>S No</td>
+          <td>Description</td>
+          <td>SGST</td>
+          <td>CGST</td>
+          <td>Amount</td>
+      </tr>
+      <tr  *ngFor="let user of charges| paginate: { itemsPerPage: 10, currentPage: p }; index as i;">
+          <td>1</td>
+          <td>{{chargesDescription[i]}}</td>
+          <td>{{products && products.sgst}}</td>
+          <td>{{products && products.cgst}}</td>
+          <td>{{user | number : '1.2-2'}}</td>
+      </tr>
+      <tr>
+          <td></td>
+          <td></td>
+          <td></td>
+          <td style="font-weight: bolder">Total</td>
+          <td>{{products &&  products.price | number : '1.2-2'}}</td>
+      </tr>
+  </table>
+  <table style="border-style: dashed;width: 100%;height: 100%">
+      <tr>
+          <td>Terms & Conditions</td>
+          <td></td>
+          <td></td>
+          <td></td>
+          <td></td>
+          <td></td>
+      </tr>
+      <tr>
+          <td colspan="7">
+              -------------------------------------------------------------------------------------
+          </td>
+      </tr>
+      <tr>
+          <td></td>
+      </tr>
+      <tr height="100">
+          <td colspan="1" style="padding-left:2.5em;" valign="bottom">Receiver's Signature</td>
+          <td></td>
+          <td></td>
+          <td></td>
+          <td></td>
+          <td></td>
+          <td style="padding-right:2.5em;" valign="bottom">Authorised Seal & Signatory</td>
+      </tr>
+      <tr>
+          <td> </td>
+          <td></td>
+          <td></td>
+          <td></td>
+      </tr>
+  </table>
+  <!-- <div class="row">
+      Quantity: {{product.length}}
+  </div>
+  <div class="row">
+      Bill: {{total}}
+  </div>
+  <div class="row">
+      Paid: {{total}}
+  </div> -->
+  <div class="row">
+      <h4 style="text-align: center;">Thank you</h4>
+      <h6 style="text-align: center;">Visit again</h6>
+  </div>
 </div>

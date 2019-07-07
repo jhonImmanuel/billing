@@ -4,9 +4,9 @@
     <nav class="navbar navbar-expand-lg navbar-transparent navbar-absolute fixed-top ">
         <div class="container-fluid">
             <div class="navbar-wrapper">
-                <a class="navbar-brand">Order</a>
+                <a class="navbar-brand"><i routerLink="/order" class="fa fa-arrow-left" style="font-size:20px;cursor: pointer;"></i> Back&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Order</a>
             </div>
-            <button class="navbar-toggler" type="button" (click)="openMenu()" data-toggle="collapse"
+            <button class="navbar-toggler tog" type="button" (click)="openMenu()" data-toggle="collapse"
                 aria-controls="navigation-index" aria-expanded="false" aria-label="Toggle navigation">
                 <span class="sr-only">Toggle navigation</span>
                 <span class="navbar-toggler-icon icon-bar"></span>
@@ -47,15 +47,15 @@
 
 
                             <label>Bill Type</label>
-                            <select name="bill_type" id="duration" class="form-control" [(ngModel)]="bill_type"
+                            <select name="bill_type" id="duration" class="form-control" [(ngModel)]="bill_type" (change) = "changeBilltype($event)"
                                 disabled>
-                                <option selected="selected" value="normal">Normal-Bill</option>
+                                <option  value="normal">Normal-Bill</option>
                                 <option value="exchange">Exchange - Bill</option>
                             </select>
 
                             <div *ngIf="bill_type!='normal'">
                                 <label>Exchange Price</label>
-                                <input type="number" name="exchange_price" placeholder="Enter the Exchange Amount"
+                                <input type="number" id="exchange" name="exchange_price" placeholder="Enter the Exchange Amount"
                                     [(ngModel)]="exchange_price" (change)="changeExchange($event.target.value)"
                                     class="form-control" required autocomplete="off">
                                 <small style="color: red" *ngIf="exchangeError == true">Exchange amount must be
@@ -118,7 +118,7 @@
                                         <th>
                                             MRP Price
                                         </th>
-                                        <th *ngIf="role!='non_gst_admin'">
+                                        <!-- <th *ngIf="role!='non_gst_admin'">
                                             CGST(%)
                                         </th>
                                         <th *ngIf="role!='non_gst_admin'">
@@ -126,13 +126,13 @@
                                         </th>
                                         <th>
                                             Discount
-                                        </th>
+                                        </th> -->
                                         <th>
                                             Quantity
                                         </th>
-                                        <th *ngIf="exchange_price!='0'">
+                                        <!-- <th *ngIf="exchange_price!='0'">
                                             Exchange Price
-                                        </th>
+                                        </th> -->
                                         <th>
                                             Sub Total
                                         </th>
@@ -146,13 +146,13 @@
                                             <td>{{ products.product_imei }}</td>
                                             <td>{{ products.product_brand }}</td>
                                             <td>{{ products.product_model }}</td>
-                                            <td>{{products.original_price}}</td>
-                                            <td *ngIf="role!='non_gst_admin'">{{products.sgst}}</td>
+                                            <td>{{products.original_price | currency:'INR':true }}</td>
+                                            <!-- <td *ngIf="role!='non_gst_admin'">{{products.sgst}}</td>
                                             <td *ngIf="role!='non_gst_admin'">{{products.cgst}}</td>
-                                            <td>{{products.discount}}</td>
+                                            <td>{{products.discount}}</td> -->
                                             <td>{{ products.product_quantity }}</td>
-                                            <td  *ngIf="products.exchange!='0'">{{ products.exchange }}</td>
-                                            <td>{{ products.subTotal }}</td>
+                                            <!-- <td  *ngIf="exchange_price!='0'">{{ exchange_price }}</td> -->
+                                            <td>{{ products.subTotal | currency:'INR':true}}</td>
                                             <td>
                                                 <a (click)="removeProduct(i)">
                                                     <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24"
@@ -199,10 +199,10 @@
                                                 </select>
                                             </td>
                                             <td>
-                                                {{original_price}}
+                                                {{original_price | currency:'INR':true}}
                                             </td>
 
-                                            <td *ngIf="role!='non_gst_admin'">
+                                            <!-- <td *ngIf="role!='non_gst_admin'">
                                                 <input type="number" min="0" class="form-control" name="CGST"
                                                     placeholder=" " [(ngModel)]="cgst" autocomplete="off" />
                                             </td>
@@ -214,7 +214,7 @@
                                                 <input type="number" min="0" class="form-control" name="qty"
                                                     placeholder=" " [(ngModel)]="discount"
                                                     (keyup)="changeDiscount($event)" autocomplete="off" />
-                                            </td>
+                                            </td> -->
                                             <td>
                                                 <input type="number" min="1" id="quantity" class="form-control"
                                                     name="qty" placeholder=" " [(ngModel)]="qty_value"
@@ -224,35 +224,48 @@
                                                     <!-- Mamimum {{mmaximumCount}} quantities -->
                                                 </small>
                                             </td>
-                                            <td class="text-primary">
+                                            <!-- <td class="text-primary">
                                                 {{ ( discounted_price * qty_value) + ((discounted_price * qty_value) * ((sgst + cgst) /100)) | number :'1.2-2'}}
+                                            </td> -->
+                                            <td>
+                                                {{subTotal | currency:'INR':true}}
                                             </td>
                                         </tr>
                                         <tr>
                                             <td></td>
-                                            <td></td>
-                                            <td></td>
-                                            <td></td>
-                                            <td></td>
-                                            <td></td>
-                                            <td></td>
+                                            <td *ngIf="role!='non_gst_admin'">
+                                                <label>CGST</label>
+                                                <input type="number" min="0" class="form-control" name="CGST" (keyup)="changeTotal()"
+                                                    placeholder=" " [(ngModel)]="cgst" autocomplete="off" />
+                                            </td>
+                                            <td *ngIf="role!='non_gst_admin'">
+                                                <label>SGST</label>
+                                                <input type="number" min="0" class="form-control" name="SGST" (keyup)="changeTotal()"
+                                                    placeholder=" " [(ngModel)]="sgst" autocomplete="off" />
+                                            </td>
+                                            <td>
+                                                <label>DISCOUNT</label>
+                                                <input type="number" min="0" class="form-control" name="qty"
+                                                    placeholder=" " [(ngModel)]="discount"
+                                                    (keyup)="changeTotal()" autocomplete="off" />
+                                            </td>
                                             <td>
                                                 <h3>Grand Total </h3>
                                             </td>
                                             <td>
-                                                {{ total - exchange_price  | number : '1.2-2' }}
+                                                {{ total |currency:'INR':true }}
                                             </td>
                                             <td *ngIf="exchange_price!='0'">
                                                 <h3>Exchange Price </h3>
                                             </td>
                                             <td *ngIf="exchange_price!='0'">
-                                                {{ exchange_price  | number : '1.2-2' }}
+                                                {{ exchange_price  |currency:'INR':true }}
                                             </td>
                                             <td *ngIf="remaining_balance!='0'">
                                                 <h3> Remaining balance </h3>
                                             </td>
                                             <td *ngIf="remaining_balance!='0'">
-                                                {{ remaining_balance - (total - exchange_price)  | number : '1.2-2' }}
+                                                {{ total - remaining_balance  | currency:'INR':true }}
                                             </td>
                                         </tr>
                                         <tr>
@@ -355,11 +368,11 @@
                         <td>1</td>
                         <td>{{products.product_brand}} - <br> {{products.product_model}}</td>
                         <td>{{products.product_quantity}}</td>
-                        <td>{{products.original_price}}</td>
+                        <td>{{products.original_price }}</td>
                         <td>{{products.sgst}}</td>
                         <td>{{products.cgst}}</td>
                         <td>{{products.discount}}</td>
-                        <td>{{products.subTotal | number : '1.2-2'}}</td>
+                        <td>{{products.subTotal |currency:'INR':true}}</td>
                     </tr>
                     <tr>
                     </tr>

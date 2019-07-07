@@ -1,0 +1,238 @@
+$breakpoint: 768px;
+$background: #374a9c;
+$text-color: #D8D9DD;
+$link-color: #ED217C;
+$link-hover-color: #F15D9F;
+
+body {
+  font-size: 16px;
+  font-family: Verdana;
+}
+
+header {
+    height: 9%;
+  & .brand {
+    h1 {
+      font-size: 1.5rem;
+    }
+  }
+  & .side-nav-state,
+  & .side-nav-open{
+    display: none;
+  }
+  & .side-nav-open,
+  & .side-nav-close{
+    &:hover {
+      color: $link-hover-color;
+    }
+    cursor: pointer;
+  }
+  & .side-nav {
+    & .side-nav-close {
+      position: absolute;
+      top: 1rem;
+      right: 1rem;
+      font-size: 1.25rem;
+    }
+    a {
+      &:hover {
+        color: $link-hover-color;
+      }
+      color: $link-color;
+      font-size: 1.5rem;
+      text-decoration: none;
+    }
+    display: flex;
+    flex-direction: column;
+    justify-content: space-evenly;
+    align-items: center;
+    position: absolute;
+    transition: transform .3s;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    transform: translate(0, -100%) scale(0.1);
+    background-color: $background;
+  }
+  & .side-nav-state:checked ~ .side-nav-toggle {
+    color: $link-hover-color;
+  }
+  & .side-nav-state:checked ~ .side-nav {
+    transform: translate(0, 0) scale(1);
+  }
+  & .main-nav {
+    a {
+      &:hover {
+        color: $link-hover-color;
+      }
+      color: $link-color;
+      text-decoration: none;
+      font-size: 1.1rem;
+      padding: .5rem .75rem;
+    }
+    display: flex;
+    align-items: center;
+  }
+  display: flex;
+  padding: 1rem;
+  justify-content: space-between;
+  align-items: center;
+  
+  color: #555555;
+  margin: auto 0;
+}
+
+@media screen and (max-width: $breakpoint) {
+  header {
+    & .side-nav-open {
+      display: initial;
+    }
+    & .main-nav {
+      display: none;
+    }
+  }
+}
+
+main {
+  margin-top: 1rem;
+  text-align: center;
+}
+.grid-container {
+    display: grid;
+    height: 500px;
+    align-content: center;
+    grid-template-columns: auto auto auto;
+    grid-gap: 10px;
+    padding: 10px;
+    background: linear-gradient(60deg, #1f48ff, #8e24aa);
+  }
+  
+  .grid-container > div {
+    background-color: rgba(255, 255, 255, 0.8);
+    margin-left:18% !important;
+    padding:30px 30px 30px 30px ;
+    font-size: 30px;
+    cursor: pointer;
+    width:70% !important;
+    text-align: center;
+  }
+  
+  @media only screen and  (max-width : 1400px) {
+    .grid-container {
+    display: grid;
+    height: 500px;
+    align-content: center;
+    grid-template-columns: auto auto auto;
+    grid-gap: 10px;
+    padding: 10px;
+    background: linear-gradient(60deg, #1f48ff, #8e24aa);
+    margin-top:-5% !important;
+  }
+  
+  .grid-container > div {
+    background-color: rgba(255, 255, 255, 0.8);
+    margin-left:18% !important;
+    padding:30px 30px 30px 30px ;
+    font-size: 30px;
+    cursor: pointer;
+    width:70% !important;
+    text-align: center;
+  }
+  }
+  @media only screen and (min-width : 240px)  and (max-width : 400px) {
+    .brand  h1{
+      margin-left:20px !important;
+    }
+    .grid-container {
+      display: grid;
+      height: 400px;
+      align-content: center;
+      grid-template-columns: auto ;
+      grid-template-rows: 100px 100px 100px ;
+      grid-gap: 20px;
+      padding: 10px;
+      background: linear-gradient(60deg, #1f48ff, #8e24aa);
+      margin-top:-20% !important;
+    }
+    
+    .grid-container > div {
+      background-color: rgba(255, 255, 255, 0.8);
+      margin-left:18% !important;
+      padding:20px 20px 20px 20px ;
+      font-size: 20px;
+      cursor: pointer;
+      width:250px !important;
+      text-align: center;
+      margin:auto !important;
+    }
+    .grid-container > div>i{
+     
+      margin-top:10% !important;
+    }
+
+  }
+  @media only screen and (min-width : 400px)  and (max-width : 600px) {
+    .brand  h1{
+      margin-left:20px !important;
+    }
+    .grid-container {
+      display: grid;
+      height: 400px;
+      align-content: center;
+      grid-template-columns: auto ;
+      grid-template-rows: 100px 100px 100px ;
+      grid-gap: 20px;
+      padding: 10px;
+      background: linear-gradient(60deg, #1f48ff, #8e24aa);
+      margin-top:-20% !important;
+    }
+    
+    .grid-container > div {
+      background-color: rgba(255, 255, 255, 0.8);
+      margin-left:18% !important;
+      padding:20px 20px 20px 20px ;
+      font-size: 20px;
+      cursor: pointer;
+      width:250px !important;
+      text-align: center;
+      margin:auto !important;
+    }
+    .grid-container > div>i{
+     
+      margin-top:5% !important;
+    }
+
+  }
+  @media only screen and (min-width : 600px)  and (max-width : 800px) {
+    .brand  h1{
+      margin-left:20px !important;
+    }
+    .grid-container {
+      display: grid;
+      height: 400px;
+      align-content: center;
+      grid-template-columns: auto ;
+      grid-template-rows: 100px 100px 100px ;
+      grid-gap: 20px;
+      padding: 10px;
+      background: linear-gradient(60deg, #1f48ff, #8e24aa);
+      margin-top:auto !important;
+    }
+    
+    .grid-container > div {
+      background-color: rgba(255, 255, 255, 0.8);
+      margin-left:18% !important;
+      padding:20px 20px 20px 20px ;
+      font-size: 20px;
+      cursor: pointer;
+      width:250px !important;
+      text-align: center;
+      margin:auto !important;
+    }
+    .grid-container > div>i{
+     
+      margin-top:10% !important;
+    }
+
+  }

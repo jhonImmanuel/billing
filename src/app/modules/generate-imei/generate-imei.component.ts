@@ -68,5 +68,8 @@ export class GenerateImeiComponent implements OnInit {
 		pwa.document.open();
 		pwa.document.write(this.printableImage(source));
 		pwa.document.close();
-	}
+  }
+  openMenu() {
+    document.getElementsByTagName('html')[0].classList.toggle('nav-open');
+  }
 }

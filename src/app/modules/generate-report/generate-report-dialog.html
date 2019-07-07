@@ -4,6 +4,9 @@
                 User : <mat-form-field>
                 <input type="text" matInput name="name"  [(ngModel)]="user" class="form-control" required autocomplete="off">
           </mat-form-field>
+          Openning Balance : <mat-form-field>
+            <input type="number" matInput name="openning_balance"  [(ngModel)]="openning_balance" class="form-control" required autocomplete="off">
+      </mat-form-field>
         </div>
         <div mat-dialog-actions>
           <button style="margin-right: 15px;" class="btn btn-primary" (click)="saveBrand()" [mat-dialog-close]="data.price" cdkFocusInitial>Get Report</button>

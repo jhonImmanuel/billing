@@ -70,6 +70,11 @@ export class AddProductComponent implements OnInit {
 
   onSubmit(login) {
     this.product.role = 'Sub Admin';
+    if(this.product.product_brand === "0" ){
+        const string = 'All fields Are Required';
+        this.toast.error(string);
+        return true;
+    }
     this.product.sku_id = Math.random().toString(36).substring(7);
     if(!(this.product.product_brand || this.product.product_model || this.product.product_color || this.product.sku_id  || this.product.product_type
       || this.product.product_color || this.product.our_price || this.product.product_quantity  || this.product.price)){

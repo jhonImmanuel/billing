@@ -1,0 +1,27 @@
+<div class="container">
+    <h1>Send Email to user {{data.service.name}}</h1>
+    <div mat-dialog-content>
+      <div class="card-body">
+        <div fxLayout="column">
+        <input type="text" name="email" placeholder="email id" [(ngModel)]="email" class="form-control" (change) = "validate($event)" required autocomplete="off">
+        <small style="color: red" *ngIf="emailError"> Email should be valid</small>
+        <br/>
+      </div>
+       <div fxLayout="column">
+        <input type="text" (change) = "validate($event)" name="subject" placeholder="email subject" [(ngModel)]="subject" class="form-control" required autocomplete="off">
+        <small style="color: red" *ngIf="subError"> Subject must be atleast 10 characters</small>
+        <br/>
+      </div>
+       <div fxLayout="column">
+        <input type="text" (change) = "validate($event)" name="body" placeholder="email body" [(ngModel)]="body" class="form-control" required autocomplete="off">
+        <small style="color: red" *ngIf="bodyError"> Email body must be atleast 50 characters</small>
+        <br/>
+      </div>
+      </div>
+    </div>
+    <div mat-dialog-actions>
+      <button style="margin-right: 15px;" class="btn btn-primary" [mat-dialog-close]="data.price"
+        cdkFocusInitial (click) = "sendEmail()">Send Email</button>
+      <button class="btn btn-danger" (click)="onNoClick()">Cancel</button>
+    </div>
+</div>

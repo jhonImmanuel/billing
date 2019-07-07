@@ -116,6 +116,9 @@ export class AccessoriesListComponent implements OnInit {
       });
     }
   }
+  openMenu() {
+    document.getElementsByTagName('html')[0].classList.toggle('nav-open');
+  }
 }
 @Component({
   selector: 'accessories-dialog',

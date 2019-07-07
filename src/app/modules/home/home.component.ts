@@ -19,8 +19,10 @@ export class HomeComponent implements OnInit {
   Admins: any = 'select';
   id: any = 0;
   order: any = [];
+  grandTotal:any;
   max: boolean;
   product = [];
+  subTotal = 0;
   bill_id: any = 5;
   products: any;
   searchTerm: any = new FormControl();
@@ -163,12 +165,44 @@ export class HomeComponent implements OnInit {
       }
     }
   }
-
+changeBilltype(e){
+  if(e.target.value === 'normal'){
+    var result = window.confirm('This action will clear the orders you like to remove the added items?');
+    debugger;
+    if (result){
+        this.i = 0;
+        this.max = true;
+        this.Model = '0';
+        this.products = [];
+        this.qty_value = '0';
+        this.discounted_price = 0;
+        this.original_price = '';
+        this.product_imei = '';
+        this.product=[];
+        this.customer_name='';
+        this.customer_email=''; 
+        this.customer_phone='';
+        this.payment_mode='';
+        this.total = 0;
+        this.exchange_price = 0;
+        this.remaining_balance = 0;
+        this.bill_type = 'normal';
+    }else{
+      this.bill_type = 'exchange';
+      this.total = this.total + parseInt(this.exchange_price);
+      // this.exchange_price = 0;
+    }
+  }
+}
 
   changeExchange (value){
-    this.exchange_price = value;
-    this.total = this.total - value;
-    this.remaining_balance = "0";
+   setTimeout(() =>{
+     if(parseInt(value) > 0 ){
+      this.total = this.total - parseInt(this.exchange_price);
+      this.remaining_balance = 0;
+    }
+      $('#exchange').prop('disabled',true);
+    }, 3000);
   }
   print() {
     var today = new Date();
@@ -244,7 +278,6 @@ export class HomeComponent implements OnInit {
       this.toast.error("Maximum Quanitity Reached");
       return false;
     }
-    this.changeDiscount();
     if (event.keyCode == 13) {
       this.i += 1;
     }
@@ -258,7 +291,6 @@ export class HomeComponent implements OnInit {
         this.placeOrder();
       }
     }, 500);
-    //this.getProduct()
   }
   changeImei() {
     if(this.product_imei && this.product.some(el => el.product_imei === this.product_imei)){
@@ -271,12 +303,14 @@ export class HomeComponent implements OnInit {
           this.noImei = false;
           document.getElementById('quantity').focus();
           this.products = res.response;
+
           this.product_value = res.response[0].brands.product_brand;
           this.Model = res.response[0].product_model;
           this.qty_value = 1;
           this.mmaximumCount = 1;
           this.original_price = res.response[0].price;
           this.price = res.response[0].price;
+          this.subTotal = this.price;
           this.prod_id = res.response[0].id;
           this.max = false;
         } else {
@@ -295,37 +329,47 @@ export class HomeComponent implements OnInit {
       });
     }
   }
-  changeDiscount() {
+  getSub(){
+    return( this.discounted_price * this.qty_value) + ((this.discounted_price * this.qty_value) * ((parseInt(this.sgst) + parseInt(this.cgst)) /100)) ;
+  }
+  changeTotal(){
+    var tot = 0;
+      for (let i = 0; i < this.product.length; i++) {
+        tot  +=  parseInt(this.product[i].total_amount);
+      }
+      this.qty_value = 1;
+      this.changeDiscount(tot);
+      if(this.is_gst == 1){
+      this.total = (this.discounted_price * this.qty_value) + ((this.discounted_price * this.qty_value) * ((parseInt(this.sgst,10) + parseInt(this.cgst,10))/100));
+
+      }else{
+        this.total = (this.discounted_price * this.qty_value);
+      }
+  }
+  changeDiscount(price) {
     if(this.type == "Percentage"){
-      this.discounted_price = this.price - (this.price * (this.discount / 100));
+      this.discounted_price = parseInt(price) - (parseInt(price) * (parseInt(this.discount) / 100));
     }else{
-      this.discounted_price = this.price - this.discount;
+      this.discounted_price = parseInt(price) - parseInt(this.discount);
     }
   }
   productAdd() {
     if (this.qty_value == "" || this.product_value == "") {
       return false
     }
-    // this.name.nativeElement.focus();
     for (let i = 0; i < this.products.length; i++) {
-      var subtotal;
-      if(this.is_gst == 1){
-      subtotal = (this.discounted_price * this.qty_value) + ((this.discounted_price * this.qty_value) * ((parseInt(this.sgst,10) + parseInt(this.cgst,10))/100));
-
-      }else{
-        subtotal = (this.discounted_price * this.qty_value);
-      }
-      // const subtotal = (this.discounted_price && this.discounted_price) ? this.discounted_price * this.qty_value : (this.products[i].price * this.qty_value);
       if (this.products[i].id === this.prod_id) {
         this.product.push({
-          bill_id : Math.random().toString(36).substring(7),prod_id: this.products[i].id, subTotal: subtotal,product_type:this.products[i].product_type, product_imei: this.product_imei,
+          bill_id : Math.random().toString(36).substring(7),prod_id: this.products[i].id, subTotal: this.subTotal,product_type:this.products[i].product_type, product_imei: this.product_imei,
           product_brand: this.products[i].brands.product_brand, product_model: this.products[i].product_model, is_gst: this.is_gst, product_quantity: this.qty_value, original_price: this.original_price, price: this.products[i].price,
-          user_id: localStorage.getItem('email'), total_amount: this.total, product_Imei: this.products[i].product_imei, payment_mode: this.payment_mode, discount: this.discount, discounted_price: this.discounted_price, gst: this.gst,
-          cgst: this.sgst, sgst: this.cgst ,exchange : this.exchange_price
+          user_id: localStorage.getItem('email'), total_amount: this.price, product_Imei: this.products[i].product_imei, payment_mode: this.payment_mode, discount: this.discount, discounted_price: this.discounted_price, gst: this.gst,
+          exchange : this.exchange_price, cgst: parseInt(this.cgst),sgst: parseInt(this.sgst) 
         });
+        this.changeTotal();
         this.i = 0;
         this.max = true;
         this.Model = '0';
+        this.subTotal = 0;
         this.products = [];
         this.qty_value = '0';
         this.discounted_price = 0;
@@ -334,10 +378,6 @@ export class HomeComponent implements OnInit {
         document.getElementById('product_imei').focus();
           $('select[name=bill_type]').prop('disabled',false);
       }
-    }
-    this.total = 0;
-    for (let i = 0; i < this.product.length; i++) {
-      this.total += this.product[i].subTotal - this.exchange_price;
     }
     this.apiService.callPostApi('orederTracking',
       { user_id: localStorage.getItem('email'), order: this.product }).subscribe(res => {
@@ -353,6 +393,7 @@ export class HomeComponent implements OnInit {
   clearvalue() {
     this.product = [];
     this.total = 0;
+    this.remaining_balance = 0;
   }
   placeOrder() {
     this.max = false;
@@ -360,9 +401,18 @@ export class HomeComponent implements OnInit {
       this.toast.error(" All Fields are Required");
       return false;
     }
-    if (this.product.length > 0 && this.mmaximumCount > this.qty_value) {
+    if(this.payment_mode === '0'){
+      this.toast.error("Payment Mode Required");
+      return false;
+    }
+    if (this.product.length > 0 && this.mmaximumCount >= this.qty_value) {
       this.currentCustomerName = this.customer_name;
       this.currentCustomerPhone = this.customer_phone;
+      for (let i = 0; i < this.product.length; i++) {
+        this.product[i].cgst = this.cgst;
+        this.product[i].sgst = this.sgst;
+      }
+      var bill_id  =  Math.random().toString(36).substring(7);
       this.apiService.callPostApi('confirmOrder', {
         user_id: localStorage.getItem('email'),
         product: this.product,
@@ -371,13 +421,20 @@ export class HomeComponent implements OnInit {
         customer_email: this.customer_email,
         customer_phone: this.customer_phone,
         payment_mode: this.payment_mode,
-        total_amount: this.total
+        total_amount: this.total,
+        cgst: parseInt(this.cgst),
+        sgst: parseInt(this.sgst) ,
+        exchange:this.exchange_price,
+        bill_id : bill_id
       }).subscribe(res => {
         this.bill_id = res.response;
         if (res.statusCode == 200) {
           this.toast.success("Order Placed Successfully");
           this.payment_mode = "0";
+          this.exchange_price = 0;
+          this.bill_type = "normal";
           setTimeout(() => {
+
             this.print();
             this.clearvalue();
             this.i = 0;
@@ -399,6 +456,7 @@ export class HomeComponent implements OnInit {
     this.i = 0;
     this.max = true;
     this.Model = '0';
+    this.total = 0;
     this.products = [];
     this.qty_value = '0';
     this.discounted_price = 0;
@@ -408,6 +466,7 @@ export class HomeComponent implements OnInit {
     this.customer_name='';
     this.customer_email=''; 
     this.customer_phone='';
+    this.total = 0;
     this.payment_mode='';
     this.exchange_price = 0;
     this.remaining_balance = 0;

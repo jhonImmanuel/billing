@@ -1,12 +1,10 @@
-
-
 <div class="sidebar" data-color="purple" data-background-color="white" data-image="../assets/img/sidebar-1.jpg">
   <!--
     Tip 1: You can change the color of the sidebar using: data-color="purple | azure | green | orange | danger"
 
     Tip 2: you can also add an image using data-image tag
   -->
-  <div class="logo">
+  <div class="logo" style="background-color: white">
     <a href="javascript:void();" class="simple-text logo-normal">
      Chrono
    </a>
@@ -19,20 +17,34 @@
         <p>Dashboard</p>
       </a>
     </li>
-    <li class="nav-item" *ngIf="user === 'Sub Admin' || user ==='non_gst_admin'" [routerLinkActive]="['active']">
+    <li class="nav-item" *ngIf="user === 'Sub Admin' || user ==='non_gst_admin'" [routerLinkActive]="['active']" >
       <a class="nav-link" [routerLink]="['order']">
         <i class="material-icons">assignment</i>
         <p>Place Orders</p>
       </a>
     </li>
-    <li class="nav-item "  [routerLinkActive]="['active']">
+    <!-- <li class="nav-item "  [routerLinkActive]="['active']">
       <a class="nav-link" [routerLink]="['brands']">
         <i class="material-icons">extension</i>
         <p>List Brands</p>
       </a>
+    </li> -->
+
+    <li class="nav-item " [routerLinkActive]="['active']">
+        <a class="nav-link" [routerLink]="['adding']">
+          <i class="material-icons">add_shopping_cart</i>
+          <p>Adding</p>
+        </a>
     </li>
 
     <li class="nav-item " [routerLinkActive]="['active']">
+        <a class="nav-link" [routerLink]="['listing']">
+          <i class="material-icons">list_alt</i>
+          <p>Listing</p>
+        </a>
+    </li>
+
+    <!-- <li class="nav-item " [routerLinkActive]="['active']">
       <a class="nav-link" [routerLink]="['addbrands']">
         <i class="material-icons">add_shopping_cart</i>
         <p>Add Brand</p>
@@ -44,19 +56,19 @@
         <i class="material-icons">add_shopping_cart</i>
         <p>Add Product</p>
       </a>
-    </li>
-    <li class="nav-item " [routerLinkActive]="['active']">
+    </li> -->
+    <!-- <li class="nav-item " [routerLinkActive]="['active']">
       <a class="nav-link" [routerLink]="['products']">
         <i class="material-icons">mobile_friendly</i>
         <p>List Mobiles</p>
       </a>
-    </li>
-    <li class="nav-item "  [routerLinkActive]="['active']">
+    </li> -->
+    <!-- <li class="nav-item "  [routerLinkActive]="['active']">
         <a class="nav-link" [routerLink]="['accessories']">
           <i class="material-icons">extension</i>
           <p>List Accessories</p>
         </a>
-      </li>
+      </li> -->
     <li class="nav-item " [routerLinkActive]="['active']" *ngIf="user === 'Super Admin'">
       <a class="nav-link" [routerLink]="['confirmorders']" >
         <i class="material-icons">star</i>
@@ -64,11 +76,23 @@
       </a>
     </li>
     <li class="nav-item " [routerLinkActive]="['active']" *ngIf="user === 'Sub Admin' || user==='non_gst_admin'">
-      <a class="nav-link" [routerLink]="['confirmorders']" >
+      <a class="nav-link" [routerLink]="['productOrders']" >
         <i class="material-icons">star</i>
-        <p>Orders</p>
+        <p>Product Orders</p>
       </a>
     </li>
+    <li class="nav-item " class="nav-item "  [routerLinkActive]="['active']">
+        <a class="nav-link" [routerLink]="['servicelist']">
+          <i class="material-icons">find_replace</i>
+          <p>Service Orders</p>
+        </a>
+      </li>
+    <!-- <li class="nav-item " [routerLinkActive]="['active']" *ngIf="user === 'Sub Admin' || user==='non_gst_admin'">
+      <a class="nav-link" [routerLink]="['confirmorderstoday']" >
+        <i class="material-icons">star</i>
+        <p>Today's Orders</p>
+      </a>
+    </li> -->
     <!-- <li class="nav-item " class="nav-item " *ngIf="user === 'Super Admin'" [routerLinkActive]="['active']">
       <a class="nav-link" [routerLink]="['pendingorders']">
         <i class="material-icons">star_half</i>
@@ -106,6 +130,12 @@
         <p>List Shops</p>
       </a>
     </li> -->
+    <li class="nav-item " *ngIf="user === 'Sub Admin' || 'non_gst_admin'" [routerLinkActive]="['active']">
+        <a class="nav-link" [routerLink]="['getTodaysSell']">
+          <i class="material-icons">report</i>
+          <p>Reports</p>
+        </a>
+      </li> 
 
     <li class="nav-item " class="nav-item "  [routerLinkActive]="['active']">
       <a class="nav-link" [routerLink]="['barcode']">
@@ -120,22 +150,25 @@
             <p>Settings</p>
           </a>
         </li>
-        <li class="nav-item " class="nav-item "  [routerLinkActive]="['active']">
+        <!-- <li class="nav-item " class="nav-item "  [routerLinkActive]="['active']">
         <a class="nav-link" [routerLink]="['service']">
             <i class="material-icons">find_replace</i>
             <p>Service</p>
           </a>
-        </li>
-      <li class="nav-item " class="nav-item "  [routerLinkActive]="['active']">
-      <a class="nav-link" [routerLink]="['servicelist']">
-          <i class="material-icons">find_replace</i>
-          <p>service List</p>
-        </a>
-      </li>
-     <li class="nav-item " *ngIf="user === 'Sub Admin' || 'non_gst_admin'" [routerLinkActive]="['active']">
-      <a class="nav-link" [routerLink]="['getTodaysSell']">
+        </li> -->
+
+
+     <!-- <li class="nav-item " *ngIf="user === 'Sub Admin' || 'non_gst_admin'" [routerLinkActive]="['active']">
+      <a class="nav-link" [routerLink]="['reportslist']">
         <i class="material-icons">report</i>
-        <p>Report</p>
+        <p>Report List</p>
+      </a>
+    </li>   -->
+
+    <li class="nav-item " *ngIf="user === 'Sub Admin' || 'non_gst_admin'" [routerLinkActive]="['active']">
+      <a class="nav-link" [routerLink]="['mail']">
+        <i class="material-icons">mail</i>
+        <p>Send Mail</p>
       </a>
     </li> 
     <li class="nav-item ">

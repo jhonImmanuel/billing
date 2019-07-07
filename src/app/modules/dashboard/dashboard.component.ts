@@ -28,6 +28,12 @@ export class DashboardComponent implements OnInit, OnDestroy {
   xaxis:any;
   xaxis1:any;
   totalTransaction:any;
+  mobiles_sold:any;
+  accessories_sold:any;
+  services_completed:any;
+  mobile_sales:any;
+  accessories_sales:any;
+  services_sales:any;
   totalTransaction1:any;
   constructor(private apiService: ApiService,
     private authService: AuthService) { }
@@ -35,9 +41,10 @@ export class DashboardComponent implements OnInit, OnDestroy {
   ngOnInit() {
     this.chartType = 'month';
     this.getCounts();
-
+    this.getSales();
     this.getTransactionData();
     this.getTransactionDataAccessories();
+    this.getTransactionDataService();
     this.apiService.callPostApi('getSettingValue', { setting_name: 'opening_balance' }).subscribe(res => {
       this.opening_balance = res.opening_balance;
     }, error => {
@@ -55,9 +62,24 @@ export class DashboardComponent implements OnInit, OnDestroy {
       }
     }, 3000);
   }
+  getSales(){
+    this.apiService.callGetApi('getProducts/sales').subscribe(res => {
+      this.mobiles_sold = res.productSales.mobile_count;
+      this.accessories_sold = res.productSales.accesssories_count;
+      this.services_completed = res.productSales.service_count;
+      this.mobile_sales = res.productSales.mobile_sales;
+      this.accessories_sales = res.productSales.accessories_sales;
+      this.services_sales = res.productSales.service_sales;
+    }, error => {
+      if (error.status === 401) {
+        this.authService.logout();
+      }
+    });
+  }
   changeType(){
     this.getTransactionData();
     this.getTransactionDataAccessories();
+    this.getTransactionDataService();
   }
   getTransactionData(){
     this.apiService.callPostApi('transactions/count', { type: this.chartType,product_type :'phone' }).subscribe(res => {
@@ -71,12 +93,22 @@ export class DashboardComponent implements OnInit, OnDestroy {
   }
 
   getRevenueData(){
-    this.apiService.callPostApi('total/revenue', { type: 'month',product_type :'phone' }).subscribe(res => {
+    this.apiService.callPostApi('total/revenue', { type: this.chartType,product_type :'phone' }).subscribe(res => {
       this.revenueData = res.totalRevenue;
       this.xaxis = this.chartData.map(transaction => transaction['xaxis']);
       this.totalTransaction = this.chartData.map(transaction => transaction['transactions']);
       this.totalRevenue = this.revenueData && this.revenueData.map(price => price['totalRevenue']);
       this.generateChart(this.xaxis,this.totalTransaction,this.totalRevenue);
+    }, error => {
+      if (error.status === 401) {
+        this.authService.logout();
+      }
+    });
+  }
+  getTransactionDataService(){
+    this.apiService.callPostApi('transactions/count/service', { type: this.chartType,product_type :'service' }).subscribe(res => {
+      this.chartData1 = res.totalTransaction;
+      this.getRevenueDataService()
     }, error => {
       if (error.status === 401) {
         this.authService.logout();
@@ -94,8 +126,21 @@ export class DashboardComponent implements OnInit, OnDestroy {
     });
   }
 
+   getRevenueDataService(){
+    this.apiService.callPostApi('total/revenue/service', { type:this.chartType,product_type :'service' }).subscribe(res => {
+      this.revenueData1 = res.totalRevenue;
+      this.xaxis1 = this.chartData1.map(transaction => transaction['xaxis']);
+      this.totalTransaction1 = this.chartData1.map(transaction => transaction['transactions']);
+      this.totalRevenue1 = this.revenueData1 && this.revenueData1.map(price => price['totalRevenue']);
+      this.generateChartService(this.xaxis1,this.totalTransaction1,this.totalRevenue1);
+    }, error => {
+      if (error.status === 401) {
+        this.authService.logout();
+      }
+    });
+  }
   getRevenueDataAccessories(){
-    this.apiService.callPostApi('total/revenue', { type: 'month',product_type :'accessories' }).subscribe(res => {
+    this.apiService.callPostApi('total/revenue', { type:this.chartType,product_type :'accessories' }).subscribe(res => {
       this.revenueData1 = res.totalRevenue;
       this.xaxis1 = this.chartData1.map(transaction => transaction['xaxis']);
       this.totalTransaction1 = this.chartData1.map(transaction => transaction['transactions']);
@@ -113,6 +158,81 @@ export class DashboardComponent implements OnInit, OnDestroy {
    data2.unshift('Total Amount');
     let chart = c3.generate({
     bindto: '#accessories',
+    axis: {
+      x: {
+        type: "category",
+        padding: {
+          left: 0,
+          right: 0
+        },
+        label: {
+          text: "",
+          position: "outer-center"
+        }
+      },
+      y: {
+        label: {
+          text: "",
+          position: "outer-middle"
+        }
+      }
+    },
+    data: {
+      x: "x",
+      columns: [
+        xaxis,
+        data1,
+        data2
+      ],
+      type: 'bar',
+      },
+      
+      bar: {
+        space: 0.25
+    }
+    });
+    let accessories = c3.generate({
+      bindto: '#accessories',
+      axis: {
+        x: {
+          type: "category",
+          padding: {
+            left: 0,
+            right: 0
+          },
+          label: {
+            text: "",
+            position: "outer-center"
+          }
+        },
+        y: {
+          label: {
+            text: "",
+            position: "outer-middle"
+          }
+        }
+      },
+      data: {
+        x: "x",
+        columns: [
+          xaxis,
+          data1,
+          data2
+        ],
+        type: 'bar',
+        },
+        
+        bar: {
+          space: 0.25
+      }
+      });
+  }
+  generateChartService(xaxis,data1,data2){
+   xaxis.unshift("x");
+   data1.unshift("Total Transaction");
+   data2.unshift('Total Amount');
+    let chart = c3.generate({
+    bindto: '#service',
     axis: {
       x: {
         type: "category",

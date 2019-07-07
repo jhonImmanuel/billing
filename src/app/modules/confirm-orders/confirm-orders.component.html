@@ -3,9 +3,9 @@
   <nav class="navbar navbar-expand-lg navbar-transparent navbar-absolute fixed-top ">
     <div class="container-fluid">
       <div class="navbar-wrapper">
-        <a class="navbar-brand" >Confirmed Orders</a>
+        <a class="navbar-brand"><i routerLink="/productOrders" class="fa fa-arrow-left" style="font-size:20px;cursor: pointer;"></i> Back&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Confirmed Orders</a>
       </div>
-      <button class="navbar-toggler" type="button" (click)="openMenu()" data-toggle="collapse" aria-controls="navigation-index"
+      <button class="navbar-toggler tog" type="button" (click)="openMenu()" data-toggle="collapse" aria-controls="navigation-index"
       aria-expanded="false" aria-label="Toggle navigation">
       <span class="sr-only">Toggle navigation</span>
       <span class="navbar-toggler-icon icon-bar"></span>
@@ -24,206 +24,76 @@
             <p class="card-category"> Here is a confirmed orders by users</p>
           </div>
           <div class="card-body">
+          <div class="col-md-6" *ngIf = "router.url === '/confirmorders'">
+            Filter 
+             <select name="admin" [(ngModel)]="orderType" (change)="changeType('dropdown')">
+                <option value='select'>--Select--</option>
+                <option value="week">Week</option>
+                <option value="month">Month</option>
+                <option value="year">Year</option>
+                <option value="custom">Custom</option>
+             </select>
+             <input *ngIf = "orderType === 'custom'"  (datesUpdated) = "changeDate()" type="text" ngxDaterangepickerMd startKey="start" endKey="end" 
+              [locale]="{applyLabel: 'ok', format: 'DD-MM-YYYY'}"
+             [(ngModel)]="dateRangeFilter">
+             <button name="filter" class = "btn btn-info" (click) = "filterRecords()">Filter</button>
+              <button name="filter" class = "btn btn-danger" (click) = "reset()">Reset</button>
+           </div>
             <div class="table-responsive">
               <table class="table table-hover">
                 <thead class="">
                   <tr>
-                  <th>
+                  <th style="width:150px;">
                     S. No.
                   </th>
-                  <th>
-                      User
-                    </th>
-                  <th>
-                     Brand
-                  </th>
-                  <th>
-                     Model
-                  </th>
-                  <th>
-                       Type
-                    </th>
-                  <th>
+                  <th style="width:200px">
+                    Bill Id
+                  </th >
+                  <th style="width:200px">
                      Quantity
                   </th>
-                  <th>
-                    Price (per unit)
-                  </th>
-                  <th>
+                  <th style="width:150px;text-align: right  ">
                    Total Amount
                   </th>
-                  <th>
+                  <th style="text-align: center">
                     View Bill
                    </th>
                 </tr></thead>
                 <tbody>
                   <tr *ngFor="let user of Orders| paginate: { itemsPerPage: 10, currentPage: p }; index as i;">
-                    <td>
+                    <td style="padding: 0px 0px 0px 25px">
                       {{(i+1) + ((p-1) * 10)}}
                     </td>
                     <td>
-                        {{user.user_id}}
+                      {{user.bill_id}}
                     </td>
-                    <td>
-                        {{user.product_brand}}
-                      </td>
-                    <td>
-                      {{user.product_model}}
-                    </td>
-                    <td>
-                      {{user.product_type}}
-                    </td>
-                    <td>
+                    <td  style="padding: 0px 0px 0px 25px">
                       {{user.totalcount}}
                     </td>
-                    <td>
-                      {{ user.amount / user.totalcount | number : '1.2-2'}}
+                    <td  style="text-align: right">
+                      {{user.total_amount}}
                     </td>
-                    <td>
-                      {{user.amount}}
-                    </td>
-                    <td>
-                      <span >
+                    <td style="text-align: center">
+                     <!--  <span >
                         <a (click)="printBill(i)" style="cursor: pointer;">
                         <i style="font-size: medium;"class="material-icons">print</i>
                         </a>
-                    </span> 
+                    </span>  -->
+                     <span  class="mat-button-wrapper"><i (click)="openDialogOrders(i)" style="font-size: medium;"
+                            class="material-icons">visibility</i>
+                      </span> 
                     </td>
                   </tr>
-                  <pagination-controls (pageChange)="p = $event"></pagination-controls>
+                
                 </tbody>
+               
               </table>
+              <pagination-controls (pageChange)="p = $event"></pagination-controls>
             </div>
           </div>
         </div>
       </div>
     </div>
-  </div>
-</div>
-<div id="componentID" style="display: none">
-  <div class="row" style="text-align: center;">
-      <h3 style="text-align: center; width: 100%">Nusaiba Mobiles Private Limited</h3>
-      <small>No,344,MIG 80 feet Road,Anna Nagar Madurai.</small>
-  </div>
-  <div class="row" style="text-align: center;">
-      GSTIN: 5421789
-  </div>
-  <div class="row">
-      ---------------------------------------------------------------------------------------
-  </div>
-  <!-- <div class="row">
-      Bill No.: 1
-  </div>
-  <div class="row">
-      21/5/2019
-  </div> -->
-  <table style="border-style: dashed;">
-      <tr>
-          <td colspan="4" style="text-align:center;text-decoration-line:underline;text-decoration-style: dashed;">Tax Invoice Cum Delivery Challan</td>
-      </tr>
-      <tr>
-          <td>No of Invoice : {{this.bill_id}}<br>Date and Time of Invoice :{{dateTime}}<br>State:TamilNadu<br>Branch Address:No,344,<br/>MIG 80 feet Road,<br/>Anna Nagar Madurai.</td>
-          <td></td>
-          <td></td>
-          <td></td>
-          <td></td>
-          <td style="display: block;float:right;">Original For Receipient<br>Duplicate For Transpoter<br>Triplicate For Seller<br><br>Invoice Time<br>Sales Person: Admin<br>Branch Contact number</td>
-      </tr>
-      <tr>
-          <td colspan="7">
-              -------------------------------------------------------------------------------------
-          </td>
-      </tr>
-      <tr>
-          <td>TO</td>
-      </tr>
-      <tr>
-          <td colspan="1" style="padding-left:2.5em">{{currentCustomerName}}, {{currentCustomerPhone}}</td>
-      </tr>
-      <tr>
-          <td> </td>
-          <td></td>
-          <td></td>
-          <td></td>
-      </tr>
-  </table>
-
-  <table border="1px" class="productsTable">
-      <tr>
-          <td>S No</td>
-          <td>Product Name</td>
-          <td>Quantity</td>
-          <td>SGST</td>
-          <td>CGST</td>
-          <td>Discount</td>
-          <td>Amount</td>
-      </tr>
-      <tr  *ngFor="let user of product| paginate: { itemsPerPage: 10, currentPage: p }; index as i;">
-          <td>1</td>
-          <td>{{user.product_brand}} - <br> {{user.product_model}}</td>
-          <td>{{user.product_quantity}}</td>
-          <td>-</td>
-          <td>-</td>
-          <td>{{user.discount}}</td>
-          <td>{{user.total_amount | number : '1.2-2'}}</td>
-      </tr>
-      <tr>
-      </tr>
-      <tr>
-          <td></td>
-          <td></td>
-          <td></td>
-          <td></td>
-          <td></td>
-          <td style="font-weight: bolder">Total</td>
-          <td>{{ total }}</td>
-      </tr>
-  </table>
-  <table style="border-style: dashed;">
-      <tr>
-          <td>Terms & Conditions</td>
-          <td></td>
-          <td></td>
-          <td></td>
-          <td></td>
-          <td></td>
-      </tr>
-      <tr>
-          <td colspan="7">
-              -------------------------------------------------------------------------------------
-          </td>
-      </tr>
-      <tr>
-          <td></td>
-      </tr>
-      <tr height="100">
-          <td colspan="1" style="padding-left:2.5em;" valign="bottom">Receiver's Signature</td>
-          <td></td>
-          <td></td>
-          <td></td>
-          <td></td>
-          <td></td>
-          <td style="padding-right:2.5em;" valign="bottom">Authorised Seal & Signatory</td>
-      </tr>
-      <tr>
-          <td> </td>
-          <td></td>
-          <td></td>
-          <td></td>
-      </tr>
-  </table>
-  <!-- <div class="row">
-      Quantity: {{product.length}}
-  </div>
-  <div class="row">
-      Bill: {{total}}
-  </div>
-  <div class="row">
-      Paid: {{total}}
-  </div> -->
-  <div class="row">
-      <h4 style="text-align: center;">Thank you</h4>
-      <h6 style="text-align: center;">Visit again</h6>
   </div>
 </div>
 </div>

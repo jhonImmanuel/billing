@@ -1,7 +1,9 @@
 header, main, footer {
   padding-left: 240px;
 }
-
+.sidebar-wrapper{
+  background:white;
+}
 @media only screen and (max-width : 992px) {
   header, main, footer {
     padding-left: 0;

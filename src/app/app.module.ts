@@ -20,7 +20,7 @@ import { AutoCompleteModule } from 'ng4-auto-complete';
 import { AddShopComponent } from './modules/add-shop/add-shop.component';
 import { ProductsComponent, DialogOverviewExampleDialog } from './modules/products/products.component';
 import { PendingOrdersComponent } from './modules/pending-orders/pending-orders.component';
-import { ConfirmOrdersComponent } from './modules/confirm-orders/confirm-orders.component';
+import { ConfirmOrdersComponent,ConfirmOrdersDialog } from './modules/confirm-orders/confirm-orders.component';
 import { UsersComponent, Dialog } from './modules/users/users.component';
 import {NgxPaginationModule} from 'ngx-pagination';
 import { ShopsComponent, DialogOverviewDialog } from './modules/shops/shops.component';
@@ -37,7 +37,14 @@ import { BrandsListComponent,BrandDialog } from './modules/brands-list/brands-li
 import { AddBrandsComponent } from './modules/add-brands/add-brands.component';
 import { GenerateImeiComponent } from './modules/generate-imei/generate-imei.component';
 import { ServiceAddComponent } from './modules/service-add/service-add.component';
-import { ServiceListComponent } from './modules/service-list/service-list.component';
+import { ServiceListComponent,ServiceDialog } from './modules/service-list/service-list.component';
+import { NgxDaterangepickerMd } from 'ngx-daterangepicker-material';
+import { ReportsListComponent } from './modules/reports-list/reports-list.component';
+import { PushMailComponent } from './modules/push-mail/push-mail.component';
+import { OrderCategoryComponent } from './order-category/order-category.component';
+import { AddingComponent } from './adding/adding.component';
+import { ListingComponent } from './listing/listing.component';
+import { ProductOrdersComponent } from './product-orders/product-orders.component';
 
 
 @NgModule({
@@ -51,9 +58,11 @@ import { ServiceListComponent } from './modules/service-list/service-list.compon
     ProductsComponent,
     DialogOverviewExampleDialog,
     DialogOverviewExampleDialog1,
+    ServiceDialog,
     BrandDialog,
     PendingOrdersComponent,
     ConfirmOrdersComponent,
+    ConfirmOrdersDialog,
     UsersComponent,
     Dialog,
     AccessoriesDialog,
@@ -71,7 +80,13 @@ import { ServiceListComponent } from './modules/service-list/service-list.compon
     GenerateImeiComponent,
     ServiceAddComponent,
     ServiceListComponent,
-    GenerateReportDialog
+    GenerateReportDialog,
+    ReportsListComponent,
+    PushMailComponent,
+    OrderCategoryComponent,
+    AddingComponent,
+    ListingComponent,
+    ProductOrdersComponent
   ],
   imports: [
     AppRoutingModule,
@@ -91,8 +106,10 @@ import { ServiceListComponent } from './modules/service-list/service-list.compon
     SharedModule,
     NgxBarcodeModule,
     SuiModule,
+    NgxDaterangepickerMd.forRoot()
+
   ],
-  entryComponents: [DialogOverviewExampleDialog,DialogOverviewExampleDialog1, DialogOverviewDialog, Dialog,AccessoriesDialog, BrandDialog,GenerateReportDialog],
+  entryComponents: [DialogOverviewExampleDialog,DialogOverviewExampleDialog1, DialogOverviewDialog, Dialog,AccessoriesDialog, BrandDialog,GenerateReportDialog,ConfirmOrdersDialog,ServiceDialog],
   exports: [
     AppRoutingModule,
   ],

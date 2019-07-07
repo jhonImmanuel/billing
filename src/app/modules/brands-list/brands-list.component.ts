@@ -86,6 +86,9 @@ export class BrandsListComponent implements OnInit {
       });
     }
   }
+  openMenu() {
+    document.getElementsByTagName('html')[0].classList.toggle('nav-open');
+  }
 }
 @Component({
   selector: 'brand-dialog',

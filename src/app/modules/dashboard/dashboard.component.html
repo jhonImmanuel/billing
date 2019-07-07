@@ -6,7 +6,7 @@
         <a class="navbar-brand" >Dashboard</a>
       </div>
      
-      <button class="navbar-toggler" type="button" (click)="openMenu()" data-toggle="collapse" aria-controls="navigation-index"
+      <button class="navbar-toggler tog" type="button" (click)="openMenu()" data-toggle="collapse" aria-controls="navigation-index"
       aria-expanded="false" aria-label="Toggle navigation">
       <span class="sr-only">Toggle navigation</span>
       <span class="navbar-toggler-icon icon-bar"></span>
@@ -18,7 +18,7 @@
 <div class="content">
   <div class="container-fluid">
     <div class="row">
-      <div class="col-lg-4 col-md-6 col-sm-6" *ngIf="role === 'Super Admin'">
+      <!-- <div class="col-lg-4 col-md-6 col-sm-6" *ngIf="role === 'Super Admin'">
         <div class="card card-stats">
           <div class="card-header card-header-info card-header-icon">
             <div class="card-icon" style="background: linear-gradient(60deg, #1f48ff, #fd9811);">
@@ -33,7 +33,7 @@
             </div>
           </div>
         </div>
-      </div>
+      </div> -->
 
 
       <div class="col-lg-4 col-md-6 col-sm-6" *ngIf="role === 'Super Admin'">
@@ -60,7 +60,7 @@
               <i class="material-icons">money</i>
             </div>
             <p class="card-category">Closing Balance</p>
-            <h3 class="card-title">₹ {{opening_balance}}</h3>
+            <h3 class="card-title">₹ {{opening_balance | number: '1.0-2'}}</h3>
           </div>
           <div class="card-footer">
             <div class="stats">
@@ -71,14 +71,14 @@
       </div>
 
 
-        <div class="col-lg-4 col-md-6 col-sm-6" *ngIf="role === 'Super Admin'">
+        <!-- <div class="col-lg-4 col-md-6 col-sm-6" *ngIf="role === 'Super Admin'">
           <div class="card card-stats">
             <div class="card-header card-header-info card-header-icon">
               <div class="card-icon">
                 <i class="material-icons">store</i>
               </div>
               <p class="card-category">Today's Revenue</p>
-              <h3 class="card-title">₹ {{counter?.todayRevenue}}</h3>
+              <h3 class="card-title">₹ {{counter?.todayRevenue | number: '1.0-2'}}</h3>
             </div>
             <div class="card-footer">
               <div class="stats">
@@ -86,7 +86,7 @@
               </div>
             </div>
           </div>
-        </div>
+        </div> -->
 
         <div class="col-lg-4 col-md-6 col-sm-6" *ngIf="role === 'Super Admin'">
           <div class="card card-stats">
@@ -95,7 +95,7 @@
                 <i class="material-icons">account_balance_wallet</i>
               </div>
               <p class="card-category">Total Amount of  Cash Sales </p>
-              <h3 class="card-title">₹ {{counter?.cash}}</h3>
+              <h3 class="card-title">₹ {{counter?.cash | number: '1.0-2'}}</h3>
             </div>
             <div class="card-footer">
                 <div class="stats">
@@ -113,7 +113,7 @@
                   <i class="material-icons">credit_card</i>
                 </div>
                 <p class="card-category">Total Amount of  Card Sales </p>
-                <h3 class="card-title">₹ {{counter?.card}}</h3>
+                <h3 class="card-title">₹ {{counter?.card | number: '1.0-2'}}</h3>
               </div>
               <div class="card-footer">
                   <div class="stats">
@@ -131,7 +131,7 @@
                     <i class="material-icons">phonelink_ring</i>
                   </div>
                   <p class="card-category">Total Amount of  Patym Sales </p>
-                  <h3 class="card-title">₹ {{counter?.paytm}}</h3>
+                  <h3 class="card-title">₹ {{counter?.paytm | number: '1.0-2'}}</h3>
                 </div>
                 <div class="card-footer">
                     <div class="stats">
@@ -148,7 +148,7 @@
                       <i class="material-icons">monetization_on</i>
                     </div>
                     <p class="card-category">Total Amount of  Google Pay </p>
-                    <h3 class="card-title">₹ {{counter?.google_pay}}</h3>
+                    <h3 class="card-title">₹ {{counter?.google_pay | number: '1.0-2'}}</h3>
                   </div>
                   <div class="card-footer">
                       <div class="stats">
@@ -158,7 +158,7 @@
                 </div>
               </div>
 
-        
+        <!-- 
         <div class="col-lg-4 col-md-6 col-sm-6" *ngIf="role === 'Super Admin'">
           <div class="card card-stats">
             <div class="card-header card-header-success card-header-icon">
@@ -166,7 +166,7 @@
                 <i class="material-icons">assignment</i>
               </div>
               <p class="card-category">Confirmed Orders</p>
-              <h3 class="card-title">{{ counter?.orderCount }}</h3>
+              <h3 class="card-title">{{ counter?.orderCount | number: '1.0-0' }}</h3>
             </div>
             <div class="card-footer">
               <div class="stats">
@@ -174,7 +174,7 @@
               </div>
             </div>
           </div>
-        </div>
+        </div> -->
 
         <div class="col-lg-4 col-md-6 col-sm-6" *ngIf="role === 'Sub Admin'">
           <div class="card card-stats">
@@ -199,7 +199,7 @@
                 <i class="material-icons">store</i>
               </div>
               <p class="card-category">Today's Revenue</p>
-              <h3 class="card-title">₹ {{counter?.todayRevenue}}</h3>
+              <h3 class="card-title">₹ {{todayRevenue | number: '1.0-2'}}</h3>
             </div>
             <div class="card-footer">
               <div class="stats">
@@ -224,6 +224,110 @@
             </div>
           </div>
         </div>
+
+        <div class="col-lg-4 col-md-6 col-sm-6"  >
+        <div class="card card-stats">
+          <div class="card-header card-header-info card-header-icon">
+            <div class="card-icon">
+              <i class="material-icons">mobile_friendly</i>
+            </div>
+            <p class="card-category">Mobiles Sold (count)</p>
+            <h3 class="card-title"> {{mobiles_sold}}</h3>
+          </div>
+          <div class="card-footer">
+            <div class="stats">
+              <i class="material-icons">date_range</i> Last 24 Hours
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div class="col-lg-4 col-md-6 col-sm-6"  >
+        <div class="card card-stats">
+          <div class="card-header card-header-info card-header-icon">
+            <div class="card-icon">
+              <i class="material-icons">accessibility</i>
+            </div>
+            <p class="card-category">Accessories Sold (count)</p>
+            <h3 class="card-title"> {{accessories_sold}}</h3>
+          </div>
+          <div class="card-footer">
+            <div class="stats">
+              <i class="material-icons">date_range</i> Last 24 Hours
+            </div>
+          </div>
+        </div>
+      </div>
+
+       <div class="col-lg-4 col-md-6 col-sm-6" >
+        <div class="card card-stats">
+          <div class="card-header card-header-info card-header-icon">
+            <div class="card-icon">
+              <i class="material-icons">settings_applications</i>
+            </div>
+            <p class="card-category">Services completed (count)</p>
+            <h3 class="card-title"> {{services_completed}}</h3>
+          </div>
+          <div class="card-footer">
+            <div class="stats">
+              <i class="material-icons">date_range</i> Last 24 Hours
+            </div>
+          </div>
+        </div>
+      </div>
+
+       <div class="col-lg-4 col-md-6 col-sm-6" >
+        <div class="card card-stats">
+          <div class="card-header card-header-info card-header-icon">
+            <div class="card-icon">
+              <i class="material-icons">mobile_screen_share</i>
+            </div>
+            <p class="card-category">Mobile Sale</p>
+            <h3 class="card-title">₹ {{mobile_sales}}</h3>
+          </div>
+          <div class="card-footer">
+            <div class="stats">
+              <i class="material-icons">date_range</i> Last 24 Hours
+            </div>
+          </div>
+        </div>
+      </div>
+
+   <div class="col-lg-4 col-md-6 col-sm-6" >
+        <div class="card card-stats">
+          <div class="card-header card-header-info card-header-icon">
+            <div class="card-icon">
+              <i class="material-icons">accessibility_new</i>
+            </div>
+            <p class="card-category">Accessories Sale</p>
+            <h3 class="card-title">₹ {{accessories_sales}}</h3>
+          </div>
+          <div class="card-footer">
+            <div class="stats">
+              <i class="material-icons">date_range</i> Last 24 Hours
+            </div>
+          </div>
+        </div>
+      </div>
+
+  <div class="col-lg-4 col-md-6 col-sm-6"  >
+        <div class="card card-stats">
+          <div class="card-header card-header-info card-header-icon">
+            <div class="card-icon">
+              <i class="material-icons">settings_backup_restore</i>
+            </div>
+            <p class="card-category">Services Sales</p>
+            <h3 class="card-title">₹ {{services_sales}}</h3>
+          </div>
+          <div class="card-footer">
+            <div class="stats">
+              <i class="material-icons">date_range</i> Last 24 Hours
+            </div>
+          </div>
+        </div>
+      </div>
+
+
       </div>
       <div class="row">
       </div>
@@ -244,6 +348,8 @@
       <div id="chart"></div>
       <h3>Accessories</h3>
       <div id="accessories"></div>
+      <h3>Service</h3>
+      <div id="service"></div>
       <div class="row" style="justify-content: flex-end;" *ngIf="role === 'Super Admin'">
         <div class="col-md-3"></div>
         <div class="col-md-6">

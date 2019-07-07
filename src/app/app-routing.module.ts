@@ -21,11 +21,22 @@ import {AddBrandsComponent} from './modules/add-brands/add-brands.component';
 import {GenerateImeiComponent} from './modules/generate-imei/generate-imei.component';
 import {ServiceAddComponent} from './modules/service-add/service-add.component';
 import {ServiceListComponent} from './modules/service-list/service-list.component';
+import {ReportsListComponent} from'./modules/reports-list/reports-list.component';
+import {PushMailComponent} from'./modules/push-mail/push-mail.component';
+import { OrderCategoryComponent } from './order-category/order-category.component';
+import { AddingComponent } from './adding/adding.component';
+import { ListingComponent } from './listing/listing.component';
+import { ProductOrdersComponent } from './product-orders/product-orders.component';
 
 const routes: Routes = [
   { path: '', component: LoginComponent },
   { path: 'home', component: DashboardComponent },
-  { path: 'order', component: HomeComponent },
+  // { path: 'order', component: HomeComponent },
+  { path: 'order', component: OrderCategoryComponent },
+  { path: 'product', component: HomeComponent },
+  { path: 'adding', component: AddingComponent },
+  { path: 'listing', component: ListingComponent },
+  { path: 'productOrders', component: ProductOrdersComponent },
   { path: 'addUser', component: AddUserComponent },
   { path: 'addProduct', component: AddProductComponent },
   { path: 'addbrands', component: AddBrandsComponent },
@@ -35,6 +46,7 @@ const routes: Routes = [
   { path: 'products', component: ProductsComponent },
   { path: 'pendingorders', component: PendingOrdersComponent },
   { path: 'confirmorders', component: ConfirmOrdersComponent },
+  { path: 'confirmorderstoday', component: ConfirmOrdersComponent },
   { path: 'shops', component: ShopsComponent },
   { path: 'orderStatus/:order_type/:order_id', component: OrderStatusComponent},
   { path: 'getTodaysSell', component: GenerateReportComponent },
@@ -43,7 +55,9 @@ const routes: Routes = [
   {path : 'barcode', component:GenerateImeiComponent},
   {path : 'Settings', component:SettingsComponent},
   {path : 'service', component:ServiceAddComponent},
-  {path : 'servicelist', component:ServiceListComponent}
+  {path : 'servicelist', component:ServiceListComponent},
+  {path : 'reportslist', component:ReportsListComponent},
+  {path : 'mail', component:PushMailComponent}
 ];
 
 @NgModule({

@@ -4,9 +4,10 @@
   <nav class="navbar navbar-expand-lg navbar-transparent navbar-absolute fixed-top ">
     <div class="container-fluid">
       <div class="navbar-wrapper">
-        <a class="navbar-brand">Mobiles</a>
+        <a class="navbar-brand"><i routerLink="/listing" class="fa fa-arrow-left" style="font-size:20px;cursor: pointer;"></i>
+          Back&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Mobiles</a>
       </div>
-      <button class="navbar-toggler" type="button" (click)="openMenu()" data-toggle="collapse"
+      <button class="navbar-toggler tog" type="button" (click)="openMenu()" data-toggle="collapse"
         aria-controls="navigation-index" aria-expanded="false" aria-label="Toggle navigation">
         <span class="sr-only">Toggle navigation</span>
         <span class="navbar-toggler-icon icon-bar"></span>
@@ -107,9 +108,10 @@
                         </span>
                       </td>
                     </tr>
-                    <pagination-controls (pageChange)="p = $event"></pagination-controls>
+                    
                   </tbody>
                 </table>
+                <pagination-controls (pageChange)="p = $event"></pagination-controls>
               </div>
             </div>
           </div>

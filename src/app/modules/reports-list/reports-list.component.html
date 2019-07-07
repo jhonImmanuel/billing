@@ -1,0 +1,166 @@
+<div class="main-panel">
+  <!-- Navbar -->
+  <nav class="navbar navbar-expand-lg navbar-transparent navbar-absolute fixed-top ">
+    <div class="container-fluid">
+      <div class="navbar-wrapper">
+        <a class="navbar-brand" >Reports</a>
+      </div>
+      <button class="navbar-toggler" type="button" (click)="openMenu()" data-toggle="collapse" aria-controls="navigation-index"
+      aria-expanded="false" aria-label="Toggle navigation">
+      <span class="sr-only">Toggle navigation</span>
+      <span class="navbar-toggler-icon icon-bar"></span>
+      <span class="navbar-toggler-icon icon-bar"></span>
+      <span class="navbar-toggler-icon icon-bar"></span>
+    </button>
+  </div>
+</nav>
+<div class="content">
+  <div class="container-fluid">
+      <div class="row">
+          <div class="col-md-3"></div>
+          <div class="col-md-6">
+          </div>
+          <div class="col-md-3"></div>
+        </div>
+    <div class="row">
+      <div class="col-md-12">
+        <div class="card card-plain">
+          <div class="card-header card-header-primary">
+            <h4 class="card-title mt-0">Reports  ({{Reports && Reports.length}})</h4>
+            <p class="card-category"> Here is a Reports Day wise List</p>
+          </div>
+          <div class="card-body">
+            <div class="table-responsive">
+              <table class="table table-hover">
+                <thead class="">
+                  <tr>
+                  <th style="width: 50px">
+                    S. No.
+                  </th>
+                  <th>
+                     Report By
+                  </th>
+                  <th>
+                    Date
+                  </th>
+                  <th>
+                    Print
+                  </th>
+                </tr></thead>
+                <tbody>
+                  <tr *ngFor="let user of Reports| paginate: { itemsPerPage: 10, currentPage: p }; index as i;">
+                    <td>
+                      {{(i+1) + ((p-1) * 10)}}
+                    </td>
+                    <td>
+                      {{user.report_by}}
+                    </td>
+                    <td>
+                      {{user.updated_at | date: 'dd/MM/yyyy'}}
+                    </td>
+                    <td> <span >
+                        <a (click)="print(i)" style="cursor: pointer;">
+                        <i style="font-size: medium;"class="material-icons">print</i>
+                        </a>
+                    </span> 
+                    </td>
+                  </tr>
+                  <pagination-controls (pageChange)="p = $event"></pagination-controls>
+                </tbody>
+              </table>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="row">
+        <div class="col-md-2"></div>
+        <div class="col-md-8">
+          <div id="componentID" style="display: none;">
+              <div class="row">
+                <h3 style="text-align: center; width: 100%">Nusaiba Mobiles</h3>
+              </div>
+              <div class="row">
+                <h4 style="text-align: center; width: 100%">GSTIN: {{gstin_no}}</h4>
+              </div>
+              <div class="row">
+               <h4 style="text-align: center; width: 100%">SALE REPORT DAILY</h4>
+              </div>
+              <div class="row">
+                ------------------------------------------
+              </div>
+              <div class="row">
+                {{ myDate | date:'dd-MMM-yyyy hh:mm:ss a' }}
+              </div>
+              <div class="row">
+                  ------------------------------------------
+                </div>
+              <div class="row">
+                  Total quantity: {{ total_qty }}
+              </div>
+              <table>
+                <tr>
+                    <td colspan="4">
+                      ------------------------------------------
+                    </td>
+                </tr>
+                <tr>
+                    <td>S No</td>
+                    <td>NAME</td>
+                    <td>SL.QTY</td>
+                    <td>SL.VALUE</td>
+                </tr>
+                <tr>
+                    <td colspan="4">
+                      ------------------------------------------
+                    </td>
+                </tr>
+                <tr *ngFor="let products of product; let i=index">
+                    <td>{{i+1}}</td>
+                    <td>{{products.product_model}}</td>
+                    <td>{{products.qty}}</td>
+                    <td>{{products.price}}</td>
+                </tr>
+                <tr>
+                    <td colspan="4">
+                      ------------------------------------------
+                    </td>
+                </tr>
+                <tr>
+                    <td></td>
+                    <td style="font-weight: bolder">Total:</td>
+                    <td>{{ total_qty }}</td>
+                    <td>{{ total }}</td>
+                </tr>
+                <tr>
+                    <td colspan="4">
+                      ------------------------------------------
+                    </td>
+                </tr>
+
+                <tr>
+                  <td></td>
+                  <td colspan="4">
+                    Nusaiba Mobiles
+                  </td>
+                </tr>
+                <tr>
+                </tr>
+                <tr>
+                    <td >
+                      Report Generated by
+                      </td>
+                </tr>
+                <tr >
+                  <td colspan="4">
+                      {{ report_by }}
+                  </td>
+                </tr>
+              </table>
+          </div>
+        </div>
+        <div class="col-md-2"></div>
+      </div>
+  </div>
+</div>
+</div>

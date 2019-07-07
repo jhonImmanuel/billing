@@ -3,9 +3,10 @@
   <nav class="navbar navbar-expand-lg navbar-transparent navbar-absolute fixed-top ">
     <div class="container-fluid">
       <div class="navbar-wrapper">
-        <a class="navbar-brand">Add New Service </a>
+        <a class="navbar-brand"><i routerLink="/order" class="fa fa-arrow-left" style="font-size:20px;cursor: pointer;"></i> Back&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Service's Order </a>
+      <!-- <button class="back-button"><i class="fa fa-arrow-left"></i> Back</button>     -->
       </div>
-      <button class="navbar-toggler" type="button" (click)="openMenu()" data-toggle="collapse" aria-controls="navigation-index"
+      <button class="navbar-toggler tog" type="button" (click)="openMenu()" data-toggle="collapse" aria-controls="navigation-index"
         aria-expanded="false" aria-label="Toggle navigation">
         <span class="sr-only">Toggle navigation</span>
         <span class="navbar-toggler-icon icon-bar"></span>
@@ -29,7 +30,7 @@
                   <div class="row">
                     <div class="col-md-8">
                       <div class="form-group">
-                        <label class="bmd-label-floating">Name</label>
+                        <label class="bmd-label-floating">Customer Name</label>
                         <input type="text" id="brand" (keydown)="validate($event)"  name="customerName" [(ngModel)]="service.customerName" #customerName="ngModel" maxlength="25"
                         minlength="3" class="form-control" required autocomplete="off">
                         <small style="color: red" *ngIf="nameError == true">Name Should be valid and more than 3
@@ -42,11 +43,10 @@
                   <div class="row">
                       <div class="col-md-8">
                         <div class="form-group">
-                          <label class="bmd-label-floating">Model</label>
+                          <label class="bmd-label-floating">Email</label>
                           <input type="text" id="model" maxlength="25"
-                          minlength="3"  name="model" (keydown)="validate($event)"  [(ngModel)]="service.model" #model="ngModel" class="form-control" required autocomplete="off">
-                          <small style="color: red" *ngIf="modelError == true">Model Should be valid and more than 3
-                            characters</small>
+                          minlength="3"  name="email" (keydown)="validate($event)"  [(ngModel)]="service.email" #email="ngModel" class="form-control" required autocomplete="off">
+                          <small style="color: red" *ngIf="emailError == true">Email should be valid</small>
                         </div>
                         </div>
                     </div> 
@@ -55,25 +55,54 @@
                   <div class="row">
                     <div class="col-md-8">
                       <div class="form-group">
-                        <label class="bmd-label-floating">Description</label>
+                        <label class="bmd-label-floating">Problem description</label>
                         <input type="text" id="description" name="description" (keydown)="validate($event)"  [(ngModel)]="service.description" #description="ngModel" class="form-control" required autocomplete="off">
                         <small style="color: red" *ngIf="descriptionError == true">Description Should be valid and more than 150
                           characters</small>
                       </div>
                     </div>
                   </div> 
-                   
-                  <div class="row">
+                    <div class="row">
                     <div class="col-md-8">
                       <div class="form-group">
-                        <label class="bmd-label-floating">Price</label>
-                        <input type="text" id="price" name="price" [(ngModel)]="service.price" (keydown)="validate($event)"  #price="ngModel" class="form-control" required autocomplete="off">
-                        <small style="color: red" *ngIf="priceError == true">Price Should be valid
-                          </small>
+                        <label class="bmd-label-floating">Number of changes</label>
+                        <input type="number" min="0" class="form-control" name="changescount"  (keyup) = "onChanageQuantity($event)" [(ngModel)] = "service.count" 
+                                                     autocomplete="off" />
+                        <!-- <small style="color: red" *ngIf="priceError == true">Price Should be valid
+                          </small> -->
                       </div>
                     </div>
                   </div>
-
+                   <div class="row">
+                    <div class="col-md-8">
+                      <div class="form-group" *ngFor="let products of ChargesCount; let i=index">
+                        <label class="bmd-label-floating">chargesDescription</label>
+                        <input type="text" name="chargesDescription" [(ngModel)]="service.charges.chargesDescription[i]"  class="form-control" required autocomplete="off">
+                        <label class="bmd-label-floating">charges</label>
+                        <input type="number" name="charges" [(ngModel)]="service.charges.charges[i]" class="form-control" required autocomplete="off">
+                        <!-- <small style="color: red" *ngIf="priceError == true">Price Should be valid
+                          </small> -->
+                      </div>
+                    </div>
+                  </div>
+                  <div class="row">
+                    <div class="col-md-8">
+                      <div class="form-group">
+                        <label class="bmd-label-floating">SGST</label>
+                        <input type="number" min="0" class="form-control" name="SGST" (keyup)="changeTotal()"
+                                                    placeholder=" " [(ngModel)]="sgst" autocomplete="off" />
+                      </div>
+                    </div>
+                  </div>
+                  <div class="row">
+                    <div class="col-md-8">
+                      <div class="form-group">
+                        <label class="bmd-label-floating">CGST</label>
+                        <input type="number" min="0" class="form-control" name="CGST" (keyup)="changeTotal()"
+                                                    placeholder=" " [(ngModel)]="cgst" autocomplete="off" />
+                      </div>
+                    </div>
+                  </div>
                   <div class="row">
                     <div class="col-md-8">
                       <div class="form-group">
@@ -84,6 +113,14 @@
                     </div>
                   </div>
 
+                  <div class="row">
+                    <div class="col-md-8">
+                      <div class="form-group">
+                        <label class="bmd-label-floating">Total</label><br>
+                        <label class="bmd-label-floating">{{service.price  | number : '1.2-2' }}</label>
+                      </div>
+                    </div>
+                  </div>
                   <button type="submit" class="btn btn-primary pull-right">Save </button>
                   <div class="clearfix"></div>
                 </form>

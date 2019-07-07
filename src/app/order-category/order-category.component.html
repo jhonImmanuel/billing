@@ -1,0 +1,32 @@
+<link rel="stylesheet" href="http://netdna.bootstrapcdn.com/font-awesome/4.0.3/css/font-awesome.min.css">
+<link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.6.3/css/all.css" integrity="sha384-UHRtZLI+pbxtHCWp1t77Bi1L4ZtiqrqD80Kn4Z8NTSRyMA2Fd33n5dQ8lWUE00s/" crossorigin="anonymous">
+
+<div class="main-panel">
+  <!-- Navbar -->
+  <header>
+      <div class="brand">
+        <h1>&nbsp;&nbsp;&nbsp;Order's Category</h1>
+      </div>      
+  </header>
+  <nav class="navbar navbar-expand-lg navbar-transparent navbar-absolute fixed-top ">
+    
+    <div class="container-fluid">
+      <button class="navbar-toggler" type="button" (click)="openMenu()" data-toggle="collapse"
+        aria-controls="navigation-index" aria-expanded="false" aria-label="Toggle navigation">
+        <span class="sr-only">Toggle navigation</span>
+        <span class="navbar-toggler-icon icon-bar"></span>
+        <span class="navbar-toggler-icon icon-bar"></span>
+        <span class="navbar-toggler-icon icon-bar"></span>
+      </button>
+    </div>
+  </nav>
+  <div class="content">
+    <div class="container-fluid">
+      <div class="grid-container" >
+        <div  [routerLink]="['/product']"><i class="fa fa-mobile" > Product Order</i></div>
+        <div [routerLink]="['/service']"><i class="fa fa-tools">&nbsp;Service Order</i></div>
+      </div>
+    </div>
+  </div> 
+
+</div>
