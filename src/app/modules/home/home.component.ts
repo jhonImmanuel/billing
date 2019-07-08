@@ -41,6 +41,7 @@ export class HomeComponent implements OnInit {
   product_imei: any;
   noImei: any;
   gstin_no: any;
+  user:any;
   CurrentProduct: any;
   Model: any;
   Brands: any;
@@ -89,6 +90,7 @@ export class HomeComponent implements OnInit {
     this.phoneError = false;
     this.nameError = false;
     this.noImei = false;
+    this.user = localStorage.getItem('email');
     this.role = localStorage.getItem('role');
     this.is_gst = (this.role === 'non_gst_admin') ? 0 : 1;
     // this.searchTerm.valueChanges.pipe(debounceTime(500)).subscribe(res => {
@@ -205,13 +207,11 @@ changeBilltype(e){
     }, 3000);
   }
   print() {
-    var today = new Date();
-    var date = today.getFullYear()+'-'+(today.getMonth()+1)+'-'+today.getDate();
-    var time = today.getHours() + ":" + today.getMinutes() + ":" + today.getSeconds();
-    this.dateTime = date+' '+time;
     const printContent = document.getElementById("componentID");
     printContent.style.display = 'block';
     const WindowPrt = window.open('', '', 'left=0,top=0,width=900,height=900,toolbar=0,scrollbars=0,status=0');
+     WindowPrt.document.write('<style type="text/css">body { padding: 0; margin: 0; font-family: sans-serif; } h1, h2, h3, h4, h5, h6, ol { margin: 0; } * { box-sizing: border-box; } .invoice_container { color: #100a6c; position: relative; padding: 20px 0; } .invoice_container::before { content: "Nusaiba Mobiles"; position: absolute; top: 50%; left: 50%; transform: translate(-50%, 50%) rotate(-35deg); font-size: 82px; font-weight: bold; color: #ccc; z-index: -1; opacity: 0.6; } .invoice_container header { text-align: center; border-bottom: 5px solid #100a6c; } .invoice_container header p { width: 375px; margin: 0 auto; font: 18px / 24px sans-serif; } .invoice_container header strong { display: block; } .invoice_wrapper { border: 1px solid #100a6c; margin: 40px 30px; } .invoice_wrapper div { padding: 15px 30px; border-bottom: 1px solid #100a6c; } table { width: 100%; border-collapse: collapse; } .tax_invoice table td { width: 300px; color: #100a6c; font: 16px / 20px sans-serif; } .tax_invoice h2 { font: 18px / 24px sans-serif; padding-left: 60px; margin-bottom: 10px; } .Receipent p { position: relative; height: 100px; } .bill-details { padding: 0 !important; } .bill-details table td, .bill-details table th { border-left: 1px solid #100a6c; color: #100a6c; text-align: center; } .bill-details table tbody tr:first-child { height: 150px; } .bill-details table tr td:nth-child(1), .bill-details table tr th:nth-child(1) { border-left: 0; } .bill-details table thead th { border-bottom: 1px solid #100a6c; padding: 15px 0; } .bill-details table tfoot td { border-top: 1px solid #100a6c; border-left: 0; padding: 15px 0; font-weight: bold; } .invoice_wrapper footer { padding: 50px 50px 5px; } .invoice_wrapper footer span:last-child { float: right; } .termsCondition { font: 500 14px / 22px monospace; }</style>');
+
     WindowPrt.document.write(printContent.innerHTML);
     WindowPrt.document.close();
     printContent.style.display = 'none';
@@ -397,6 +397,10 @@ changeBilltype(e){
   }
   placeOrder() {
     this.max = false;
+    var today = new Date();
+    var date = today.getFullYear()+'-'+(today.getMonth()+1)+'-'+today.getDate();
+    var time = today.getHours() + ":" + today.getMinutes() + ":" + today.getSeconds();
+    this.dateTime = date+' '+time;
     if (!this.customer_name || !this.customer_email || !this.customer_phone || !this.payment_mode) {
       this.toast.error(" All Fields are Required");
       return false;

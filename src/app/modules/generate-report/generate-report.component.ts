@@ -73,10 +73,13 @@ export class GenerateReportComponent implements OnInit {
     });
      dialogRef.afterClosed().subscribe(result => {
         this.users = dialogRef.componentInstance.user;
-        this.print();
-        this.apiService.callPostApi('savereports', {user_id: localStorage.getItem('email'),total_qty :this.total_qty,total:this.total,report_by: dialogRef.componentInstance.user ,product:this.report,openning_balance:dialogRef.componentInstance.openning_balance}).subscribe(res => {
-          this.toast.success('Report Generated Successfully');
-        });
+        var click  = dialogRef.componentInstance.click;
+        if(this.users && click){
+          this.print();
+          this.apiService.callPostApi('savereports', {user_id: localStorage.getItem('email'),total_qty :this.total_qty,total:this.total,report_by: dialogRef.componentInstance.user ,product:this.report,openning_balance:dialogRef.componentInstance.openning_balance}).subscribe(res => {
+            this.toast.success('Report Generated Successfully');
+          });
+        }
       }
       );
   }
@@ -113,6 +116,7 @@ export class GenerateReportDialog {
   user:any;
   openning_balance:any;
   users:any;
+  click:boolean = false;
   constructor(private apiService: ApiService,
     private authService: AuthService,
     private toast: ToastrService,
@@ -125,6 +129,7 @@ export class GenerateReportDialog {
     this.dialogRef.close(this.users);
   }
   saveBrand(){
+    this.click = true;
       this.dialogRef.close(this.users);
   }
 }

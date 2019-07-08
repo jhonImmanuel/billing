@@ -44,7 +44,6 @@ export class ServiceAddComponent implements OnInit {
     for (var i = this.service.charges.charges.length - 1; i >= 0; i--) {
       price += parseInt(this.service.charges.charges[i]);
     }
-    debugger;
     this.service.price = (price * ((parseInt(this.sgst,10) + parseInt(this.cgst,10))/100)) + price;
   }
   onChanageQuantity(e){
