@@ -3,23 +3,23 @@
   <nav class="navbar navbar-expand-lg navbar-transparent navbar-absolute fixed-top ">
     <div class="container-fluid">
       <div class="navbar-wrapper">
-        <a class="navbar-brand" >Services</a>
+        <a class="navbar-brand">Services</a>
       </div>
-      <button class="navbar-toggler tog" type="button" (click)="openMenu()" data-toggle="collapse" aria-controls="navigation-index"
-      aria-expanded="false" aria-label="Toggle navigation">
-      <span class="sr-only">Toggle navigation</span>
-      <span class="navbar-toggler-icon icon-bar"></span>
-      <span class="navbar-toggler-icon icon-bar"></span>
-      <span class="navbar-toggler-icon icon-bar"></span>
-    </button>
-  </div>
-</nav>
-<div class="content">
-  <div class="container-fluid">
+      <button class="navbar-toggler tog" type="button" (click)="openMenu()" data-toggle="collapse"
+        aria-controls="navigation-index" aria-expanded="false" aria-label="Toggle navigation">
+        <span class="sr-only">Toggle navigation</span>
+        <span class="navbar-toggler-icon icon-bar"></span>
+        <span class="navbar-toggler-icon icon-bar"></span>
+        <span class="navbar-toggler-icon icon-bar"></span>
+      </button>
+    </div>
+  </nav>
+  <div class="content">
+    <div class="container-fluid">
       <div class="row">
-          <div class="col-md-3"></div>
-          <div class="col-md-6">
-            <!-- <input [(ngModel)]="search" placeholder="Type Accessories Name" [formControl]="searchValue">
+        <div class="col-md-3"></div>
+        <div class="col-md-6">
+          <!-- <input [(ngModel)]="search" placeholder="Type Accessories Name" [formControl]="searchValue">
               <svg version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" x="0px"
                 y="0px" width="36px" height="36px" viewBox="0 0 24 24" style="enable-background:new 0 0 24 24;"
                 xml:space="preserve">
@@ -33,171 +33,178 @@
                 <g id="Guides">
                 </g>
               </svg> -->
-          </div>
-          <div class="col-md-3"></div>
         </div>
-    <div class="row">
-      <div class="col-md-12">
-        <div class="card card-plain">
-          <div class="card-header card-header-primary">
-            <h4 class="card-title mt-0">Services  ({{Services.length}})</h4>
-            <p class="card-category"> Here is a Services List</p>
-          </div>
-          <div class="card-body">
-            <div class="table-responsive">
-              <table class="table table-hover">
-                <thead class="">
-                  <tr>
-                  <th style="width: 50px">
-                    S. No.
-                  </th>
-                  <th>
-                     Name
-                  </th>
-                  <th>
-                     Email
-                  </th>
-                  <th>
-                    Description
-                 </th>
-                 <th>
-                  Price
-               </th>
-               <th>
-                Status
-               </th>
-                  <th>
-                    Mobile number
-                  </th>
-                  <th>
-                    Date
-                  </th>
-                  <th>
-                    Action
-                  </th>
-                  <th>
-                    Email
-                  </th>
-                </tr></thead>
-                <tbody>
-                  <tr *ngFor="let user of Services| paginate: { itemsPerPage: 10, currentPage: p }; index as i;">
-                    <td>
-                      {{(i+1) + ((p-1) * 10)}}
-                    </td>
-                    <td>
-                      {{user.name}}
-                    </td>
-                    <td>
-                      {{user.email}}
-                    </td>
-                    <td>
-                      {{user.description}}
-                    </td>
-                    <td>
-                      {{user.price}}
-                    </td>
-                    <td *ngIf="user.service_status == '0'">
-                        <button type="button" class="btn btn-sm btn-info" (click)="changeStatus(i)">In Progress</button>
-                    </td>
-                    <td *ngIf="user.service_status == '1'">
-                        <button type="button" class="btn btn-sm btn-success" (click)="changeStatus(i)">Completed</button>
+        <div class="col-md-3"></div>
+      </div>
+      <div class="row">
+        <div class="col-md-12">
+          <div class="card card-plain">
+            <div class="card-header card-header-primary">
+              <h4 class="card-title mt-0">Services ({{Services.length}})</h4>
+              <p class="card-category"> Here is a Services List</p>
+            </div>
+            <div class="card-body">
+              <div class="table-responsive">
+                <table class="table table-hover">
+                  <thead class="">
+                    <tr>
+                      <th style="width: 50px">
+                        S. No.
+                      </th>
+                      <th>
+                        Name
+                      </th>
+                      <th>
+                        Email
+                      </th>
+                      <th>
+                        Description
+                      </th>
+                      <th>
+                        Price
+                      </th>
+                      <th>
+                        Status
+                      </th>
+                      <th>
+                        Mobile number
+                      </th>
+                      <th>
+                        Date
+                      </th>
+                      <th>
+                        Action
+                      </th>
+                      <th>
+                        Email
+                      </th>
+                    </tr>
+                  </thead>
+                  <tbody>
+                    <tr *ngFor="let user of Services| paginate: { itemsPerPage: 10, currentPage: p }; index as i;">
+                      <td>
+                        {{(i+1) + ((p-1) * 10)}}
                       </td>
-                    <td>
-                      {{user.mobile}}
-                    </td>
-                    <td>
-                      {{user.updated_at | date: 'dd/MM/yyyy'}}
-                    </td>
-                     <td>
-                      <button type="button" class="btn btn-sm btn-danger" (click)="print(i)">Print</button>
-                    </td>
-                    <td>
-                       <button type="button" class="btn btn-sm btn-info" (click)="opnDialog(i)">Email</button>
-                     </td>
-                  </tr>
-                  <pagination-controls (pageChange)="p = $event"></pagination-controls>
-                </tbody>
-              </table>
+                      <td>
+                        {{user.name}}
+                      </td>
+                      <td>
+                        {{user.email}}
+                      </td>
+                      <td>
+                        {{user.description}}
+                      </td>
+                      <td>
+                        {{user.price}}
+                      </td>
+                      <td *ngIf="user.service_status == '0'">
+                        <button type="button" class="btn btn-sm btn-info" (click)="changeStatus(i)">In Progress</button>
+                      </td>
+                      <td *ngIf="user.service_status == '1'">
+                        <button type="button" class="btn btn-sm btn-success"
+                          (click)="changeStatus(i)">Completed</button>
+                      </td>
+                      <td>
+                        {{user.mobile}}
+                      </td>
+                      <td>
+                        {{user.updated_at | date: 'dd/MM/yyyy'}}
+                      </td>
+                      <td>
+                        <button type="button" class="btn btn-sm btn-danger" (click)="print(i)">Print</button>
+                      </td>
+                      <td>
+                        <button type="button" class="btn btn-sm btn-info" (click)="opnDialog(i)">Email</button>
+                      </td>
+                    </tr>
+                    <pagination-controls (pageChange)="p = $event"></pagination-controls>
+                  </tbody>
+                </table>
+              </div>
             </div>
           </div>
         </div>
-      </div>
- <div class="invoice_container" id="componentID" style="display: none">
-      <header>
-        <h1>Nusaiba Mobiles</h1>
-        <p>
-          No.26/151, Dr.Besant road, Ice house, Royapettah Chennai-600014. Ph:
-          044 28471119, +91 985432 4444
-          <strong>GSTINIUIN: 33AAQFN564IJIZY</strong>
-        </p>
-      </header>
-      <section class="invoice_wrapper">
-        <div class="tax_invoice">
-          <h2>TAX INVOICE CUM DELIVERY CHALLAN</h2>
-          <table>
-            <tbody>
-              <tr>
-                <td>Date of Invoice :</td>
-                <td>{{created_at | date: 'dd/MM/yyyy'}}</td>
-                <td>Original for Receipent</td>
-                <td></td>
-              </tr>
-              <tr>
-                <td>State :</td>
-                <td>TamilNadu</td>
-                <td>Duplicate for Transporter</td>
-                <td></td>
-              </tr>
-              <tr>
-                <td>State code :</td>
-                <td></td>
-                <td>Triplicate for Supplier</td>
-                <td></td>
-              </tr>
-              <tr>
-                <td rowspan="3">Branch Address :</td>
-                <td rowspan="3">
-                  No.26/151, Dr.Besant road, Ice house Royapettah
-                  Chennai-600014.
-                </td>
-                <td>Invoice Time :</td>
-                <td>{{created_at | date: 'HH:mm'}}</td>
-              </tr>
-              <tr>
-                <td>Salesperson :</td>
-                <td>{{user}}</td>
-              </tr>
-              <tr>
-                <td>Branch Contact No :</td>
-                <td></td>
-              </tr>
-            </tbody>
-          </table>
-        </div>
-        <div class="Receipent">
-          <span>To,</span>
-          <p>{{products && products.name}}, {{products && products.mobile}}</p>
-        </div>
-        <div class="bill-details">
-          <table>
-            <thead>
-              <tr>
-                <td>S No</td>
-                <td>Description</td>
-                <td>SGST</td>
-                <td>CGST</td>
-                <td>Amount</td>
-              </tr>
-            </thead>
-            <tbody>
-               <tr  *ngFor="let user of charges| paginate: { itemsPerPage: 10, currentPage: p }; index as i;">
-              <td>{{i + 1}}</td>
-              <td>{{chargesDescription[i]}}</td>
-              <td>{{products && products.sgst}}</td>
-              <td>{{products && products.cgst}}</td>
-              <td>{{user | number : '1.2-2'}}</td>
-            </tr>
-              <!-- <tr>
+        <div class="invoice_container" id="componentID" style="display: none">
+          <header style="text-align: center;
+  border-bottom: 5px solid #100a6c;">
+            <h1 style="font-size: 3.3125rem;
+    line-height: 1.15em;font-family: Roboto,Helvetica,Arial,sans-serif;
+font-weight: 300;">Nusaiba Mobiles</h1>
+            <p style="width: 375px;
+    margin: 0 auto;
+    font: 18px / 24px sans-serif;">
+              No.26/151, Dr.Besant road, Ice house, Royapettah Chennai-600014. Ph:
+              044 28471119, +91 985432 4444
+              <strong style="display: block;">GSTINIUIN: 33AAQFN564IJIZY</strong>
+            </p>
+          </header>
+          <section class="invoice_wrapper">
+            <div class="tax_invoice">
+              <h2>TAX INVOICE CUM DELIVERY CHALLAN</h2>
+              <table>
+                <tbody>
+                  <tr>
+                    <td>Date of Invoice :</td>
+                    <td>{{created_at | date: 'dd/MM/yyyy'}}</td>
+                    <td>Original for Receipent</td>
+                    <td></td>
+                  </tr>
+                  <tr>
+                    <td>State :</td>
+                    <td>TamilNadu</td>
+                    <td>Duplicate for Transporter</td>
+                    <td></td>
+                  </tr>
+                  <tr>
+                    <td>State code :</td>
+                    <td></td>
+                    <td>Triplicate for Supplier</td>
+                    <td></td>
+                  </tr>
+                  <tr>
+                    <td rowspan="3">Branch Address :</td>
+                    <td rowspan="3">
+                      No.26/151, Dr.Besant road, Ice house Royapettah
+                      Chennai-600014.
+                    </td>
+                    <td>Invoice Time :</td>
+                    <td>{{created_at | date: 'HH:mm'}}</td>
+                  </tr>
+                  <tr>
+                    <td>Salesperson :</td>
+                    <td>{{user}}</td>
+                  </tr>
+                  <tr>
+                    <td>Branch Contact No :</td>
+                    <td></td>
+                  </tr>
+                </tbody>
+              </table>
+            </div>
+            <div class="Receipent">
+              <span>To,</span>
+              <p>{{products && products.name}}, {{products && products.mobile}}</p>
+            </div>
+            <div class="bill-details">
+              <table>
+                <thead>
+                  <tr>
+                    <td>S No</td>
+                    <td>Description</td>
+                    <td>SGST</td>
+                    <td>CGST</td>
+                    <td>Amount</td>
+                  </tr>
+                </thead>
+                <tbody>
+                  <tr *ngFor="let user of charges| paginate: { itemsPerPage: 10, currentPage: p }; index as i;">
+                    <td>{{i + 1}}</td>
+                    <td>{{chargesDescription[i]}}</td>
+                    <td>{{products && products.sgst}}</td>
+                    <td>{{products && products.cgst}}</td>
+                    <td>{{user | number : '1.2-2'}}</td>
+                  </tr>
+                  <!-- <tr>
                 <td></td>
                 <td></td>
                 <td></td>
@@ -225,54 +232,54 @@
                 <td>SUB TOTAL</td>
                 <td>{{order_amount | currency:'INR':true}}</td>
               </tr> -->
-            </tbody>
-            <tfoot>
-              <tr>
-                <td colspan="3"></td>
-                <td>TOTAL</td>
-                <td>{{products &&  products.price | number : '1.2-2'}}</td>
-              </tr>
-            </tfoot>
-          </table>
+                </tbody>
+                <tfoot>
+                  <tr>
+                    <td colspan="3"></td>
+                    <td>TOTAL</td>
+                    <td>{{products &&  products.price | number : '1.2-2'}}</td>
+                  </tr>
+                </tfoot>
+              </table>
+            </div>
+            <div class="termsCondition">
+              <h3>Terms and conditions</h3>
+              <ol>
+                <li>
+                  Mobile,Tablet & Accessories are warranted for a period defines by
+                  the respective manifactures against defect in material.
+                </li>
+                <li>
+                  NusaibaMobiles is not giving the warranty and does not hold out
+                  any warranty of products sold.
+                </li>
+                <li>
+                  Nusaiba Mobiles will not be responsible for any defective /
+                  deficient or othrewise unsatisfactory products.
+                </li>
+                <li>
+                  Any such defective or deficient goods has be repaired only by
+                  authorized services center of the equipment manufactured.
+                </li>
+                <li>
+                  All the terms and conditions of Nusaiba Mobiles apply
+                </li>
+                <li>
+                  Freegifts will not be exchanged or convered under any kind of
+                  warranty.
+                </li>
+                <li>
+                  Subject to chennai jurisdiction.
+                </li>
+                <li>
+                  Goods once sold cannot be returned or exchanged.
+                </li>
+              </ol>
+            </div>
+            <footer>
+              <span>Receivers Signature</span>
+              <span>Authorized Seal & Signatory</span>
+            </footer>
+          </section>
         </div>
-        <div class="termsCondition">
-          <h3>Terms and conditions</h3>
-          <ol>
-            <li>
-              Mobile,Tablet & Accessories are warranted for a period defines by
-              the respective manifactures against defect in material.
-            </li>
-            <li>
-              NusaibaMobiles is not giving the warranty and does not hold out
-              any warranty of products sold.
-            </li>
-            <li>
-              Nusaiba Mobiles will not be responsible for any defective /
-              deficient or othrewise unsatisfactory products.
-            </li>
-            <li>
-              Any such defective or deficient goods has be repaired only by
-              authorized services center of the equipment manufactured.
-            </li>
-            <li>
-              All the terms and conditions of Nusaiba Mobiles apply
-            </li>
-            <li>
-              Freegifts will not be exchanged or convered under any kind of
-              warranty.
-            </li>
-            <li>
-              Subject to chennai jurisdiction.
-            </li>
-            <li>
-              Goods once sold cannot be returned or exchanged.
-            </li>
-          </ol>
-        </div>
-        <footer>
-          <span>Receivers Signature</span>
-          <span>Authorized Seal & Signatory</span>
-        </footer>
-      </section>
-    </div>
-</div>
+      </div>
