@@ -204,7 +204,7 @@ changeBilltype(e){
       this.remaining_balance = 0;
     }
       $('#exchange').prop('disabled',true);
-    }, 3000);
+    }, 1500);
   }
   print() {
     const printContent = document.getElementById("componentID");
@@ -361,7 +361,7 @@ changeBilltype(e){
       if (this.products[i].id === this.prod_id) {
         this.product.push({
           bill_id : Math.random().toString(36).substring(7),prod_id: this.products[i].id, subTotal: this.subTotal,product_type:this.products[i].product_type, product_imei: this.product_imei,
-          product_brand: this.products[i].brands.product_brand, product_model: this.products[i].product_model, is_gst: this.is_gst, product_quantity: this.qty_value, original_price: this.original_price, price: this.products[i].price,
+          product_brand: this.products[i].brands.product_brand, product_model: this.products[i].product_model + '-' + this.products[i].product_color, is_gst: this.is_gst, product_quantity: this.qty_value, original_price: this.original_price, price: this.products[i].price,
           user_id: localStorage.getItem('email'), total_amount: this.price, product_Imei: this.products[i].product_imei, payment_mode: this.payment_mode, discount: this.discount, discounted_price: this.discounted_price, gst: this.gst,
           exchange : this.exchange_price, cgst: parseInt(this.cgst),sgst: parseInt(this.sgst) 
         });
@@ -512,6 +512,4 @@ changeBilltype(e){
   //     }
   //   }
   // }
-
-
 }
