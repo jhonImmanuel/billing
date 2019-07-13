@@ -35,6 +35,7 @@ export class GenerateReportComponent implements OnInit {
   Orders:any;
   users:any;
   openning_balance:any;
+  grand_total:any;
   constructor(private apiService: ApiService,
     private authService: AuthService,
     public dialog: MatDialog,
@@ -50,7 +51,10 @@ export class GenerateReportComponent implements OnInit {
         this.total_qty += parseInt(reportData.qty);
         this.total += parseInt(reportData.price);
       }
-      this.openning_balance = res.openning_balance[0].openning_balance;
+      this.openning_balance = res.openning_balance.length != 0 ? res.openning_balance[0].openning_balance 
+      :0;
+      this.grand_total = parseInt(this.total) + parseInt(this.openning_balance);
+
     });
   }
   openMenu() {
