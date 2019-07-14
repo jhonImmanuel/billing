@@ -122,10 +122,10 @@ export class HomeComponent implements OnInit {
     });
   }
   changetype(e){
-    if(e.target.id == 'Percentage'){
-        this.type = "Percentage";
-    }else{
+    if(e.target.id == 'Rupees'){
         this.type = "Rupees";
+    }else{
+        this.type = "Percentage";
     }
   }
   getProduct() {
@@ -204,7 +204,7 @@ changeBilltype(e){
       this.remaining_balance = 0;
     }
       $('#exchange').prop('disabled',true);
-    }, 1500);
+    }, 500);
   }
   print() {
     const printContent = document.getElementById("componentID");
@@ -348,6 +348,7 @@ changeBilltype(e){
   }
   changeDiscount(price) {
     if(this.type == "Percentage"){
+      console.log(this.type);
       this.discounted_price = parseInt(price) - (parseInt(price) * (parseInt(this.discount) / 100));
     }else{
       this.discounted_price = parseInt(price) - parseInt(this.discount);
