@@ -158,13 +158,12 @@
         </li> -->
 
 
-     <!-- <li class="nav-item " *ngIf="user === 'Sub Admin' || 'non_gst_admin'" [routerLinkActive]="['active']">
+         <li class="nav-item " [routerLinkActive]="['active']">
       <a class="nav-link" [routerLink]="['reportslist']">
         <i class="material-icons">report</i>
         <p>Report List</p>
       </a>
-    </li>   -->
-
+    </li>   
     <li class="nav-item " *ngIf="user === 'Sub Admin' || 'non_gst_admin'" [routerLinkActive]="['active']">
       <a class="nav-link" [routerLink]="['mail']">
         <i class="material-icons">mail</i>

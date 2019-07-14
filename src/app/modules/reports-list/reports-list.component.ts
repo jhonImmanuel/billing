@@ -3,6 +3,8 @@ import { ApiService } from 'src/app/core/api.service';
 import { AuthService } from 'src/app/core/auth.service';
 import { ToastrService } from 'ngx-toastr';
 import { MatDialog, MatDialogRef, MAT_DIALOG_DATA } from '@angular/material';
+import * as moment from 'moment';
+import { Router} from '@angular/router';
 
 @Component({
   selector: 'app-reports-list',
@@ -26,18 +28,59 @@ export class ReportsListComponent implements OnInit {
   Report:any;
   product:any;
   report_by:any;
+  orderType:any;
+  filters:any = {range:{start:'',end:''},type:''};
+  dateRangeFilter: {start: '', end:''};
   constructor(private apiService: ApiService,
     private authService: AuthService,
     public dialog: MatDialog,
+    private router: Router,   
     private toast: ToastrService) { }
 
   ngOnInit() {
-    this.apiService.callPostApi('getReports', {user_id: localStorage.getItem('email')}).subscribe(res => {
-      this.Reports = res.report;
-      
-    });
+        this.orderType = 'select';
+        this.getReports();
   }
   
+  getReports(){
+     this.apiService.callPostApi('getReports', {user_id: localStorage.getItem('email')}).subscribe(res => {
+      this.Reports = res.services;
+    });
+  }
+
+  filterRecords(){
+  if(this.orderType == 'select'){
+    this.toast.error("Please select Type");
+    return true;
+  }
+this.apiService.callPostApi('getReports', {filters:this.filters,user_id: localStorage.getItem('email')}).subscribe(res => {        
+     this.Reports = res.services;
+      }, error => {
+        if(error.status === 401) {
+          this.authService.logout();
+        }
+      }); 
+  }
+
+
+  changeDate(){
+    if(this.dateRangeFilter && this.dateRangeFilter.start){
+        var startdate = this.dateRangeFilter.start;
+       this.filters.range.start = moment(this.dateRangeFilter.start).format('DD-MM-YYYY');
+      this.filters.range.end = moment(this.dateRangeFilter.end).format('DD-MM-YYYY');
+    }
+  }
+
+  changeType(type){
+  if(type === 'dropdown'){
+  this.filters.type = this.orderType;
+  }
+}
+reset(){
+  this.getReports();
+  this.orderType = 'select';
+}
+
   print(i) {
     this.Report = this.Reports[i];
       this.product=this.Report.product;
