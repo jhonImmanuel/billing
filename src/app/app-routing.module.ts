@@ -27,7 +27,8 @@ import { OrderCategoryComponent } from './order-category/order-category.componen
 import { AddingComponent } from './adding/adding.component';
 import { ListingComponent } from './listing/listing.component';
 import { ProductOrdersComponent } from './product-orders/product-orders.component';
-
+import {ServiceOrdersComponent} from './modules/service-orders/service-orders.component';
+import { from } from 'rxjs';
 const routes: Routes = [
   { path: '', component: LoginComponent },
   { path: 'home', component: DashboardComponent },
@@ -56,8 +57,10 @@ const routes: Routes = [
   {path : 'Settings', component:SettingsComponent},
   {path : 'service', component:ServiceAddComponent},
   {path : 'servicelist', component:ServiceListComponent},
+  {path:'servicelisttoday',component:ServiceListComponent},
   {path : 'reportslist', component:ReportsListComponent},
-  {path : 'mail', component:PushMailComponent}
+  {path : 'mail', component:PushMailComponent},
+  {path:'serviceorders',component:ServiceOrdersComponent},
 ];
 
 @NgModule({

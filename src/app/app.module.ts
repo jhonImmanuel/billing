@@ -45,6 +45,7 @@ import { OrderCategoryComponent } from './order-category/order-category.componen
 import { AddingComponent } from './adding/adding.component';
 import { ListingComponent } from './listing/listing.component';
 import { ProductOrdersComponent } from './product-orders/product-orders.component';
+import { ServiceOrdersComponent } from './modules/service-orders/service-orders.component';
 
 
 @NgModule({
@@ -86,7 +87,8 @@ import { ProductOrdersComponent } from './product-orders/product-orders.componen
     OrderCategoryComponent,
     AddingComponent,
     ListingComponent,
-    ProductOrdersComponent
+    ProductOrdersComponent,
+    ServiceOrdersComponent
   ],
   imports: [
     AppRoutingModule,
