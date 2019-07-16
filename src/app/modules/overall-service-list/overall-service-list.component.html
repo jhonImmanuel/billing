@@ -41,10 +41,25 @@
         <div class="col-md-12">
           <div class="card card-plain">
             <div class="card-header card-header-primary">
-              <h4 class="card-title mt-0">Today Services ({{Services.length}})</h4>
+              <h4 class="card-title mt-0">Services ({{Services.length}})</h4>
               <p class="card-category"> Here is a Services List</p>
             </div>
             <div class="card-body">
+                <div class="col-md-6">
+                  Filter 
+                   <select name="admin" [(ngModel)]="orderType" (change)="changeType('dropdown')">
+                      <option value='select'>--Select--</option>
+                      <option value="week">Week</option>
+                      <option value="month">Month</option>
+                      <option value="year">Year</option>
+                      <option value="custom">Custom</option>
+                   </select>
+                   <input *ngIf = "orderType === 'custom'"  (datesUpdated) = "changeDate()" type="text" ngxDaterangepickerMd startKey="start" endKey="end" 
+                    [locale]="{applyLabel: 'ok', format: 'DD-MM-YYYY'}"
+                   [(ngModel)]="dateRangeFilter">
+                   <button name="filter" class = "btn btn-info" (click) = "filterRecords()">Filter</button>
+                    <button name="filter" class = "btn btn-danger" (click) = "reset()">Reset</button>
+                 </div>
               <div class="table-responsive">
                 <table class="table table-hover">
                   <thead class="">

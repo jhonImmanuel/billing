@@ -47,6 +47,7 @@ import { ListingComponent } from './listing/listing.component';
 import { ProductOrdersComponent } from './product-orders/product-orders.component';
 import { ServiceOrdersComponent } from './modules/service-orders/service-orders.component';
 import { ProductReportsComponent } from './modules/product-reports/product-reports.component';
+import { OverallServiceListComponent } from './modules/overall-service-list/overall-service-list.component';
 
 
 @NgModule({
@@ -90,7 +91,8 @@ import { ProductReportsComponent } from './modules/product-reports/product-repor
     ListingComponent,
     ProductOrdersComponent,
     ServiceOrdersComponent,
-    ProductReportsComponent
+    ProductReportsComponent,
+    OverallServiceListComponent
   ],
   imports: [
     AppRoutingModule,

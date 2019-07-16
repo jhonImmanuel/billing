@@ -30,22 +30,47 @@
                     <p class="card-category"></p>
                   </div>
                   <div class="card-body">
+                      <div class="col-md-6">
+                          Filter 
+                           <select name="admin" [(ngModel)]="orderType" (change)="changeType('dropdown')">
+                              <option value='select'>--Select--</option>
+                              <option value="week">Week</option>
+                              <option value="month">Month</option>
+                              <option value="year">Year</option>
+                              <option value="custom">Custom</option>
+                           </select>
+                           <input *ngIf = "orderType === 'custom'"  (datesUpdated) = "changeDate()" type="text" ngxDaterangepickerMd startKey="start" endKey="end" 
+                            [locale]="{applyLabel: 'ok', format: 'DD-MM-YYYY'}"
+                           [(ngModel)]="dateRangeFilter">
+                           <button name="filter" class = "btn btn-info" (click) = "filterRecords()">Filter</button>
+                            <button name="filter" class = "btn btn-danger" (click) = "reset()">Reset</button>
+                         </div>
                       <div class="table-responsive">
                           <table class="table table-hover">
                             <thead class="">
                               <tr>
-                                <th>S No</th>
-                                <th>NAME</th>
-                                <th>SL.QTY</th>
-                                <th>SL.VAUE</th>
+                                <th>Date</th>
+                                <th>Total Sale</th>
+                                <th>Sale By Cash</th>
+                                <th>Sale By Card</th>
+                                <th>Google Pay</th>
+                                <th>Paytm</th>
+                                <th>Today Mobile Sale</th>
+                                <th>Today Accessories Sale</th>
+                                <th>Today Service Done</th>
                               </tr>
                             </thead>
                             <tbody>
-                              <tr *ngFor="let products of report; let i=index">
-                                <td>{{i + 1}}</td>
-                                <td>{{products.product_model}}</td>
-                                <td>{{products.qty}}</td>
-                                <td>{{products.price}}</td>
+                              <tr *ngIf="counter">
+                                <td>{{myDate | date:'yyyy-MM-dd'}}</td>
+                                <td>{{counter.todayRevenue}}</td>
+                                <td>{{counter.cash}}</td>
+                                <td>{{counter.card}}</td>
+                                <td>{{counter.google_pay}}</td>
+                                <td>{{counter.paytm}}</td>
+                                <td>{{mobile_sales}}</td>
+                                <td>{{accessories_sales}}</td>
+                                <td>{{services_completed}}</td>                              
                               </tr>
                               <tr>
                                 <td></td>

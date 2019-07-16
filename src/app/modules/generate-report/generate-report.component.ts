@@ -1,10 +1,10 @@
 import { Component, OnInit,Inject } from '@angular/core';
+import { DecimalPipe } from '@angular/common';
 import { ApiService } from 'src/app/core/api.service';
 import { AuthService } from 'src/app/core/auth.service';
 import { ToastrService } from 'ngx-toastr';
 import { MatDialog, MatDialogRef, MAT_DIALOG_DATA } from '@angular/material';
-
-
+import * as moment from 'moment';
 
 
 export interface DialogData {
@@ -36,15 +36,28 @@ export class GenerateReportComponent implements OnInit {
   users:any;
   openning_balance:any;
   grand_total:any;
+  mobile_sales:any;
+  accessories_sales:any;
+  services_sales:any;
+  services_completed:any;
+  reportsDate:any;
+  orderType:any;
+  dateRangeFilter: {start: '', end:''};
+  filters:any = {range:{start:'',end:''},type:''};
   constructor(private apiService: ApiService,
     private authService: AuthService,
     public dialog: MatDialog,
-    private toast: ToastrService) { }
+    private toast: ToastrService) {
+      // this.myDate = this.datePipe.transform(this.myDate, 'yyyy-MM-dd');
+     }
 
   ngOnInit() {
+    this.orderType = 'select';
     this.shop = localStorage.getItem('shop');
     this.user = localStorage.getItem('email');
-    this.getCounts();
+    this.reportsDate = "today";
+    // this.getCounts();
+    this.getAllReports();
     this.apiService.callPostApi('getTodayOrders', {shop: localStorage.getItem('email')}).subscribe(res => {
       this.report = res.response;
       for (const reportData of this.report) {
@@ -64,10 +77,54 @@ export class GenerateReportComponent implements OnInit {
   ConvertString(value){
     return parseInt(value)
     }
-  getCounts() {
-    this.apiService.callGetApi('dashboard/' + localStorage.getItem('email')).subscribe(res => {
-      this.counter = res.response;
-    });
+
+    getAllReports() {
+      this.apiService.callGetApi('getProducts/sales').subscribe(res => {
+        // this.mobiles_sold = res.productSales.mobile_count;
+        // this.accessories_sold = res.productSales.accesssories_count;
+        this.services_completed = res.productSales.service_count;
+        this.mobile_sales = res.productSales.mobile_sales;
+        this.accessories_sales = res.productSales.accessories_sales;
+        this.services_sales = res.productSales.service_sales;
+      });
+      this.apiService.callGetApi('dashboard/' + localStorage.getItem('email')).subscribe(res => {
+        this.counter = res.response;
+      });
+    }
+
+
+  filterRecords(){
+    if(this.orderType == 'select'){
+      this.toast.error("Please select Type");
+      return true;
+    }
+  this.apiService.callPostApi('filterReports', {filters:this.filters}).subscribe(res => {
+    console.log(res.response);  
+    this.counter = res.response;
+        }, error => {
+          if(error.status === 401) {
+            this.authService.logout();
+          }
+        }); 
+    }
+
+  changeType(type){
+    if(type === 'dropdown'){
+    this.filters.type = this.orderType;
+    }
+  }
+
+  changeDate(){
+    if(this.dateRangeFilter && this.dateRangeFilter.start){
+        var startdate = this.dateRangeFilter.start;
+       this.filters.range.start = moment(this.dateRangeFilter.start).format('DD-MM-YYYY');
+      this.filters.range.end = moment(this.dateRangeFilter.end).format('DD-MM-YYYY');
+    }
+  }
+
+  reset(){
+    this.getAllReports();
+    this.orderType = 'select';
   }
 
   openDialogBrand(i){

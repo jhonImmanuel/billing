@@ -29,6 +29,7 @@ import { ListingComponent } from './listing/listing.component';
 import { ProductOrdersComponent } from './product-orders/product-orders.component';
 import {ServiceOrdersComponent} from './modules/service-orders/service-orders.component';
 import { ProductReportsComponent } from './modules/product-reports/product-reports.component';
+import { OverallServiceListComponent } from './modules/overall-service-list/overall-service-list.component';
 const routes: Routes = [
   { path: '', component: LoginComponent },
   { path: 'home', component: DashboardComponent },
@@ -56,7 +57,7 @@ const routes: Routes = [
   {path : 'barcode', component:GenerateImeiComponent},
   {path : 'Settings', component:SettingsComponent},
   {path : 'service', component:ServiceAddComponent},
-  {path : 'servicelist', component:ServiceListComponent},
+  {path : 'overallservicelist', component:OverallServiceListComponent},
   {path:'servicelisttoday',component:ServiceListComponent},
   {path : 'reportslist', component:ReportsListComponent},
   {path : 'mail', component:PushMailComponent},

@@ -5,6 +5,7 @@ import { AuthService } from 'src/app/core/auth.service';
 import { FormControl } from '@angular/forms';
 import { debounceTime } from 'rxjs/operators';
 import { ToastrService } from 'ngx-toastr';
+import * as moment from 'moment';
 
 export interface DialogData { 
   name: string;
@@ -14,22 +15,27 @@ export interface DialogData {
 }
 
 @Component({
-  selector: 'app-service-list',
-  templateUrl: './service-list.component.html',
-  styleUrls: ['./service-list.component.scss']
+  selector: 'app-overall-service-list',
+  templateUrl: './overall-service-list.component.html',
+  styleUrls: ['./overall-service-list.component.scss']
 })
-export class ServiceListComponent implements OnInit {
+export class OverallServiceListComponent implements OnInit {
   Services:any = [];
   p = 1;
   dateTime:any;
   products:any;
   chargesDescription:any;
   charges:any;
+  orderType:any;
+  dateRangeFilter: {start: '', end:''};
+  filters:any = {range:{start:'',end:''},type:''};
+
   searchValue = new FormControl('');
   constructor(private apiService: ApiService,
     private authService: AuthService,public dialog: MatDialog, private toast: ToastrService) { }
 
   ngOnInit() {
+    this.orderType = 'select';
     this.getServices();
     this.searchValue.valueChanges.pipe(debounceTime(500)).subscribe(res => {
       this.getSearchedService();
@@ -102,10 +108,44 @@ export class ServiceListComponent implements OnInit {
   openMenu() {
     document.getElementsByTagName('html')[0].classList.toggle('nav-open');
   }
+
+  filterRecords(){
+    if(this.orderType == 'select'){
+      this.toast.error("Please select Type");
+      return true;
+    }
+  this.apiService.callPostApi('filterServices', {filters:this.filters}).subscribe(res => {        
+    this.Services = res.services;
+        }, error => {
+          if(error.status === 401) {
+            this.authService.logout();
+          }
+        }); 
+    }
+
+  changeType(type){
+    if(type === 'dropdown'){
+    this.filters.type = this.orderType;
+    }
+  }
+
+  changeDate(){
+    if(this.dateRangeFilter && this.dateRangeFilter.start){
+        var startdate = this.dateRangeFilter.start;
+       this.filters.range.start = moment(this.dateRangeFilter.start).format('DD-MM-YYYY');
+      this.filters.range.end = moment(this.dateRangeFilter.end).format('DD-MM-YYYY');
+    }
+  }
+
+  reset(){
+    this.getServices();
+    this.orderType = 'select';
+  }
+
 }
 @Component({
   selector: 'service-dialog',
-  templateUrl: 'service-dialog.html',
+  templateUrl: '../service-list/service-dialog.html',
 })
 export class ServiceDialog {
   p2 = 1;
