@@ -3,179 +3,182 @@
   <nav class="navbar navbar-expand-lg navbar-transparent navbar-absolute fixed-top ">
     <div class="container-fluid">
       <div class="navbar-wrapper">
-          <a class="navbar-brand"><i routerLink="/productreports" class="fa fa-arrow-left" style="font-size:20px;cursor: pointer;"></i> Back&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; Overall Reports</a>
+        <a class="navbar-brand"><i routerLink="/productreports" class="fa fa-arrow-left"
+            style="font-size:20px;cursor: pointer;"></i> Back&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; Overall Reports</a>
       </div>
-      <button class="navbar-toggler" type="button" (click)="openMenu()" data-toggle="collapse" aria-controls="navigation-index"
-      aria-expanded="false" aria-label="Toggle navigation">
-      <span class="sr-only">Toggle navigation</span>
-      <span class="navbar-toggler-icon icon-bar"></span>
-      <span class="navbar-toggler-icon icon-bar"></span>
-      <span class="navbar-toggler-icon icon-bar"></span>
-    </button>
-  </div>
-</nav>
-<div class="content">
-  <div class="container-fluid">
+      <button class="navbar-toggler" type="button" (click)="openMenu()" data-toggle="collapse"
+        aria-controls="navigation-index" aria-expanded="false" aria-label="Toggle navigation">
+        <span class="sr-only">Toggle navigation</span>
+        <span class="navbar-toggler-icon icon-bar"></span>
+        <span class="navbar-toggler-icon icon-bar"></span>
+        <span class="navbar-toggler-icon icon-bar"></span>
+      </button>
+    </div>
+  </nav>
+  <div class="content">
+    <div class="container-fluid">
       <div class="row">
-          <div class="col-md-3"></div>
-          <div class="col-md-6">
-          </div>
-          <div class="col-md-3"></div>
+        <div class="col-md-3"></div>
+        <div class="col-md-6">
         </div>
-    <div class="row">
-      <div class="col-md-12">
-        <div class="card card-plain">
-          <div class="card-header card-header-primary">
-            <h4 class="card-title mt-0">Reports  ({{Reports && Reports.length}})</h4>
-            <p class="card-category"> Here is a Reports Day wise List</p>
-          </div>
-          <div class="card-body">
-            <div class="col-md-6" *ngIf = "router.url === '/reportslist'">
-            Filter 
-             <select name="admin" [(ngModel)]="orderType" (change)="changeType('dropdown')">
-                <option value='select'>--Select--</option>
-                <option value="week">Week</option>
-                <option value="month">Month</option>
-                <option value="year">Year</option>
-                <option value="custom">Custom</option>
-             </select>
-             <input *ngIf = "orderType === 'custom'"  (datesUpdated) = "changeDate()" type="text" ngxDaterangepickerMd startKey="start" endKey="end" 
-              [locale]="{applyLabel: 'ok', format: 'DD-MM-YYYY'}"
-             [(ngModel)]="dateRangeFilter">
-             <button name="filter" class = "btn btn-info" (click) = "filterRecords()">Filter</button>
-              <button name="filter" class = "btn btn-danger" (click) = "reset()">Reset</button>
-           </div>
-            <div class="table-responsive">
-              <table class="table table-hover">
-                <thead class="">
-                  <tr>
-                  <th style="width: 50px">
-                    S. No.
-                  </th>
-                  <th>
-                     Report By
-                  </th>
-                  <th>
-                    Date
-                  </th>
-                  <th>
-                    Print
-                  </th>
-                </tr></thead>
-                <tbody>
-                  <tr *ngFor="let user of Reports| paginate: { itemsPerPage: 10, currentPage: p }; index as i;">
-                    <td>
-                      {{(i+1) + ((p-1) * 10)}}
-                    </td>
-                    <td>
-                      {{user.report_by}}
-                    </td>
-                    <td>
-                      {{user.updated_at | date: 'dd/MM/yyyy'}}
-                    </td>
-                    <td> <span >
-                        <a (click)="print(i)" style="cursor: pointer;">
-                        <i style="font-size: medium;"class="material-icons">print</i>
-                        </a>
-                    </span> 
-                    </td>
-                  </tr>
-                  <pagination-controls (pageChange)="p = $event"></pagination-controls>
-                </tbody>
-              </table>
+        <div class="col-md-3"></div>
+      </div>
+      <div class="row">
+        <div class="col-md-12">
+          <div class="card card-plain">
+            <div class="card-header card-header-primary">
+              <h4 class="card-title mt-0">Reports ({{Reports && Reports.length}})</h4>
+              <p class="card-category"> Here is a Reports Day wise List</p>
+            </div>
+            <div class="card-body">
+              <div class="col-md-6" *ngIf="router.url === '/reportslist'">
+                Filter
+                <select name="admin" [(ngModel)]="orderType" (change)="changeType('dropdown')">
+                  <option value='select'>--Select--</option>
+                  <option value="week">Week</option>
+                  <option value="month">Month</option>
+                  <option value="year">Year</option>
+                  <option value="custom">Custom</option>
+                </select>
+                <input *ngIf="orderType === 'custom'" (datesUpdated)="changeDate()" type="text" ngxDaterangepickerMd
+                  startKey="start" endKey="end" [locale]="{applyLabel: 'ok', format: 'DD-MM-YYYY'}"
+                  [(ngModel)]="dateRangeFilter">
+                <button name="filter" class="btn btn-info" (click)="filterRecords()">Filter</button>
+                <button name="filter" class="btn btn-danger" (click)="reset()">Reset</button>
+              </div>
+              <div class="table-responsive">
+                <table class="table table-hover">
+                  <thead class="">
+                    <tr>
+                      <th style="width: 50px">
+                        S. No.
+                      </th>
+                      <th>
+                        Report By
+                      </th>
+                      <th>
+                        Date
+                      </th>
+                      <th>
+                        Print
+                      </th>
+                    </tr>
+                  </thead>
+                  <tbody>
+                    <tr *ngFor="let user of Reports| paginate: { itemsPerPage: 10, currentPage: p }; index as i;">
+                      <td>
+                        {{(i+1) + ((p-1) * 10)}}
+                      </td>
+                      <td>
+                        {{user.report_by}}
+                      </td>
+                      <td>
+                        {{user.updated_at | date: 'dd/MM/yyyy'}}
+                      </td>
+                      <td> <span>
+                          <a (click)="print(i)" style="cursor: pointer;">
+                            <i style="font-size: medium;" class="material-icons">print</i>
+                          </a>
+                        </span>
+                      </td>
+                    </tr>
+                    <pagination-controls (pageChange)="p = $event"></pagination-controls>
+                  </tbody>
+                </table>
+              </div>
             </div>
           </div>
         </div>
       </div>
-    </div>
-    <div class="row">
+      <div class="row">
         <div class="col-md-2"></div>
         <div class="col-md-8">
           <div id="componentID" style="display: none;">
-              <div class="row">
-                <h3 style="text-align: center; width: 100%">Nusaiba Mobiles</h3>
-              </div>
-              <div class="row">
-                <h4 style="text-align: center; width: 100%">GSTIN: {{gstin_no}}</h4>
-              </div>
-              <div class="row">
-               <h4 style="text-align: center; width: 100%">SALE REPORT DAILY</h4>
-              </div>
-              <div class="row">
-                ------------------------------------------
-              </div>
-              <div class="row">
-                {{ myDate | date:'dd-MMM-yyyy hh:mm:ss a' }}
-              </div>
-              <div class="row">
-                  ------------------------------------------
+            <div class="invoice_container">
+              <header>
+                <h1>Nusaiba Mobiles</h1>
+                <p>
+                  No.26/151, Dr.Besant road, Ice house, Royapettah Chennai-600014. Ph:
+                  044 28471119, +91 9854324444
+                  <strong>GSTINIUIN: 33AAQFN564IJIZY</strong>
+                </p>
+              </header>
+              <section class="invoice_wrapper">
+                <div class="tax_invoice">
+                  <h2>SALE REPORT DAILY</h2>
+                  <div class="reports">
+                    <div>
+                      <label for="date">Report Date :</label>
+                      <span id="date"> {{ myDate | date:'dd-MMM-yyyy hh:mm:ss a' }}</span>
+                    </div>
+                    <div>
+                      <label for="f_Bal">Openning Balance :</label>
+                      <span id="f_Bal">{{ openning_balance }}</span>
+                    </div>
+                    <div>
+                      <label for="t_Sale">Total SALE :</label>
+                      <span id="t_Sale">{{ total_qty }}</span>
+                    </div>
+                  </div>
                 </div>
-              <div class="row">
-                  Total quantity: {{ total_qty }}
-              </div>
-              <table>
-                <tr>
-                    <td colspan="4">
-                      ------------------------------------------
-                    </td>
-                </tr>
-                <tr>
-                    <td>S No</td>
-                    <td>NAME</td>
-                    <td>SL.QTY</td>
-                    <td>SL.VALUE</td>
-                </tr>
-                <tr>
-                    <td colspan="4">
-                      ------------------------------------------
-                    </td>
-                </tr>
-                <tr *ngFor="let products of product; let i=index">
-                    <td>{{i+1}}</td>
-                    <td>{{products.product_model}}</td>
-                    <td>{{products.qty}}</td>
-                    <td>{{products.price}}</td>
-                </tr>
-                <tr>
-                    <td colspan="4">
-                      ------------------------------------------
-                    </td>
-                </tr>
-                <tr>
-                    <td></td>
-                    <td style="font-weight: bolder">Total:</td>
-                    <td>{{ total_qty }}</td>
-                    <td>{{ total }}</td>
-                </tr>
-                <tr>
-                    <td colspan="4">
-                      ------------------------------------------
-                    </td>
-                </tr>
 
-                <tr>
-                  <td></td>
-                  <td colspan="4">
-                    Nusaiba Mobiles
-                  </td>
-                </tr>
-                <tr>
-                </tr>
-                <tr>
-                    <td >
-                      Report Generated by
-                      </td>
-                </tr>
-                <tr >
-                  <td colspan="4">
-                      {{ report_by }}
-                  </td>
-                </tr>
-              </table>
+                <div class="sale-details">
+                  <table>
+                    <thead>
+                      <tr>
+                        <th>Sale by cash</th>
+                        <th>Sale by card</th>
+                        <th>Google pay</th>
+                      </tr>
+                    </thead>
+                    <tbody>
+                      <tr>
+                        <td>{{counter && counter.paytm}}</td>
+                        <td>{{counter && counter.card}}</td>
+                        <td>{{counter && counter.google_pay}}</td>
+                      </tr>
+
+                      <tr>
+                        <td></td>
+                        <td></td>
+                        <td></td>
+                      </tr>
+                    </tbody>
+                  </table>
+                  <table>
+                    <thead>
+                      <tr>
+                        <th>Total Mobile Sale</th>
+                        <th>Total Accessories Sale</th>
+                        <th>Total Service Sale</th>
+                      </tr>
+                    </thead>
+                    <tbody>
+                      <tr>
+                        <td></td>
+                        <td></td>
+                        <td></td>
+                      </tr>
+
+                      <tr>
+                        <td></td>
+                        <td></td>
+                        <td></td>
+                      </tr>
+                    </tbody>
+                  </table>
+                </div>
+                <p class="Gtotal">Grand Total : <span>{{ grand_total }}</span></p>
+                <footer>
+                  <span>Report generated by</span>
+                  <span>{{ users }} </span>
+                </footer>
+              </section>
+            </div>
           </div>
         </div>
         <div class="col-md-2"></div>
       </div>
+    </div>
   </div>
-</div>
 </div>
