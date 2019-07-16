@@ -28,7 +28,7 @@ import { AddingComponent } from './adding/adding.component';
 import { ListingComponent } from './listing/listing.component';
 import { ProductOrdersComponent } from './product-orders/product-orders.component';
 import {ServiceOrdersComponent} from './modules/service-orders/service-orders.component';
-import { from } from 'rxjs';
+import { ProductReportsComponent } from './modules/product-reports/product-reports.component';
 const routes: Routes = [
   { path: '', component: LoginComponent },
   { path: 'home', component: DashboardComponent },
@@ -61,6 +61,7 @@ const routes: Routes = [
   {path : 'reportslist', component:ReportsListComponent},
   {path : 'mail', component:PushMailComponent},
   {path:'serviceorders',component:ServiceOrdersComponent},
+  {path:'productreports',component:ProductReportsComponent}
 ];
 
 @NgModule({

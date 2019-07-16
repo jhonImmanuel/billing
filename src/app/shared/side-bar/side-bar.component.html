@@ -130,12 +130,7 @@
         <p>List Shops</p>
       </a>
     </li> -->
-    <li class="nav-item " *ngIf="user === 'Sub Admin' || 'non_gst_admin'" [routerLinkActive]="['active']">
-        <a class="nav-link" [routerLink]="['getTodaysSell']">
-          <i class="material-icons">report</i>
-          <p>Reports</p>
-        </a>
-      </li> 
+    
 
     <li class="nav-item " class="nav-item "  [routerLinkActive]="['active']">
       <a class="nav-link" [routerLink]="['barcode']">
@@ -158,10 +153,10 @@
         </li> -->
 
 
-         <li class="nav-item " [routerLinkActive]="['active']">
-      <a class="nav-link" [routerLink]="['reportslist']">
+      <li class="nav-item " [routerLinkActive]="['active']">
+      <a class="nav-link" [routerLink]="['productreports']">
         <i class="material-icons">report</i>
-        <p>Report List</p>
+        <p>Product Reports</p>
       </a>
     </li>   
     <li class="nav-item " *ngIf="user === 'Sub Admin' || 'non_gst_admin'" [routerLinkActive]="['active']">
