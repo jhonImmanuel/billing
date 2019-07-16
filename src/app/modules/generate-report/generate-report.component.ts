@@ -26,6 +26,7 @@ export class GenerateReportComponent implements OnInit {
   report: any;
   total: any = 0;
   myDate = Date.now();
+  todayDate = Date.now();
   total_qty: any = 0;
   shop: any;
   user: any;
@@ -44,6 +45,7 @@ export class GenerateReportComponent implements OnInit {
   orderType:any;
   dateRangeFilter: {start: '', end:''};
   filters:any = {range:{start:'',end:''},type:''};
+  showTodayDate = true;
   constructor(private apiService: ApiService,
     private authService: AuthService,
     public dialog: MatDialog,
@@ -79,6 +81,8 @@ export class GenerateReportComponent implements OnInit {
     }
 
     getAllReports() {
+      this.showTodayDate = true;
+    this.myDate = Date.now();
       this.apiService.callGetApi('getProducts/sales').subscribe(res => {
         // this.mobiles_sold = res.productSales.mobile_count;
         // this.accessories_sold = res.productSales.accesssories_count;
@@ -98,14 +102,27 @@ export class GenerateReportComponent implements OnInit {
       this.toast.error("Please select Type");
       return true;
     }
+
   this.apiService.callPostApi('filterReports', {filters:this.filters}).subscribe(res => {
-    console.log(res.response);  
+    console.log(res.response);
     this.counter = res.response;
         }, error => {
           if(error.status === 401) {
             this.authService.logout();
           }
         }); 
+    this.apiService.callPostApi('getReports/sales', {filters:this.filters}).subscribe(res => {
+      this.showTodayDate = false;
+      this.myDate = this.filters.type;
+      this.services_completed = res.response.service_count;
+      this.mobile_sales = res.response.mobile_sales;
+      this.accessories_sales = res.response.accessories_sales;
+      this.services_sales = res.response.service_sales;
+          }, error => {
+            if(error.status === 401) {
+              this.authService.logout();
+            }
+          }); 
     }
 
   changeType(type){
