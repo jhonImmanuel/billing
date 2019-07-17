@@ -482,8 +482,11 @@ changeBilltype(e){
   }
   removeProduct(i) {
     if (window.confirm('Are you sure you wish to remove this product?')) {
-      this.total = this.total - this.product[i].subTotal;
       this.product.splice(i, 1);
+      this.total = 0;
+      this.product.forEach((element,index) => {
+        this.total += this.product[index].subTotal;
+      });
       this.apiService.callPostApi('orederTracking',
         { user_id: localStorage.getItem('email'), order: this.product }).subscribe(res => {
         }, error => {
