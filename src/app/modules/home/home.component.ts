@@ -493,26 +493,4 @@ changeBilltype(e){
         });
     }
   }
-
-
-  // getBillId() {
-  //   this.apiService.callGetApi('getBillId').subscribe(res => {
-  //     return res.response.id;
-
-  //   }, error => {
-  //     if(error.status === 401) {
-  //       this.authService.logout();
-  //     }
-  //   });
-  // }
-
-  //   chooseProduct(event) {
-  //   if (event.keyCode == 13 || event.keyCode == 9) {
-  //     this.product_value = this.products[0].product_name;
-  //     // this.qty.nativeElement.focus(); 
-  //     if(this.qty_value == "" || this.product_value == ""){
-  //       return false
-  //     }
-  //   }
-  // }
 }

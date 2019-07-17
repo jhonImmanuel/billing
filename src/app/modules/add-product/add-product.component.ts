@@ -177,8 +177,8 @@ export class DialogOverviewExampleDialog1 {
 		return "<html><head><script>function step1(){\n" +
 				"setTimeout('step2()', 10);}\n" +
 				"function step2(){window.print();window.close()}\n" +
-				"</scri" + "pt></head><body onload='step1()'>\n" +
-				"<img src='" + source + "' /></body></html>";
+				"</scri" + "pt><style>.barcode_wrapper {max-width: 380px;border: 1px solid #000;text-align: center;padding: 10px;}</style> </head><body onload='step1()'>\n" +
+				"<div class='barcode_wrapper'><div class='barcode'><img src='" + source + "' /></div></div></body></html>";
 	}
 	 print(from) {
     var div = document.getElementsByClassName('barcode');
