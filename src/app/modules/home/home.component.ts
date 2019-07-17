@@ -350,7 +350,6 @@ changeBilltype(e){
   }
   changeDiscount(price) {
     if(this.type == "Percentage"){
-      console.log(this.type);
       this.discounted_price = parseInt(price) - (parseInt(price) * (parseInt(this.discount) / 100));
     }else{
       this.discounted_price = parseInt(price) - parseInt(this.discount);
@@ -487,6 +486,7 @@ changeBilltype(e){
       this.product.forEach((element,index) => {
         this.total += this.product[index].subTotal;
       });
+      this.changeTotal();
       this.apiService.callPostApi('orederTracking',
         { user_id: localStorage.getItem('email'), order: this.product }).subscribe(res => {
         }, error => {

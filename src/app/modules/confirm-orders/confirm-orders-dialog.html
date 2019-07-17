@@ -79,7 +79,10 @@
             <tbody>
               <tr *ngFor="let products of data.products; let i=index">
                 <td>{{i + 1}}</td>
-                <td>{{products.product_brand}} - {{products.product_model}} - {{products.product_color}}</td>
+                <td>{{products.product_brand}} - {{products.product_model}}  {{products.product_color}}
+                  <br>
+                    {{products.product_Imei}}
+                </td>
                 <td>{{products.product_quantity}}</td>
                 <td>{{products.original_price }}</td>
                 <td>{{products.total_amount |currency:'INR':true}}</td>
