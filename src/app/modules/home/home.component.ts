@@ -124,8 +124,10 @@ export class HomeComponent implements OnInit {
   changetype(e){
     if(e.target.id == 'Rupees'){
         this.type = "Rupees";
+        this.changeTotal();
     }else{
         this.type = "Percentage";
+        this.changeTotal();
     }
   }
   getProduct() {
