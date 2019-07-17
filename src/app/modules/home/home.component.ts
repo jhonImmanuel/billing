@@ -377,6 +377,8 @@ changeBilltype(e){
         this.discounted_price = 0;
         this.original_price = '';
         this.product_imei = '';
+        (<HTMLInputElement> document.getElementsByName("defaultExampleRadios")[0]).disabled = true;
+        (<HTMLInputElement> document.getElementsByName("defaultExampleRadios")[1]).disabled = true;
         document.getElementById('product_imei').focus();
           $('select[name=bill_type]').prop('disabled',false);
       }
