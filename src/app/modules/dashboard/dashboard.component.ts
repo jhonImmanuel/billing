@@ -20,7 +20,7 @@ export class DashboardComponent implements OnInit, OnDestroy {
   interval: any;
   chartData:[];
   chartData1:[];
-  chartDataService[];
+  chartDataService:[];
   revenueData:[];
   totalRevenue:any;
   revenueData1:[];
