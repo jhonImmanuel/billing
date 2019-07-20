@@ -29,7 +29,7 @@
 
               <label>Customer Name:</label>
               <input type="text" class="form-control" name="customer_name" [(ngModel)]="customer_name"
-                (keydown)="validate($event) " autocomplete="off" required maxlength="25" minlength="3" />
+                (keydown)="validate($event) " autocomplete="off" required maxlength="100" minlength="3" />
               <small style="color: red" *ngIf="nameError == true">Name Should be valid and more than 3
                 characters</small> <br>
 
@@ -41,7 +41,7 @@
 
               <label>Customer Phone:</label>
               <input type="number" min="0" (keydown)="validate($event)" class="form-control" name="customer_phone"
-                [(ngModel)]="customer_phone" autocomplete="off" required pattern="[1-9]{1}[0-9]{9}" />
+                [(ngModel)]="customer_phone" autocomplete="off" required />
               <small style="color: red" *ngIf="phoneError == true">Phone number must be valid</small> <br>
 
 
@@ -373,22 +373,22 @@
                   <td></td>
                   <td></td>
                   <td></td>
-                  <td>SGST %</td>
-                  <td>9</td>
+                  <td>SGST 9 %</td>
+                  <td></td>
                 </tr>
                 <tr>
                   <td></td>
                   <td></td>
                   <td></td>
-                  <td>CGST %</td>
-                  <td>9</td>
+                  <td>CGST 9 %</td>
+                  <td></td>
                 </tr>
                 <tr>
                   <td></td>
                   <td></td>
                   <td></td>
                   <td>DISCOUNT</td>
-                  <td></td>
+                  <td>{{this.discounted_price}}</td>
                 </tr>
                 <tr>
                   <td></td>

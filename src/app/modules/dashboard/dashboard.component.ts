@@ -20,10 +20,13 @@ export class DashboardComponent implements OnInit, OnDestroy {
   interval: any;
   chartData:[];
   chartData1:[];
+  chartDataService[];
   revenueData:[];
   totalRevenue:any;
   revenueData1:[];
+  revenueDataService:[];
   totalRevenue1:any;
+  totalRevenueService:any;
   opening_balance:any;
   xaxis:any;
   xaxis1:any;
@@ -35,6 +38,7 @@ export class DashboardComponent implements OnInit, OnDestroy {
   accessories_sales:any;
   services_sales:any;
   totalTransaction1:any;
+  totalTransactionService:any;
   constructor(private apiService: ApiService,
     private authService: AuthService) { }
 
@@ -107,7 +111,7 @@ export class DashboardComponent implements OnInit, OnDestroy {
   }
   getTransactionDataService(){
     this.apiService.callPostApi('transactions/count/service', { type: this.chartType,product_type :'service' }).subscribe(res => {
-      this.chartData1 = res.totalTransaction;
+      this.chartDataService = res.totalTransaction;
       this.getRevenueDataService()
     }, error => {
       if (error.status === 401) {
@@ -128,11 +132,11 @@ export class DashboardComponent implements OnInit, OnDestroy {
 
    getRevenueDataService(){
     this.apiService.callPostApi('total/revenue/service', { type:this.chartType,product_type :'service' }).subscribe(res => {
-      this.revenueData1 = res.totalRevenue;
-      this.xaxis1 = this.chartData1.map(transaction => transaction['xaxis']);
-      this.totalTransaction1 = this.chartData1.map(transaction => transaction['transactions']);
-      this.totalRevenue1 = this.revenueData1 && this.revenueData1.map(price => price['totalRevenue']);
-      this.generateChartService(this.xaxis1,this.totalTransaction1,this.totalRevenue1);
+      this.revenueDataService = res.totalRevenue;
+      this.xaxis1 = this.chartDataService.map(transaction => transaction['xaxis']);
+      this.totalTransactionService = this.chartDataService.map(transaction => transaction['transactions']);
+      this.totalRevenueService = this.revenueDataService && this.revenueDataService.map(price => price['totalRevenue']);
+      this.generateChartService(this.xaxis1,this.totalTransactionService,this.totalRevenueService);
     }, error => {
       if (error.status === 401) {
         this.authService.logout();
