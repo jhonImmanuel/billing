@@ -66,6 +66,7 @@ reset(){
   this.orderType = 'select';
 }
 openDialogOrders(i): void {
+ i = (i+1) + ((this.p-1) * 10)- 1;
 var billId = this.Orders[i].bill_id;
    this.apiService.callGetApi('getConfirmProducts/'+billId).subscribe(res => {
     this.product = res.products;

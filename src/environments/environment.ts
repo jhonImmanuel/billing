@@ -5,7 +5,7 @@
 export const environment = {
   production: false,
  //apiUrl: 'http://localhost:8000/api/'
-apiUrl:'http://mobileapi.wegivethebest.com/public/api/'
+apiUrl:'http://billingapi.nusaibamobiles.com/public/api/'
 };
 
 /*
