@@ -40,7 +40,7 @@
 
 
               <label>Customer Phone:</label>
-              <input type="number" min="0" (keydown)="validate($event)" class="form-control" name="customer_phone"
+              <input type="text" (keydown)="validate($event)" class="form-control" name="customer_phone"
                 [(ngModel)]="customer_phone" autocomplete="off" required />
               <small style="color: red" *ngIf="phoneError == true">Phone number must be valid</small> <br>
 
