@@ -101,6 +101,7 @@ export class ProductsComponent implements OnInit {
 
 
   openDialogProducts(i): void {
+    i = (i+1) + ((this.p-1) * 10)- 1;
     this.apiService.callGetApi('getproducts/'+ this.products[i].sku_id+ '').subscribe(res => {
       this.viewProducts = res.response;
       const dialogRef = this.dialog.open(DialogOverviewExampleDialog, {

@@ -66,6 +66,7 @@ export class AccessoriesListComponent implements OnInit {
     }
   }
   openDialogAccessories(i): void {
+    i = (i+1) + ((this.p-1) * 10)- 1;
     this.apiService.callGetApi('getproducts/' + this.Accessories[i].sku_id + '').subscribe(res => {
       this.AccessoriesView = res.response;
       const dialogRef = this.dialog.open(AccessoriesDialog, {
